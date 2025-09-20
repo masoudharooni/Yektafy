@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Button } from './ui/Button';
 
 const Header: React.FC = () => {
   const navigate = useNavigate();
@@ -33,12 +34,12 @@ const Header: React.FC = () => {
           </nav>
           
           <div className="flex items-center space-x-4 space-x-reverse">
-            <button
+            <Button
               onClick={() => navigate('/login')}
-              className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+              className="bg-blue-600 hover:bg-blue-700 text-white"
             >
               ورود / ثبت نام
-            </button>
+            </Button>
           </div>
         </div>
       </div>
