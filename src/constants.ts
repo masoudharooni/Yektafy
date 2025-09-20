@@ -1,35 +1,35 @@
-import type { MenuItem } from './types';
+import type { MenuItem, Property } from './types';
 
 export const ADMIN_MENU: MenuItem[] = [
   {
     id: 'dashboard',
     label: 'داشبورد',
     icon: 'Home',
-    path: '/admin/dashboard'
+    href: '/admin/dashboard'
   },
   {
     id: 'users',
     label: 'مدیریت کاربران',
     icon: 'Users',
-    path: '/admin/users'
+    href: '/admin/users'
   },
   {
     id: 'properties',
     label: 'مدیریت املاک',
-    icon: 'Building',
-    path: '/admin/properties'
+    icon: 'Shield',
+    href: '/admin/properties'
   },
   {
     id: 'agents',
     label: 'مدیریت نمایندگان',
-    icon: 'UserCheck',
-    path: '/admin/agents'
+    icon: 'Briefcase',
+    href: '/admin/agents'
   },
   {
     id: 'reports',
     label: 'گزارشات',
-    icon: 'BarChart',
-    path: '/admin/reports'
+    icon: 'Clipboard',
+    href: '/admin/reports'
   }
 ];
 
@@ -38,25 +38,25 @@ export const AGENT_MENU: MenuItem[] = [
     id: 'dashboard',
     label: 'داشبورد',
     icon: 'Home',
-    path: '/agent/dashboard'
+    href: '/agent/dashboard'
   },
   {
     id: 'properties',
-    label: 'املاک من',
-    icon: 'Building',
-    path: '/agent/properties'
+    label: 'آگهی‌های من',
+    icon: 'Shield',
+    href: '/agent/properties'
   },
   {
     id: 'customers',
     label: 'مشتریان',
     icon: 'Users',
-    path: '/agent/customers'
+    href: '/agent/customers'
   },
   {
-    id: 'appointments',
-    label: 'قرارهای ملاقات',
-    icon: 'Calendar',
-    path: '/agent/appointments'
+    id: 'messages',
+    label: 'پیام‌ها',
+    icon: 'Mail',
+    href: '/agent/messages'
   }
 ];
 
@@ -65,24 +65,130 @@ export const CUSTOMER_MENU: MenuItem[] = [
     id: 'dashboard',
     label: 'داشبورد',
     icon: 'Home',
-    path: '/customer/dashboard'
+    href: '/customer/dashboard'
   },
   {
     id: 'favorites',
     label: 'علاقه‌مندی‌ها',
     icon: 'Heart',
-    path: '/customer/favorites'
+    href: '/customer/favorites'
   },
   {
     id: 'searches',
     label: 'جستجوهای من',
     icon: 'Search',
-    path: '/customer/searches'
+    href: '/customer/searches'
   },
   {
-    id: 'appointments',
-    label: 'قرارهای ملاقات',
-    icon: 'Calendar',
-    path: '/customer/appointments'
+    id: 'profile',
+    label: 'پروفایل',
+    icon: 'User',
+    href: '/customer/profile'
+  }
+];
+
+export const NAV_LINKS = [
+  { name: 'خرید ملک', href: '#' },
+  { name: 'فروش ملک', href: '#' },
+  { name: 'رهن و اجاره', href: '#' },
+  { name: 'پروژه‌های در حال ساخت', href: '#' },
+  { name: 'مشاوره', href: '#' }
+];
+
+export const WHY_US_ITEMS = [
+  {
+    title: 'جستجوی هوشمند',
+    description: 'با استفاده از هوش مصنوعی، بهترین گزینه‌های ملکی را برای شما پیدا می‌کنیم.',
+    icon: 'Search'
+  },
+  {
+    title: 'پرداخت امن',
+    description: 'سیستم پرداخت امن و مطمئن برای انجام معاملات ملکی بدون دغدغه.',
+    icon: 'CreditCard'
+  },
+  {
+    title: 'مشاوران متخصص',
+    description: 'تیم متخصص و باتجربه ما در تمام مراحل معامله همراه شما خواهند بود.',
+    icon: 'Users'
+  },
+  {
+    title: 'سرمایه‌گذاری پرسود',
+    description: 'فرصت‌های سرمایه‌گذاری پرسود در بازار املاک با تحلیل‌های تخصصی.',
+    icon: 'TrendingUp'
+  }
+];
+
+export const FEATURED_PROPERTIES: Property[] = [
+  {
+    id: '1',
+    title: 'ویلا مدرن در شمال تهران',
+    price: '15,000,000,000',
+    location: 'شمال تهران',
+    image: 'https://picsum.photos/400/300?random=1',
+    bedrooms: 4,
+    bathrooms: 3,
+    area: '250',
+    type: 'sale',
+    featured: true
+  },
+  {
+    id: '2',
+    title: 'آپارتمان لوکس در مرکز شهر',
+    price: '8,500,000,000',
+    location: 'مرکز تهران',
+    image: 'https://picsum.photos/400/300?random=2',
+    bedrooms: 3,
+    bathrooms: 2,
+    area: '180',
+    type: 'sale',
+    featured: true
+  },
+  {
+    id: '3',
+    title: 'خانه ویلایی با باغ',
+    price: '12,000,000,000',
+    location: 'کرج',
+    image: 'https://picsum.photos/400/300?random=3',
+    bedrooms: 5,
+    bathrooms: 4,
+    area: '300',
+    type: 'sale',
+    featured: true
+  },
+  {
+    id: '4',
+    title: 'آپارتمان اجاره‌ای در پاسداران',
+    price: '25,000,000',
+    location: 'پاسداران',
+    image: 'https://picsum.photos/400/300?random=4',
+    bedrooms: 2,
+    bathrooms: 1,
+    area: '120',
+    type: 'rent',
+    featured: true
+  },
+  {
+    id: '5',
+    title: 'پنت‌هاوس با نمای شهر',
+    price: '22,000,000,000',
+    location: 'ولنجک',
+    image: 'https://picsum.photos/400/300?random=5',
+    bedrooms: 4,
+    bathrooms: 3,
+    area: '280',
+    type: 'sale',
+    featured: true
+  },
+  {
+    id: '6',
+    title: 'آپارتمان نوساز در ونک',
+    price: '18,000,000,000',
+    location: 'ونک',
+    image: 'https://picsum.photos/400/300?random=6',
+    bedrooms: 3,
+    bathrooms: 2,
+    area: '200',
+    type: 'sale',
+    featured: true
   }
 ];

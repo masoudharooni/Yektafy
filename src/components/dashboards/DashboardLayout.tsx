@@ -1,86 +1,112 @@
-import React from 'react';
-import { useAppContext } from '../../contexts/AppContext';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect, useRef } from 'react';
+import type { ReactNode } from 'react';
+import Sidebar from './Sidebar';
 import type { MenuItem } from '../../types';
+import { useAppContext } from '../../contexts/AppContext';
+import { useShowToast } from '../../contexts/ToastContext';
+import { useNavigate } from 'react-router-dom';
+import { MdKeyboardArrowDown } from 'react-icons/md';
 
-interface DashboardLayoutProps {
-  children: React.ReactNode;
-  menuItems: MenuItem[];
-}
+const DashboardHeader: React.FC = () => {
+    const { user, logout } = useAppContext();
+    const navigate = useNavigate();
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const dropdownRef = useRef<HTMLDivElement>(null);
+    const showToast = useShowToast();
+  
+    const handleLogout = () => {
+      setIsDropdownOpen(false);
+      logout();
+      navigate('/');
+    };
+  
+    useEffect(() => {
+      const handleClickOutside = (event: MouseEvent) => {
+        if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+          setIsDropdownOpen(false);
+        }
+      };
+  
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => {
+        document.removeEventListener('mousedown', handleClickOutside);
+      };
+    }, []);
 
-const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, menuItems }) => {
-  const { user, logout } = useAppContext();
-  const navigate = useNavigate();
-
-  return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      {/* Header */}
-      <header className="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700">
-        <div className="px-6 py-4">
+    const handleProfileClick = (e: React.MouseEvent) => {
+      e.preventDefault();
+      showToast('این بخش هنوز توسعه داده نشده است.');
+    }
+  
+    return (
+      <header className="bg-gray-900/80 backdrop-blur-lg border-b border-gray-700 flex-shrink-0">
+        <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4 space-x-reverse">
-              <h1 
-                className="text-2xl font-bold text-gray-900 dark:text-white cursor-pointer"
-                onClick={() => navigate('/')}
-              >
+             <h1 className="text-3xl font-bold text-gray-100 tracking-wider cursor-pointer" onClick={() => navigate('/')}>
                 یکتافی
               </h1>
-              <span className="text-sm text-gray-500 dark:text-gray-400">
-                پلتفرم هوشمند املاک
-              </span>
-            </div>
-            
-            <div className="flex items-center space-x-4 space-x-reverse">
-              <div className="text-right">
-                <p className="text-sm font-medium text-gray-900 dark:text-white">
-                  {user?.name}
-                </p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">
-                  {user?.role === 'admin' ? 'مدیر' : 
-                   user?.role === 'agent' ? 'نماینده' : 'مشتری'}
-                </p>
+              <div className="flex items-center space-x-4 space-x-reverse">
+                <div className="relative" ref={dropdownRef}>
+                  <button
+                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                    className="flex items-center space-x-2 space-x-reverse text-gray-200 hover:text-cyan-400 transition-colors duration-200"
+                    aria-haspopup="true"
+                    aria-expanded={isDropdownOpen}
+                  >
+                    <span>{user?.name}</span>
+                    <MdKeyboardArrowDown 
+                        size={16} 
+                        className={`transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`}
+                    />
+                  </button>
+                  
+                  {isDropdownOpen && (
+                    <div className="absolute left-0 mt-2 w-48 bg-gray-800 border border-gray-700 rounded-lg shadow-lg py-1 z-50">
+                      <a href="#" onClick={handleProfileClick} className="block w-full text-right px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white transition-colors duration-200">
+                        پروفایل
+                      </a>
+                      <div className="my-1 border-t border-gray-700"></div>
+                      <button
+                        onClick={handleLogout}
+                        className="w-full text-right block px-4 py-2 text-sm text-red-500 hover:bg-gray-700 hover:text-red-400 transition-colors duration-200"
+                      >
+                        خروج از سیستم
+                      </button>
+                    </div>
+                  )}
+                </div>
               </div>
-              <button
-                onClick={() => {
-                  logout();
-                  navigate('/');
-                }}
-                className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
-              >
-                خروج
-              </button>
-            </div>
           </div>
         </div>
       </header>
+    );
+  };
 
-      <div className="flex">
-        {/* Sidebar */}
-        <aside className="w-64 bg-white dark:bg-gray-800 shadow-sm border-r border-gray-200 dark:border-gray-700 min-h-screen">
-          <nav className="p-4">
-            <ul className="space-y-2">
-              {menuItems.map((item) => (
-                <li key={item.id}>
-                  <a
-                    href={item.path || '#'}
-                    className="flex items-center space-x-3 space-x-reverse px-3 py-2 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-                  >
-                    <span className="text-lg">{item.icon}</span>
-                    <span>{item.label}</span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        </aside>
+interface DashboardLayoutProps {
+    menuItems: MenuItem[];
+    children: ReactNode;
+}
 
-        {/* Main Content */}
-        <main className="flex-1">
-          {children}
-        </main>
-      </div>
-    </div>
-  );
-};
+const DashboardLayout: React.FC<DashboardLayoutProps> = ({ menuItems, children }) => {
+    const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+
+    return (
+        <div className="min-h-screen bg-[#0D1117] flex flex-row">
+            <Sidebar 
+              menuItems={menuItems} 
+              isCollapsed={isSidebarCollapsed} 
+              toggleCollapse={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
+            />
+            <div className={`flex-1 flex flex-col transition-all duration-300 ${isSidebarCollapsed ? 'max-w-[calc(100%-5rem)]' : 'max-w-[calc(100%-16rem)]'}`}>
+                <DashboardHeader />
+                <main className="flex-1 overflow-y-auto">
+                    <div className="container mx-auto px-6 py-12">
+                         {children}
+                    </div>
+                </main>
+            </div>
+        </div>
+    )
+}
 
 export default DashboardLayout;

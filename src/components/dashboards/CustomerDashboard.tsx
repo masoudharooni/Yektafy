@@ -1,54 +1,44 @@
 import React from 'react';
+import { useShowToast } from '../../contexts/ToastContext';
+
+const CustomerInfoCard: React.FC<{ title: string; description: string; linkText: string; }> = ({ title, description, linkText }) => {
+    const showToast = useShowToast();
+    const handleClick = (e: React.MouseEvent) => {
+        e.preventDefault();
+        showToast('این بخش هنوز توسعه داده نشده است.');
+    };
+    return (
+        <div className="bg-gray-800 border border-gray-700 p-6 rounded-xl">
+            <h3 className="text-xl font-bold text-gray-100">{title}</h3>
+            <p className="text-gray-400 mt-2 mb-4">{description}</p>
+            <a href="#" onClick={handleClick} className="font-semibold text-cyan-400 hover:text-cyan-300 transition">
+                {linkText} &rarr;
+            </a>
+        </div>
+    );
+};
 
 const CustomerDashboard: React.FC = () => {
   return (
-    <div className="p-6">
-      <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
-        داشبورد مشتری
-      </h1>
-      
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-            علاقه‌مندی‌ها
-          </h3>
-          <p className="text-3xl font-bold text-blue-600">15</p>
+    <div>
+        <h2 className="text-4xl font-bold text-gray-100 mb-8">حساب کاربری من</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <CustomerInfoCard 
+                title="ملک‌های ذخیره شده"
+                description="لیست ملک‌هایی که به عنوان مورد علاقه نشان کرده‌اید."
+                linkText="مشاهده لیست"
+            />
+            <CustomerInfoCard 
+                title="جستجوهای اخیر"
+                description="آخرین جستجوهای خود را مشاهده و مجددا اجرا کنید."
+                linkText="مشاهده جستجوها"
+            />
+             <CustomerInfoCard 
+                title="پروفایل کاربری"
+                description="اطلاعات تماس و مشخصات خود را ویرایش کنید."
+                linkText="ویرایش پروفایل"
+            />
         </div>
-        
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-            جستجوهای اخیر
-          </h3>
-          <p className="text-3xl font-bold text-green-600">8</p>
-        </div>
-        
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-            قرارهای ملاقات
-          </h3>
-          <p className="text-3xl font-bold text-purple-600">2</p>
-        </div>
-      </div>
-      
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
-            املاک پیشنهادی
-          </h2>
-          <p className="text-gray-600 dark:text-gray-400">
-            این بخش در حال توسعه است...
-          </p>
-        </div>
-        
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
-            آخرین فعالیت‌ها
-          </h2>
-          <p className="text-gray-600 dark:text-gray-400">
-            این بخش در حال توسعه است...
-          </p>
-        </div>
-      </div>
     </div>
   );
 };

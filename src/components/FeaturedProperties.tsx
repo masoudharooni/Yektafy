@@ -1,75 +1,46 @@
 import React from 'react';
+import { FEATURED_PROPERTIES } from '../constants';
+import PropertyCard from './PropertyCard';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from './ui/carousel';
 
 const FeaturedProperties: React.FC = () => {
-  const properties = [
-    {
-      id: 1,
-      title: 'ویلا مدرن در شمال تهران',
-      price: '15,000,000,000',
-      location: 'شمال تهران',
-      image: 'https://picsum.photos/400/300?random=1',
-      bedrooms: 4,
-      bathrooms: 3,
-      area: '250'
-    },
-    {
-      id: 2,
-      title: 'آپارتمان لوکس در مرکز شهر',
-      price: '8,500,000,000',
-      location: 'مرکز تهران',
-      image: 'https://picsum.photos/400/300?random=2',
-      bedrooms: 3,
-      bathrooms: 2,
-      area: '180'
-    },
-    {
-      id: 3,
-      title: 'خانه ویلایی با باغ',
-      price: '12,000,000,000',
-      location: 'کرج',
-      image: 'https://picsum.photos/400/300?random=3',
-      bedrooms: 5,
-      bathrooms: 4,
-      area: '300'
-    }
-  ];
-
   return (
-    <section className="py-16 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="bg-gray-800 py-20">
+      <div className="container mx-auto px-6">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">
-            املاک ویژه
-          </h2>
-          <p className="text-gray-600">
-            بهترین انتخاب‌های ما برای شما
+          <h2 className="text-4xl font-bold text-gray-100 mb-4">آگهی‌های ویژه</h2>
+          <p className="text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed">
+            گلچینی از بهترین ملک‌های ثبت شده در یکتافی
           </p>
+          <div className="mt-4 h-1 w-24 bg-cyan-500 mx-auto rounded-full"></div>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {properties.map((property) => (
-            <div key={property.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-              <img 
-                src={property.image} 
-                alt={property.title}
-                className="w-full h-48 object-cover"
-              />
-              <div className="p-6">
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                  {property.title}
-                </h3>
-                <p className="text-gray-600 mb-2">{property.location}</p>
-                <p className="text-2xl font-bold text-blue-600 mb-4">
-                  {property.price} تومان
-                </p>
-                <div className="flex justify-between text-sm text-gray-500">
-                  <span>{property.bedrooms} خواب</span>
-                  <span>{property.bathrooms} حمام</span>
-                  <span>{property.area} متر</span>
-                </div>
-              </div>
-            </div>
-          ))}
+        <div className="relative">
+          <Carousel
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+            className="w-full"
+          >
+            <CarouselContent className="-ml-2 md:-ml-4">
+              {FEATURED_PROPERTIES.map((property) => (
+                <CarouselItem key={property.id} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3 xl:basis-1/4">
+                  <div className="p-1">
+                    <PropertyCard property={property} />
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="hidden md:flex -right-12" />
+            <CarouselNext className="hidden md:flex -left-12" />
+          </Carousel>
         </div>
       </div>
     </section>

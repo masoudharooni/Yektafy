@@ -1,51 +1,33 @@
 import React from 'react';
+import { WHY_US_ITEMS } from '../constants';
+import { MdSearch, MdCreditCard, MdPeople, MdTrendingUp } from 'react-icons/md';
+
+const ICONS: { [key: string]: React.ReactNode } = {
+  Search: <MdSearch size={40} className="text-cyan-500" />,
+  CreditCard: <MdCreditCard size={40} className="text-cyan-500" />,
+  Users: <MdPeople size={40} className="text-cyan-500" />,
+  TrendingUp: <MdTrendingUp size={40} className="text-cyan-500" />
+};
 
 const WhyUs: React.FC = () => {
-  const features = [
-    {
-      icon: '🏠',
-      title: 'املاک معتبر',
-      description: 'تمام املاک ما توسط کارشناسان بررسی شده و معتبر هستند'
-    },
-    {
-      icon: '🔍',
-      title: 'جستجوی هوشمند',
-      description: 'با فیلترهای پیشرفته، دقیقاً همان چیزی که می‌خواهید پیدا کنید'
-    },
-    {
-      icon: '👥',
-      title: 'نمایندگان متخصص',
-      description: 'تیم ما از بهترین نمایندگان املاک تشکیل شده است'
-    },
-    {
-      icon: '📱',
-      title: 'پلتفرم مدرن',
-      description: 'تجربه کاربری فوق‌العاده با تکنولوژی روز'
-    }
-  ];
-
   return (
-    <section className="py-16 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="bg-gray-900 py-20">
+      <div className="container mx-auto px-6">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">
-            چرا یکتافی؟
-          </h2>
-          <p className="text-gray-600">
-            ما بهترین خدمات املاک را ارائه می‌دهیم
+          <h2 className="text-4xl font-bold text-gray-100 mb-4">چرا یکتافی؟</h2>
+          <p className="text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed">
+            خدمات متمایز ما برای تجربه‌ای بی‌نظیر در معاملات ملکی
           </p>
+          <div className="mt-4 h-1 w-24 bg-cyan-500 mx-auto rounded-full"></div>
         </div>
-        
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {features.map((feature, index) => (
-            <div key={index} className="text-center">
-              <div className="text-4xl mb-4">{feature.icon}</div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                {feature.title}
-              </h3>
-              <p className="text-gray-600">
-                {feature.description}
-              </p>
+          {WHY_US_ITEMS.map((item) => (
+            <div key={item.title} className="bg-gray-800 border border-gray-700 p-8 rounded-xl text-center hover:border-cyan-500/50 hover:bg-gray-700 transition-all duration-300 group">
+              <div className="flex items-center justify-center h-20 w-20 mx-auto mb-6 bg-gray-900 rounded-full group-hover:bg-gray-800 transition-colors duration-300">
+                {ICONS[item.icon]}
+              </div>
+              <h3 className="text-2xl font-semibold text-gray-100 mb-3">{item.title}</h3>
+              <p className="text-gray-400 leading-relaxed">{item.description}</p>
             </div>
           ))}
         </div>

@@ -1,49 +1,86 @@
-import React from 'react';
+import React from "react";
+import { useShowToast } from "../contexts/ToastContext";
+import { MdFacebook } from "react-icons/md";
+import { FaInstagram, FaLinkedin } from "react-icons/fa";
 
 const Footer: React.FC = () => {
+  const showToast = useShowToast();
+
+  const handlePlaceholderClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    showToast("این بخش هنوز توسعه داده نشده است.");
+  };
+
+  const FooterLink: React.FC<{ children: React.ReactNode }> = ({
+    children,
+  }) => (
+    <li>
+      <a
+        href="#"
+        onClick={handlePlaceholderClick}
+        className="text-gray-400 hover:text-cyan-400 transition-colors duration-200"
+      >
+        {children}
+      </a>
+    </li>
+  );
+
   return (
-    <footer className="bg-gray-900 text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div>
-            <h3 className="text-2xl font-bold mb-4">یکتافی</h3>
-            <p className="text-gray-400">
-              پلتفرم هوشمند املاک برای پیدا کردن خانه رویایی‌تان
+    <footer className="bg-gray-800 border-t border-gray-700 py-12">
+      <div className="container mx-auto px-6">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center md:text-right">
+          <div className="col-span-1 md:col-span-2">
+            <h3 className="text-2xl font-bold text-gray-100">یکتافی</h3>
+            <p className="text-gray-400 mt-4 max-w-md mx-auto md:mx-0 leading-relaxed">
+              پلتفرم هوشمند خرید، فروش و سرمایه‌گذاری ملکی. با یکتافی، خانه‌دار
+              شدن رویا نیست.
             </p>
           </div>
-          
+
           <div>
-            <h4 className="text-lg font-semibold mb-4">لینک‌های مفید</h4>
+            <h4 className="text-lg font-semibold text-gray-100 mb-4">
+              لینک‌های سریع
+            </h4>
             <ul className="space-y-2">
-              <li><a href="#" className="text-gray-400 hover:text-white">درباره ما</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-white">تماس با ما</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-white">قوانین و مقررات</a></li>
+              <FooterLink>خرید ملک</FooterLink>
+              <FooterLink>فروش ملک</FooterLink>
+              <FooterLink>پروژه‌های سرمایه‌گذاری</FooterLink>
+              <FooterLink>مشاوره رایگان</FooterLink>
             </ul>
           </div>
-          
+
           <div>
-            <h4 className="text-lg font-semibold mb-4">خدمات</h4>
-            <ul className="space-y-2">
-              <li><a href="#" className="text-gray-400 hover:text-white">خرید ملک</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-white">فروش ملک</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-white">اجاره ملک</a></li>
-            </ul>
-          </div>
-          
-          <div>
-            <h4 className="text-lg font-semibold mb-4">تماس با ما</h4>
-            <ul className="space-y-2">
-              <li className="text-gray-400">تلفن: 021-12345678</li>
-              <li className="text-gray-400">ایمیل: info@yektafy.com</li>
-              <li className="text-gray-400">آدرس: تهران، ایران</li>
-            </ul>
+            <h4 className="text-lg font-semibold text-gray-100 mb-4">
+              ما را دنبال کنید
+            </h4>
+            <div className="flex justify-center md:justify-start space-x-4 space-x-reverse">
+              <a
+                href="#"
+                onClick={handlePlaceholderClick}
+                className="text-gray-400 hover:text-white transition-colors duration-200"
+              >
+                <MdFacebook size={24} />
+              </a>
+              <a
+                href="#"
+                onClick={handlePlaceholderClick}
+                className="text-gray-400 hover:text-white transition-colors duration-200"
+              >
+                <FaInstagram size={24} />
+              </a>
+              <a
+                href="#"
+                onClick={handlePlaceholderClick}
+                className="text-gray-400 hover:text-white transition-colors duration-200"
+              >
+                <FaLinkedin size={24} />
+              </a>
+            </div>
           </div>
         </div>
-        
-        <div className="border-t border-gray-800 mt-8 pt-8 text-center">
-          <p className="text-gray-400">
-            © ۱۴۰۳ یکتافی. تمام حقوق محفوظ است.
-          </p>
+
+        <div className="mt-8 border-t border-gray-700 pt-8 text-center text-gray-500">
+          <p>&copy; {new Date().getFullYear()} یکتافی. تمام حقوق محفوظ است.</p>
         </div>
       </div>
     </footer>
