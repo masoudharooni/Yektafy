@@ -129,7 +129,8 @@ export const FEATURED_PROPERTIES: Property[] = [
     bathrooms: 3,
     area: '250',
     type: 'sale',
-    featured: true
+    featured: true,
+    isVerified: true
   },
   {
     id: '2',
@@ -153,7 +154,8 @@ export const FEATURED_PROPERTIES: Property[] = [
     bathrooms: 4,
     area: '300',
     type: 'sale',
-    featured: true
+    featured: true,
+    isVerified: true
   },
   {
     id: '4',
@@ -165,7 +167,8 @@ export const FEATURED_PROPERTIES: Property[] = [
     bathrooms: 1,
     area: '120',
     type: 'rent',
-    featured: true
+    featured: true,
+    isVerified: true
   },
   {
     id: '5',

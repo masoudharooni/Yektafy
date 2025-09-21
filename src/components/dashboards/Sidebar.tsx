@@ -4,29 +4,30 @@ import { toast } from 'sonner';
 import { Menu } from 'iconsax-react';
 import { Button } from '../ui/Button';
 import { 
-  MdHome, 
-  MdPeople, 
-  MdSecurity, 
-  MdWork, 
-  MdPerson, 
-  MdAssignment, 
-  MdMail, 
-  MdFavorite, 
-  MdSearch,
-  MdKeyboardArrowDown
-} from 'react-icons/md';
+  Home2, 
+  People, 
+  Security, 
+  Briefcase, 
+  Profile2User, 
+  ClipboardText, 
+  MessageText1, 
+  Heart, 
+  SearchNormal1,
+  ArrowDown2
+} from 'iconsax-react';
+import { Link } from 'react-router-dom';
 
 // Icon Map
 const ICONS: { [key: string]: React.ReactNode } = {
-  Home: <MdHome size={24} />,
-  Users: <MdPeople size={24} />,
-  Shield: <MdSecurity size={24} />,
-  Briefcase: <MdWork size={24} />,
-  User: <MdPerson size={24} />,
-  Clipboard: <MdAssignment size={24} />,
-  Mail: <MdMail size={24} />,
-  Heart: <MdFavorite size={24} />,
-  Search: <MdSearch size={24} />,
+  Home: <Home2 size={24} color="#9ca3af" />,
+  Users: <People size={24} color="#9ca3af" />,
+  Shield: <Security size={24} color="#9ca3af" />,
+  Briefcase: <Briefcase size={24} color="#9ca3af" />,
+  User: <Profile2User size={24} color="#9ca3af" />,
+  Clipboard: <ClipboardText size={24} color="#9ca3af" />,
+  Mail: <MessageText1 size={24} color="#9ca3af" />,
+  Heart: <Heart size={24} color="#9ca3af" />,
+  Search: <SearchNormal1 size={24} color="#9ca3af" />,
 };
 
 interface SidebarMenuItemProps {
@@ -49,20 +50,21 @@ const SidebarMenuItem: React.FC<SidebarMenuItemProps> = ({ item, isCollapsed }) 
     
     return (
         <li className="relative group">
-            <a
-                href={item.href || '#'}
+            <Link
+                to={item.href || '#'}
                 onClick={handleClick}
                 className={`flex items-center p-3 text-gray-300 rounded-lg hover:bg-gray-700 transition-colors duration-200 ${isCollapsed ? 'justify-center' : ''}`}
             >
                 {ICONS[item.icon || 'Home']}
                 <span className={`me-3 flex-1 whitespace-nowrap transition-all duration-300 ${isCollapsed ? 'hidden' : 'block'}`}>{item.label}</span>
                 {item.children && !isCollapsed && (
-                     <MdKeyboardArrowDown 
+                     <ArrowDown2 
                         size={16} 
+                        color="#9ca3af"
                         className={`transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
                      />
                 )}
-            </a>
+            </Link>
             {isCollapsed && (
                 <div className="absolute end-full top-1/2 -translate-y-1/2 me-2 hidden group-hover:block px-2 py-1 bg-gray-900 text-white text-xs rounded-md shadow-lg z-20 whitespace-nowrap">
                     {item.label}

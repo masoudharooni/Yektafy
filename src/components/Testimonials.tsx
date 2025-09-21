@@ -1,8 +1,15 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Star1, QuoteUp } from 'iconsax-react';
+import { Card, CardContent } from './ui/card';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from './ui/carousel';
+import Autoplay from 'embla-carousel-autoplay';
 
 const Testimonials: React.FC = () => {
+  const autoplayPlugin = React.useRef(
+    Autoplay({ delay: 5000, stopOnInteraction: false })
+  );
+
   const testimonials = [
     {
       name: 'علی احمدی',
@@ -41,43 +48,64 @@ const Testimonials: React.FC = () => {
           <div className="mt-4 h-1 w-24 bg-cyan-500 mx-auto rounded-full"></div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {testimonials.map((testimonial, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.6, delay: index * 0.2 }}
-              className="bg-gray-800 border border-gray-700 p-6 rounded-xl hover:border-cyan-500/50 transition-all duration-300 relative"
-            >
-              <QuoteUp size={24} className="text-cyan-400 mb-4" />
-              
-              <div className="flex mb-4">
-                {[...Array(testimonial.rating)].map((_, i) => (
-                  <Star1 key={i} size={16} className="text-yellow-400 fill-current" />
-                ))}
-              </div>
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6 }}
+        >
+          <Carousel
+            plugins={[autoplayPlugin.current]}
+            className="w-full max-w-5xl mx-auto"
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+          >
+            <CarouselContent className="-ml-2 md:-ml-4">
+              {testimonials.map((testimonial, index) => (
+                <CarouselItem key={index} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3">
+                  <div className="p-1">
+                    <Card className="bg-gray-800 border-gray-700 hover:border-cyan-500/50 transition-all duration-300 h-full">
+                      <CardContent className="p-6">
+                        <QuoteUp size={24} color="#06b6d4" className="mb-4" />
+                        
+                        <div className="flex mb-4">
+                          {[...Array(testimonial.rating)].map((_, i) => (
+                            <Star1 key={i} size={16} color="#fbbf24" className="fill-current" />
+                          ))}
+                        </div>
 
-              <p className="text-gray-300 leading-relaxed mb-6">
-                "{testimonial.content}"
-              </p>
+                        <p className="text-gray-300 leading-relaxed mb-6">
+                          "{testimonial.content}"
+                        </p>
 
-              <div className="flex items-center gap-3">
-                <img
-                  src={testimonial.avatar}
-                  alt={testimonial.name}
-                  className="w-12 h-12 rounded-full object-cover"
-                />
-                <div>
-                  <h4 className="font-semibold text-gray-100">{testimonial.name}</h4>
-                  <p className="text-sm text-gray-400">{testimonial.role}</p>
-                  <p className="text-xs text-cyan-400">{testimonial.location}</p>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+                        <div className="flex items-center gap-3">
+                          <img
+                            src={testimonial.avatar}
+                            alt={testimonial.name}
+                            className="w-12 h-12 rounded-full object-cover"
+                          />
+                          <div>
+                            <h4 className="font-semibold text-gray-100">{testimonial.name}</h4>
+                            <p className="text-sm text-gray-400">{testimonial.role}</p>
+                            <p className="text-xs text-cyan-400">{testimonial.location}</p>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            
+            {/* Hidden navigation arrows on desktop, show only dots */}
+            <div className="hidden md:block">
+              <CarouselPrevious className="hidden" />
+              <CarouselNext className="hidden" />
+            </div>
+          </Carousel>
+        </motion.div>
       </div>
     </section>
   );

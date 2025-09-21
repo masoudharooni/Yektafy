@@ -1,12 +1,12 @@
 import React from 'react';
 import { WHY_US_ITEMS } from '../constants';
-import { MdSearch, MdCreditCard, MdPeople, MdTrendingUp } from 'react-icons/md';
+import { SearchNormal1, Card, People, TrendUp } from 'iconsax-react';
 
 const ICONS: { [key: string]: React.ReactNode } = {
-  Search: <MdSearch size={40} className="text-cyan-500" />,
-  CreditCard: <MdCreditCard size={40} className="text-cyan-500" />,
-  Users: <MdPeople size={40} className="text-cyan-500" />,
-  TrendingUp: <MdTrendingUp size={40} className="text-cyan-500" />
+  Search: <SearchNormal1 size={40} color="#06b6d4" />,
+  CreditCard: <Card size={40} color="#06b6d4" />,
+  Users: <People size={40} color="#06b6d4" />,
+  TrendingUp: <TrendUp size={40} color="#06b6d4" />
 };
 
 const WhyUs: React.FC = () => {

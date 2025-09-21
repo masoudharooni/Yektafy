@@ -28,6 +28,7 @@ export interface Property {
   area: string;
   type: 'sale' | 'rent';
   featured?: boolean;
+  isVerified?: boolean;
 }
 
 export interface NavLink {

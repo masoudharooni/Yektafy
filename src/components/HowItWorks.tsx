@@ -1,21 +1,22 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { SearchNormal1, MessageText1, Home2 } from 'iconsax-react';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from './ui/card';
 
 const HowItWorks: React.FC = () => {
   const steps = [
     {
-      icon: <SearchNormal1 size={48} className="text-cyan-400" />,
+      icon: <SearchNormal1 size={56} color="#06b6d4" />,
       title: 'جستجو کنید',
       description: 'با استفاده از نقشه هوشمند و فیلترهای پیشرفته، ملک مورد نظر خود را پیدا کنید'
     },
     {
-      icon: <MessageText1 size={48} className="text-cyan-400" />,
+      icon: <MessageText1 size={56} color="#06b6d4" />,
       title: 'مشاوره بگیرید',
       description: 'با متخصصان ما تماس بگیرید و راهنمایی کاملی برای خرید یا اجاره دریافت کنید'
     },
     {
-      icon: <Home2 size={48} className="text-cyan-400" />,
+      icon: <Home2 size={56} color="#06b6d4" />,
       title: 'ملک خود را بخرید',
       description: 'با اطمینان کامل و پشتیبانی تیم ما، ملک رویایی خود را خریداری کنید'
     }
@@ -40,18 +41,25 @@ const HowItWorks: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.6, delay: index * 0.2 }}
-              className="text-center group"
             >
-              <div className="relative mb-6">
-                <div className="w-20 h-20 mx-auto bg-gray-800 rounded-full flex items-center justify-center group-hover:bg-gray-700 transition-colors duration-300">
-                  {step.icon}
-                </div>
-                <div className="absolute -top-2 -start-2 w-8 h-8 bg-cyan-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
-                  {index + 1}
-                </div>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-100 mb-3">{step.title}</h3>
-              <p className="text-gray-400 leading-relaxed">{step.description}</p>
+              <Card className="bg-gray-800 border-gray-700 hover:border-cyan-500/50 transition-all duration-300 h-full group">
+                <CardHeader className="text-center pb-4">
+                  <div className="relative mb-6">
+                    <div className="w-20 h-20 mx-auto bg-gray-700 rounded-full flex items-center justify-center group-hover:bg-gray-600 transition-colors duration-300">
+                      {step.icon}
+                    </div>
+                    <div className="absolute -top-2 -start-2 w-8 h-8 bg-cyan-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
+                      {index + 1}
+                    </div>
+                  </div>
+                  <CardTitle className="text-xl font-semibold text-gray-100 mb-3">{step.title}</CardTitle>
+                </CardHeader>
+                <CardContent className="pt-0">
+                  <CardDescription className="text-gray-400 leading-relaxed text-center">
+                    {step.description}
+                  </CardDescription>
+                </CardContent>
+              </Card>
             </motion.div>
           ))}
         </div>

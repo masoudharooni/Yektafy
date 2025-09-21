@@ -1,26 +1,27 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { User, ShieldTick, Headphone, Speedometer } from 'iconsax-react';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from './ui/card';
 
 const WhyChooseUs: React.FC = () => {
   const benefits = [
     {
-      icon: <User size={40} className="text-cyan-400" />,
+      icon: <User size={48} color="#06b6d4" />,
       title: 'مشاوران متخصص',
       description: 'تیم ما از بهترین متخصصان املاک تشکیل شده که سال‌ها تجربه دارند'
     },
     {
-      icon: <ShieldTick size={40} className="text-cyan-400" />,
+      icon: <ShieldTick size={48} color="#06b6d4" />,
       title: 'امنیت کامل',
       description: 'تمام معاملات با بالاترین استانداردهای امنیتی و قانونی انجام می‌شود'
     },
     {
-      icon: <Headphone size={40} className="text-cyan-400" />,
+      icon: <Headphone size={48} color="#06b6d4" />,
       title: 'پشتیبانی ۲۴/۷',
       description: 'در هر ساعت از شبانه‌روز، تیم پشتیبانی ما آماده کمک به شماست'
     },
     {
-      icon: <Speedometer size={40} className="text-cyan-400" />,
+      icon: <Speedometer size={48} color="#06b6d4" />,
       title: 'سرعت بالا',
       description: 'با تکنولوژی پیشرفته، سریع‌ترین راه برای پیدا کردن ملک مناسب'
     }
@@ -45,13 +46,20 @@ const WhyChooseUs: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="bg-gray-900 border border-gray-700 p-6 rounded-xl text-center hover:border-cyan-500/50 hover:bg-gray-700 transition-all duration-300 group"
             >
-              <div className="w-16 h-16 mx-auto mb-4 bg-gray-800 rounded-full flex items-center justify-center group-hover:bg-gray-600 transition-colors duration-300">
-                {benefit.icon}
-              </div>
-              <h3 className="text-xl font-semibold text-gray-100 mb-3">{benefit.title}</h3>
-              <p className="text-gray-400 leading-relaxed">{benefit.description}</p>
+              <Card className="bg-gray-900 border-gray-700 hover:border-cyan-500/50 transition-all duration-300 h-full group">
+                <CardHeader className="text-center pb-4">
+                  <div className="w-16 h-16 mx-auto mb-4 bg-gray-800 rounded-full flex items-center justify-center group-hover:bg-gray-600 transition-colors duration-300">
+                    {benefit.icon}
+                  </div>
+                  <CardTitle className="text-xl font-semibold text-gray-100 mb-3">{benefit.title}</CardTitle>
+                </CardHeader>
+                <CardContent className="pt-0">
+                  <CardDescription className="text-gray-400 leading-relaxed text-center">
+                    {benefit.description}
+                  </CardDescription>
+                </CardContent>
+              </Card>
             </motion.div>
           ))}
         </div>

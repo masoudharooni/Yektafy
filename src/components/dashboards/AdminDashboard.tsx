@@ -1,5 +1,5 @@
 import React from 'react';
-import { MdBusiness, MdPeople, MdPersonAdd } from 'react-icons/md';
+import { Building, People, UserAdd } from 'iconsax-react';
 
 const StatCard: React.FC<{ title: string; value: string; icon: React.ReactNode }> = ({ title, value, icon }) => (
     <div className="bg-gray-800 border border-gray-700 p-6 rounded-xl hover:border-cyan-500/50 transition-all duration-300">
@@ -23,17 +23,17 @@ const AdminDashboard: React.FC = () => {
             <StatCard 
                 title="کل آگهی‌ها" 
                 value="۱,۲۵۰" 
-                icon={<MdBusiness size={24} />} 
+                icon={<Building size={24} color="#9ca3af" />} 
             />
             <StatCard 
                 title="مشاوران فعال" 
                 value="۷۸" 
-                icon={<MdPeople size={24} />}
+                icon={<People size={24} color="#9ca3af" />}
             />
             <StatCard 
                 title="کاربران جدید (این ماه)" 
                 value="۲۴۰" 
-                icon={<MdPersonAdd size={24} />}
+                icon={<UserAdd size={24} color="#9ca3af" />}
             />
         </div>
         {/* Further admin components can be added here */}

@@ -1,8 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from 'sonner';
-import { MdSearch, MdLocationOn } from 'react-icons/md';
-import { Location } from 'iconsax-react';
+import { SearchNormal1, Location, Map } from 'iconsax-react';
 import { Button } from './ui/Button';
 import { Dialog, DialogContent, DialogTrigger } from './ui/dialog';
 import { Command, CommandList, CommandItem } from './ui/command';
@@ -113,29 +112,31 @@ const SearchBox: React.FC = () => {
             onFocus={() => searchQuery.length > 1 && setShowResults(true)}
             className="w-full bg-gray-800/50 border border-gray-600 rounded-lg py-3 px-4 ps-12 text-gray-100 placeholder-gray-400 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition-all outline-none"
           />
-          <MdLocationOn size={24} className="absolute end-4 top-1/2 -translate-y-1/2 text-gray-400" />
+          <Location size={24} color="#9ca3af" className="absolute end-4 top-1/2 -translate-y-1/2" />
           
           {/* Live Search Results */}
           {showResults && searchResults.length > 0 && (
-            <div className="absolute top-full left-0 right-0 mt-1 bg-gray-800 border border-gray-600 rounded-lg shadow-xl z-50 max-h-64 overflow-y-auto">
+            <div className="absolute top-full left-0 right-0 mt-3 bg-gray-900/95 backdrop-blur-xl border border-gray-700/50 rounded-xl shadow-2xl z-50 max-h-64 overflow-y-auto">
               <Command className="bg-transparent">
                 <CommandList>
                   {searchResults.map((location) => (
                     <CommandItem
                       key={location.id}
                       onSelect={() => handleLocationSelect(location)}
-                      className="flex items-center gap-3 px-4 py-3 hover:bg-gray-700 cursor-pointer"
+                      className="flex items-center gap-4 px-4 py-4 hover:bg-gray-800/50 cursor-pointer transition-all duration-200"
                     >
-                      <Location size={20} className="text-cyan-400 flex-shrink-0" />
+                      <div className="w-10 h-10 bg-cyan-500/10 rounded-full flex items-center justify-center flex-shrink-0">
+                        <Map size={20} color="#06b6d4" />
+                      </div>
                       <div className="flex-1 min-w-0">
-                        <div className="text-gray-100 font-medium truncate">
+                        <div className="text-gray-100 font-semibold text-base truncate">
                           {location.name}
                         </div>
-                        <div className="text-gray-400 text-sm truncate">
+                        <div className="text-gray-400 text-sm truncate mt-1">
                           {location.district}
                         </div>
                       </div>
-                      <span className="text-xs text-gray-500 bg-gray-700 px-2 py-1 rounded">
+                      <span className="text-xs text-gray-500 bg-gray-800 px-3 py-1.5 rounded-full border border-gray-700">
                         {location.type === 'city' ? 'شهر' : location.type === 'district' ? 'منطقه' : 'محله'}
                       </span>
                     </CommandItem>
@@ -150,8 +151,8 @@ const SearchBox: React.FC = () => {
             onClick={handleSearchClick} 
             className="flex-1 bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-3 px-6 rounded-lg shadow-lg shadow-cyan-500/30 transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2"
           >
-            <MdSearch size={20} />
-            <span>جستجو</span>
+                   <SearchNormal1 size={20} color="#ffffff" />
+                   <span>جستجو</span>
           </Button>
           <Dialog>
             <DialogTrigger asChild>
@@ -165,7 +166,7 @@ const SearchBox: React.FC = () => {
                 </svg>
               </Button>
             </DialogTrigger>
-            <DialogContent className="max-w-[95vw] w-full h-[95vh] max-h-[95vh] p-0 bg-gray-900 border-gray-700">
+            <DialogContent className="max-w-3xl w-full h-[80vh] max-h-[80vh] p-0 bg-gray-900 border-gray-700">
               <div className="relative w-full h-full">
                 <MapComponent
                   center={isfahanCenter}
@@ -200,29 +201,31 @@ const SearchBox: React.FC = () => {
             onFocus={() => searchQuery.length > 1 && setShowResults(true)}
             className="w-full bg-gray-800/50 border border-gray-600 rounded-lg py-3 px-4 ps-12 text-gray-100 placeholder-gray-400 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition-all outline-none"
           />
-          <MdLocationOn size={24} className="absolute end-4 top-1/2 -translate-y-1/2 text-gray-400" />
+          <Location size={24} color="#9ca3af" className="absolute end-4 top-1/2 -translate-y-1/2" />
           
           {/* Live Search Results */}
           {showResults && searchResults.length > 0 && (
-            <div className="absolute top-full left-0 right-0 mt-1 bg-gray-800 border border-gray-600 rounded-lg shadow-xl z-50 max-h-64 overflow-y-auto">
+            <div className="absolute top-full left-0 right-0 mt-3 bg-gray-900/95 backdrop-blur-xl border border-gray-700/50 rounded-xl shadow-2xl z-50 max-h-64 overflow-y-auto">
               <Command className="bg-transparent">
                 <CommandList>
                   {searchResults.map((location) => (
                     <CommandItem
                       key={location.id}
                       onSelect={() => handleLocationSelect(location)}
-                      className="flex items-center gap-3 px-4 py-3 hover:bg-gray-700 cursor-pointer"
+                      className="flex items-center gap-4 px-4 py-4 hover:bg-gray-800/50 cursor-pointer transition-all duration-200"
                     >
-                      <Location size={20} className="text-cyan-400 flex-shrink-0" />
+                      <div className="w-10 h-10 bg-cyan-500/10 rounded-full flex items-center justify-center flex-shrink-0">
+                        <Map size={20} color="#06b6d4" />
+                      </div>
                       <div className="flex-1 min-w-0">
-                        <div className="text-gray-100 font-medium truncate">
+                        <div className="text-gray-100 font-semibold text-base truncate">
                           {location.name}
                         </div>
-                        <div className="text-gray-400 text-sm truncate">
+                        <div className="text-gray-400 text-sm truncate mt-1">
                           {location.district}
                         </div>
                       </div>
-                      <span className="text-xs text-gray-500 bg-gray-700 px-2 py-1 rounded">
+                      <span className="text-xs text-gray-500 bg-gray-800 px-3 py-1.5 rounded-full border border-gray-700">
                         {location.type === 'city' ? 'شهر' : location.type === 'district' ? 'منطقه' : 'محله'}
                       </span>
                     </CommandItem>
@@ -237,8 +240,8 @@ const SearchBox: React.FC = () => {
             onClick={handleSearchClick} 
             className="flex-1 bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-3 px-6 rounded-lg shadow-lg shadow-cyan-500/30 transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2"
           >
-            <MdSearch size={20} />
-            <span>جستجو</span>
+                   <SearchNormal1 size={20} color="#ffffff" />
+                   <span>جستجو</span>
           </Button>
           <Dialog>
             <DialogTrigger asChild>
@@ -252,7 +255,7 @@ const SearchBox: React.FC = () => {
                 </svg>
               </Button>
             </DialogTrigger>
-            <DialogContent className="max-w-[95vw] w-full h-[95vh] max-h-[95vh] p-0 bg-gray-900 border-gray-700">
+            <DialogContent className="max-w-3xl w-full h-[80vh] max-h-[80vh] p-0 bg-gray-900 border-gray-700">
               <div className="relative w-full h-full">
                 <MapComponent
                   center={isfahanCenter}

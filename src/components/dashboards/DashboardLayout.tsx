@@ -6,7 +6,7 @@ import type { MenuItem } from '../../types';
 import { authService } from '../../services/auth';
 import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
-import { MdKeyboardArrowDown } from 'react-icons/md';
+import { ArrowDown2 } from 'iconsax-react';
 
 const DashboardHeader: React.FC = () => {
   const user = authService.getCurrentUser();
@@ -53,8 +53,9 @@ const DashboardHeader: React.FC = () => {
               aria-expanded={isDropdownOpen}
             >
               <span>{user?.name}</span>
-              <MdKeyboardArrowDown
+              <ArrowDown2
                 size={16}
+                color="#d1d5db"
                 className={`transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`}
               />
             </button>
