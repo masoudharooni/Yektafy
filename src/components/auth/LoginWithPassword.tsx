@@ -1,86 +1,103 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { authService } from '../../services/auth';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { toast } from 'sonner';
+import { loginPasswordSchema, type LoginPasswordFormData } from '../../schemas/auth';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '../ui/form';
+import { Input } from '../ui/input';
+import { Button } from '../ui/Button';
 
 const LoginWithPassword: React.FC = () => {
   const navigate = useNavigate();
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  
+  const form = useForm<LoginPasswordFormData>({
+    resolver: zodResolver(loginPasswordSchema),
+    defaultValues: {
+      username: '',
+      password: '',
+    },
+  });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setError('');
-    
-    const success = authService.login(username, password);
+  const onSubmit = (data: LoginPasswordFormData) => {
+    const success = authService.login(data.username, data.password);
     if (success) {
       toast.success('ورود موفقیت‌آمیز بود!');
       navigate('/dashboard');
     } else {
-      setError('نام کاربری یا رمز عبور اشتباه است.');
+      toast.error('نام کاربری یا رمز عبور اشتباه است.');
     }
   };
 
-  const handlePlaceholderClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    toast.info('این بخش هنوز در دست توسعه است.');
-  };
-
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
-      <div>
-        <label className="block text-gray-300 mb-2 text-sm" htmlFor="username">
-          نام کاربری
-        </label>
-        <input
-          id="username"
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          placeholder="مثال: admin"
-          className="w-full bg-gray-800/50 border border-gray-600 rounded-lg py-3 px-4 text-gray-100 placeholder-gray-400 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition-all outline-none"
-          required
-        />
-      </div>
+    <div className="p-8">
+      <h2 className="text-2xl font-bold text-gray-100 mb-6 text-center">ورود به حساب کاربری</h2>
       
-      <div>
-        <div className="flex justify-between items-center mb-2">
-          <label className="block text-gray-300 text-sm" htmlFor="password">
-            رمز عبور
-          </label>
-          <a 
-            href="#" 
-            onClick={handlePlaceholderClick} 
-            className="text-xs text-cyan-500 hover:text-cyan-400 transition"
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+          <FormField
+            control={form.control}
+            name="username"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-gray-300">نام کاربری</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="مثال: admin"
+                    className="bg-gray-800/50 border-gray-600 text-gray-100 placeholder-gray-400 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem>
+                <div className="flex justify-between items-center">
+                  <FormLabel className="text-gray-300">رمز عبور</FormLabel>
+                  <Link 
+                    to="/forgot-password" 
+                    className="text-xs text-cyan-500 hover:text-cyan-400 transition"
+                  >
+                    فراموشی رمز عبور
+                  </Link>
+                </div>
+                <FormControl>
+                  <Input
+                    type="password"
+                    placeholder="مثال: admin123"
+                    className="bg-gray-800/50 border-gray-600 text-gray-100 placeholder-gray-400 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          
+          <Button
+            type="submit"
+            className="w-full bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-3 px-6 rounded-lg shadow-lg shadow-cyan-500/30 transition-all duration-300 transform hover:scale-105"
+            disabled={form.formState.isSubmitting}
           >
-            فراموشی رمز عبور
-          </a>
-        </div>
-        <input
-          id="password"
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="مثال: admin123"
-          className="w-full bg-gray-800/50 border border-gray-600 rounded-lg py-3 px-4 text-gray-100 placeholder-gray-400 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition-all outline-none"
-          required
-        />
-      </div>
-
-      {error && (
-        <div className="bg-red-500/10 border border-red-500 text-red-500 text-center p-3 rounded-lg text-sm">
-          {error}
-        </div>
-      )}
-
-      <button 
-        type="submit"
-        className="w-full mt-2 bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-3 px-6 rounded-lg shadow-lg shadow-cyan-500/30 transition-all duration-300 transform hover:scale-105"
-      >
-        ورود به حساب کاربری
-      </button>
-    </form>
+            {form.formState.isSubmitting ? 'در حال ورود...' : 'ورود به حساب کاربری'}
+          </Button>
+        </form>
+      </Form>
+    </div>
   );
 };
 

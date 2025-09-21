@@ -61,10 +61,20 @@
     @apply bg-background text-foreground;
   }
   
-  /* Ensure containers don't exceed viewport width */
-  .container {
-    max-width: 100vw;
-  }
+/* Ensure containers don't exceed viewport width */
+.container {
+  max-width: 100vw;
+}
+
+/* Hide scrollbar for horizontal scroll */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;  /* Chrome, Safari and Opera */
+}
 }
 
 /* Persian font feature classes for IRANSansX */

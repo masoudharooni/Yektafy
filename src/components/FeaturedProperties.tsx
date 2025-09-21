@@ -1,41 +1,8 @@
-import React, { useState, useCallback } from 'react';
+import React from 'react';
 import { FEATURED_PROPERTIES } from '../constants';
 import PropertyCard from './PropertyCard';
-import { Button } from './ui/Button';
-import { ArrowRight2, ArrowLeft2 } from 'iconsax-react';
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  type CarouselApi,
-} from './ui/carousel';
 
 const FeaturedProperties: React.FC = () => {
-  const [api, setApi] = useState<CarouselApi>();
-  const [canScrollPrev, setCanScrollPrev] = useState(false);
-  const [canScrollNext, setCanScrollNext] = useState(false);
-
-  const scrollPrev = useCallback(() => {
-    api?.scrollPrev();
-  }, [api]);
-
-  const scrollNext = useCallback(() => {
-    api?.scrollNext();
-  }, [api]);
-
-  React.useEffect(() => {
-    if (!api) {
-      return;
-    }
-
-    setCanScrollPrev(api.canScrollPrev());
-    setCanScrollNext(api.canScrollNext());
-
-    api.on("select", () => {
-      setCanScrollPrev(api.canScrollPrev());
-      setCanScrollNext(api.canScrollNext());
-    });
-  }, [api]);
   return (
     <section className="bg-gray-800 py-20 overflow-hidden">
       <div className="container mx-auto max-w-full">
@@ -47,51 +14,42 @@ const FeaturedProperties: React.FC = () => {
           <div className="mt-4 h-1 w-24 bg-cyan-500 mx-auto rounded-full"></div>
         </div>
         
+        {/* Horizontal Scroll Container */}
         <div className="relative">
-          <Carousel
-            setApi={setApi}
-            opts={{
-              align: "start",
-              loop: true,
-              slidesToScroll: 1,
-              containScroll: "trimSnaps",
-            }}
-            className="w-full"
-          >
-            <CarouselContent className="-ms-2 md:-ms-4">
+          <div className="overflow-x-auto scrollbar-hide pb-4">
+            <div className="flex gap-6 w-max px-4">
               {FEATURED_PROPERTIES.map((property) => (
-                <CarouselItem key={property.id} className="ps-2 md:ps-4 basis-full md:basis-1/2 lg:basis-1/3 xl:basis-1/4">
-                  <div className="p-1">
-                    <PropertyCard property={property} />
-                  </div>
-                </CarouselItem>
+                <div 
+                  key={property.id} 
+                  className="flex-shrink-0 w-80 md:w-96"
+                >
+                  <PropertyCard property={property} />
+                </div>
               ))}
-            </CarouselContent>
-          </Carousel>
-          
-          {/* Custom Navigation Controls */}
-          <div className="flex justify-center gap-4 mt-8">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={scrollPrev}
-              disabled={!canScrollPrev}
-              className="bg-gray-700/50 border-gray-600 text-gray-300 hover:bg-cyan-500 hover:border-cyan-500 hover:text-white transition-all duration-300 flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              <ArrowLeft2 size={16} />
-              قبلی
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={scrollNext}
-              disabled={!canScrollNext}
-              className="bg-gray-700/50 border-gray-600 text-gray-300 hover:bg-cyan-500 hover:border-cyan-500 hover:text-white transition-all duration-300 flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              بعدی
-              <ArrowRight2 size={16} />
-            </Button>
+            </div>
           </div>
+          
+          {/* Scroll Indicators */}
+          <div className="absolute left-0 top-1/2 -translate-y-1/2 w-8 h-8 bg-gradient-to-r from-gray-800 to-transparent rounded-full flex items-center justify-center opacity-60 pointer-events-none">
+            <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+          </div>
+          <div className="absolute right-0 top-1/2 -translate-y-1/2 w-8 h-8 bg-gradient-to-l from-gray-800 to-transparent rounded-full flex items-center justify-center opacity-60 pointer-events-none">
+            <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </div>
+        </div>
+        
+        {/* View All Button */}
+        <div className="text-center mt-8">
+          <button className="inline-flex items-center gap-2 bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-400/50 text-cyan-300 font-semibold py-3 px-6 rounded-lg transition-all duration-300 backdrop-blur-sm">
+            <span>مشاهده همه آگهی‌ها</span>
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
         </div>
       </div>
     </section>

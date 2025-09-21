@@ -29,7 +29,7 @@ const LoginLayout: React.FC = () => {
 
   return (
     <div 
-      className="min-h-screen w-full flex items-center justify-center bg-cover bg-center p-4"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-cover bg-center p-4"
       style={{ backgroundImage: "url('https://picsum.photos/seed/yektafy-bg/1920/1080')" }}
     >
       <div className="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
