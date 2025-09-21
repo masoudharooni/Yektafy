@@ -4,6 +4,9 @@ import Header from "../components/Header";
 import Hero from "../components/Hero";
 import FeaturedProperties from "../components/FeaturedProperties";
 import WhyUs from "../components/WhyUs";
+import HowItWorks from "../components/HowItWorks";
+import WhyChooseUs from "../components/WhyChooseUs";
+import Testimonials from "../components/Testimonials";
 import Footer from "../components/Footer";
 
 const LandingPage: React.FC = () => {
@@ -37,6 +40,11 @@ const LandingPage: React.FC = () => {
           </motion.div>
         </div>
       </main>
+      
+      {/* Additional sections outside the main container */}
+      <HowItWorks />
+      <WhyChooseUs />
+      <Testimonials />
       <Footer />
     </motion.div>
   );

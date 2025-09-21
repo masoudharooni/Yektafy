@@ -1,5 +1,6 @@
 import React from 'react';
 import { MdFavorite, MdLocationOn, MdBed, MdBathroom, MdSquareFoot } from 'react-icons/md';
+import { Eye } from 'iconsax-react';
 import type { Property } from '../types';
 import { Button } from './ui/Button';
 
@@ -43,7 +44,12 @@ const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
         <div className="mt-auto pt-4 border-t border-gray-700">
           <div className="flex justify-between items-center">
             <p className="text-xl font-bold text-cyan-400">{price} تومان</p>
-            <Button variant="outline" size="sm" className="text-cyan-400 border-cyan-400 hover:bg-cyan-400 hover:text-white">
+            <Button 
+              variant="secondary" 
+              size="sm" 
+              className="bg-gray-700 hover:bg-gray-600 text-gray-200 hover:text-white border-gray-600 hover:border-gray-500 flex items-center gap-2 transition-all duration-200"
+            >
+              <Eye size={16} />
               مشاهده جزئیات
             </Button>
           </div>

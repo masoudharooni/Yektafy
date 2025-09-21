@@ -4,23 +4,23 @@ import MapComponent from './MapComponent';
 import type { MapPosition } from '../types';
 
 const Hero: React.FC = () => {
-  // Tehran coordinates as default
-  const tehranCenter: MapPosition = [35.6892, 51.3890];
+  // Isfahan coordinates as default
+  const isfahanCenter: MapPosition = [32.6539, 51.6660];
   
   const sampleMarkers = [
     {
-      position: [35.6892, 51.3890] as MapPosition,
-      title: 'تهران - مرکز شهر',
-      description: 'آپارتمان‌های لوکس در مرکز تهران'
+      position: [32.6539, 51.6660] as MapPosition,
+      title: 'اصفهان - مرکز شهر',
+      description: 'آپارتمان‌های لوکس در مرکز اصفهان'
     },
     {
-      position: [35.7448, 51.3753] as MapPosition,
-      title: 'شمال تهران',
+      position: [32.6639, 51.6760] as MapPosition,
+      title: 'شیخ‌بهایی',
       description: 'ویلاها و آپارتمان‌های مدرن'
     },
     {
-      position: [35.7153, 51.4168] as MapPosition,
-      title: 'غرب تهران',
+      position: [32.6439, 51.6560] as MapPosition,
+      title: 'چهارباغ',
       description: 'آپارتمان‌های مناسب قیمت'
     }
   ];
@@ -30,7 +30,7 @@ const Hero: React.FC = () => {
       {/* Map Background */}
       <div className="absolute inset-0 z-0">
         <MapComponent
-          center={tehranCenter}
+          center={isfahanCenter}
           zoom={11}
           markers={sampleMarkers}
           className="h-full"

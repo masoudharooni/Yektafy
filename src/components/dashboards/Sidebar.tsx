@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import type { MenuItem } from '../../types';
 import { toast } from 'sonner';
+import { Menu } from 'iconsax-react';
+import { Button } from '../ui/Button';
 import { 
   MdHome, 
   MdPeople, 
@@ -11,7 +13,6 @@ import {
   MdMail, 
   MdFavorite, 
   MdSearch,
-  MdArrowBack,
   MdKeyboardArrowDown
 } from 'react-icons/md';
 
@@ -96,12 +97,17 @@ const Sidebar: React.FC<SidebarProps> = ({ menuItems, isCollapsed, toggleCollaps
     return (
         <aside className={`bg-gray-900 border-r border-gray-700 h-screen flex-shrink-0 flex flex-col transition-all duration-300 overflow-hidden ${isCollapsed ? 'w-20' : 'w-64'}`}>
              <div className="flex items-center justify-center h-[73px] border-b border-gray-700 flex-shrink-0 px-3">
-                 <button onClick={toggleCollapse} className="p-2 rounded-lg text-gray-400 hover:bg-gray-700 transition-colors duration-200">
-                    <MdArrowBack 
-                        size={24} 
-                        className={`transition-transform duration-300 ${isCollapsed ? 'rotate-180' : ''}`}
-                    />
-                 </button>
+                 <Button
+                   onClick={toggleCollapse}
+                   variant="ghost"
+                   size="sm"
+                   className="p-2 text-gray-400 hover:text-gray-200 hover:bg-gray-700 transition-all duration-200"
+                 >
+                   <Menu 
+                     size={20} 
+                     className={`transition-transform duration-300 ${isCollapsed ? 'rotate-90' : ''}`}
+                   />
+                 </Button>
              </div>
              <div className="flex-1 px-3 py-4 overflow-y-auto">
                 <ul className="space-y-2 font-medium">

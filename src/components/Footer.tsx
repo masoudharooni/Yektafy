@@ -67,17 +67,17 @@ const Footer: React.FC = () => {
             {/* Social Media Icons */}
             <div className="flex gap-3">
               <SocialIcon 
-                icon={<Instagram size={20} />} 
+                icon={<Instagram size={20} className="text-current" />} 
                 href="#" 
                 label="اینستاگرام" 
               />
               <SocialIcon 
-                icon={<Send2 size={20} />} 
+                icon={<Send2 size={20} className="text-current" />} 
                 href="#" 
                 label="تلگرام" 
               />
               <SocialIcon 
-                icon={<UserSquare size={20} />} 
+                icon={<UserSquare size={20} className="text-current" />} 
                 href="#" 
                 label="لینکدین" 
               />

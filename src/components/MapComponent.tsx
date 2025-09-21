@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { Icon } from 'leaflet';
 import type { MapPosition } from '../types';
+import MapControls from './MapControls';
+import UserLocationMarker from './UserLocationMarker';
 
 // Fix for default markers in react-leaflet
 delete (Icon.Default.prototype as any)._getIconUrl;
@@ -20,14 +22,18 @@ interface MapComponentProps {
     description?: string;
   }>;
   className?: string;
+  showControls?: boolean;
 }
 
 const MapComponent: React.FC<MapComponentProps> = ({
   center,
   zoom = 13,
   markers = [],
-  className = ""
+  className = "",
+  showControls = true
 }) => {
+  const [userLocation] = useState<[number, number] | null>(null);
+
   return (
     <div className={`w-full h-full ${className}`}>
       <MapContainer
@@ -52,6 +58,14 @@ const MapComponent: React.FC<MapComponentProps> = ({
             </Popup>
           </Marker>
         ))}
+        
+        {/* User Location Marker */}
+        {userLocation && (
+          <UserLocationMarker position={userLocation} />
+        )}
+        
+        {/* Map Controls */}
+        {showControls && <MapControls />}
       </MapContainer>
     </div>
   );

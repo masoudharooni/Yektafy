@@ -1,38 +1,84 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from 'sonner';
 import { MdSearch, MdLocationOn } from 'react-icons/md';
+import { Location } from 'iconsax-react';
 import { Button } from './ui/Button';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from './ui/dialog';
+import { Dialog, DialogContent, DialogTrigger } from './ui/dialog';
+import { Command, CommandList, CommandItem } from './ui/command';
 import MapComponent from './MapComponent';
 import type { MapPosition } from '../types';
+import { useDebounce } from '../hooks/useDebounce';
+import { searchLocations, type Location as LocationData } from '../data/locations';
 
 const SearchBox: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'buy' | 'rent'>('buy');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState<LocationData[]>([]);
+  const [showResults, setShowResults] = useState(false);
+  const [selectedLocation, setSelectedLocation] = useState<LocationData | null>(null);
+  const searchRef = useRef<HTMLDivElement>(null);
+  
+  const debouncedQuery = useDebounce(searchQuery, 300);
 
-  // Tehran coordinates for map modal
-  const tehranCenter: MapPosition = [35.6892, 51.3890];
+  // Isfahan coordinates for map modal
+  const isfahanCenter: MapPosition = [32.6539, 51.6660];
   
   const sampleMarkers = [
     {
-      position: [35.6892, 51.3890] as MapPosition,
-      title: 'تهران - مرکز شهر',
-      description: 'آپارتمان‌های لوکس در مرکز تهران'
+      position: [32.6539, 51.6660] as MapPosition,
+      title: 'اصفهان - مرکز شهر',
+      description: 'آپارتمان‌های لوکس در مرکز اصفهان'
     },
     {
-      position: [35.7448, 51.3753] as MapPosition,
-      title: 'شمال تهران',
+      position: [32.6639, 51.6760] as MapPosition,
+      title: 'شیخ‌بهایی',
       description: 'ویلاها و آپارتمان‌های مدرن'
     },
     {
-      position: [35.7153, 51.4168] as MapPosition,
-      title: 'غرب تهران',
+      position: [32.6439, 51.6560] as MapPosition,
+      title: 'چهارباغ',
       description: 'آپارتمان‌های مناسب قیمت'
     }
   ];
 
+  // Search logic
+  useEffect(() => {
+    if (debouncedQuery.length > 1) {
+      const results = searchLocations(debouncedQuery);
+      setSearchResults(results);
+      setShowResults(true);
+    } else {
+      setSearchResults([]);
+      setShowResults(false);
+    }
+  }, [debouncedQuery]);
+
+  // Close results when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
+        setShowResults(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const handleLocationSelect = (location: LocationData) => {
+    setSelectedLocation(location);
+    setSearchQuery(location.name);
+    setShowResults(false);
+    toast.success(`موقعیت انتخاب شده: ${location.name}`);
+  };
+
   const handleSearchClick = () => {
-    toast.info('این بخش هنوز در دست توسعه است.');
+    if (selectedLocation) {
+      toast.success(`جستجو در ${selectedLocation.name} انجام شد.`);
+    } else {
+      toast.info('این بخش هنوز در دست توسعه است.');
+    }
   };
 
   const TabButton: React.FC<{ tab: 'buy' | 'rent'; label: string }> = ({ tab, label }) => (
@@ -58,13 +104,46 @@ const SearchBox: React.FC = () => {
         transition={{ duration: 0.3 }}
         className="grid grid-cols-1 md:grid-cols-3 gap-4"
       >
-        <div className="relative col-span-1 md:col-span-2">
+        <div className="relative col-span-1 md:col-span-2" ref={searchRef}>
           <input
             type="text"
             placeholder="شهر، منطقه یا محله مورد نظر را وارد کنید..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onFocus={() => searchQuery.length > 1 && setShowResults(true)}
             className="w-full bg-gray-800/50 border border-gray-600 rounded-lg py-3 px-4 ps-12 text-gray-100 placeholder-gray-400 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition-all outline-none"
           />
           <MdLocationOn size={24} className="absolute end-4 top-1/2 -translate-y-1/2 text-gray-400" />
+          
+          {/* Live Search Results */}
+          {showResults && searchResults.length > 0 && (
+            <div className="absolute top-full left-0 right-0 mt-1 bg-gray-800 border border-gray-600 rounded-lg shadow-xl z-50 max-h-64 overflow-y-auto">
+              <Command className="bg-transparent">
+                <CommandList>
+                  {searchResults.map((location) => (
+                    <CommandItem
+                      key={location.id}
+                      onSelect={() => handleLocationSelect(location)}
+                      className="flex items-center gap-3 px-4 py-3 hover:bg-gray-700 cursor-pointer"
+                    >
+                      <Location size={20} className="text-cyan-400 flex-shrink-0" />
+                      <div className="flex-1 min-w-0">
+                        <div className="text-gray-100 font-medium truncate">
+                          {location.name}
+                        </div>
+                        <div className="text-gray-400 text-sm truncate">
+                          {location.district}
+                        </div>
+                      </div>
+                      <span className="text-xs text-gray-500 bg-gray-700 px-2 py-1 rounded">
+                        {location.type === 'city' ? 'شهر' : location.type === 'district' ? 'منطقه' : 'محله'}
+                      </span>
+                    </CommandItem>
+                  ))}
+                </CommandList>
+              </Command>
+            </div>
+          )}
         </div>
         <div className="flex gap-2 col-span-1">
           <Button 
@@ -86,17 +165,17 @@ const SearchBox: React.FC = () => {
                 </svg>
               </Button>
             </DialogTrigger>
-            <DialogContent className="max-w-4xl h-[600px] bg-gray-900 border-gray-700">
-              <DialogHeader>
-                <DialogTitle className="text-white text-center">نقشه تهران - انتخاب موقعیت</DialogTitle>
-              </DialogHeader>
-              <div className="flex-1 rounded-lg overflow-hidden">
+            <DialogContent className="max-w-[95vw] w-full h-[95vh] max-h-[95vh] p-0 bg-gray-900 border-gray-700">
+              <div className="relative w-full h-full">
                 <MapComponent
-                  center={tehranCenter}
+                  center={isfahanCenter}
                   zoom={11}
                   markers={sampleMarkers}
-                  className="h-full"
+                  className="w-full h-full"
                 />
+                <div className="absolute top-4 left-1/2 transform -translate-x-1/2 bg-black/70 backdrop-blur-sm text-white px-4 py-2 rounded-lg text-sm">
+                  نقشه اصفهان - انتخاب موقعیت
+                </div>
               </div>
             </DialogContent>
           </Dialog>
@@ -112,13 +191,46 @@ const SearchBox: React.FC = () => {
         transition={{ duration: 0.3 }}
         className="grid grid-cols-1 md:grid-cols-3 gap-4"
       >
-        <div className="relative col-span-1 md:col-span-2">
+        <div className="relative col-span-1 md:col-span-2" ref={searchRef}>
           <input
             type="text"
             placeholder="محله مورد نظر برای اجاره را وارد کنید..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onFocus={() => searchQuery.length > 1 && setShowResults(true)}
             className="w-full bg-gray-800/50 border border-gray-600 rounded-lg py-3 px-4 ps-12 text-gray-100 placeholder-gray-400 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition-all outline-none"
           />
           <MdLocationOn size={24} className="absolute end-4 top-1/2 -translate-y-1/2 text-gray-400" />
+          
+          {/* Live Search Results */}
+          {showResults && searchResults.length > 0 && (
+            <div className="absolute top-full left-0 right-0 mt-1 bg-gray-800 border border-gray-600 rounded-lg shadow-xl z-50 max-h-64 overflow-y-auto">
+              <Command className="bg-transparent">
+                <CommandList>
+                  {searchResults.map((location) => (
+                    <CommandItem
+                      key={location.id}
+                      onSelect={() => handleLocationSelect(location)}
+                      className="flex items-center gap-3 px-4 py-3 hover:bg-gray-700 cursor-pointer"
+                    >
+                      <Location size={20} className="text-cyan-400 flex-shrink-0" />
+                      <div className="flex-1 min-w-0">
+                        <div className="text-gray-100 font-medium truncate">
+                          {location.name}
+                        </div>
+                        <div className="text-gray-400 text-sm truncate">
+                          {location.district}
+                        </div>
+                      </div>
+                      <span className="text-xs text-gray-500 bg-gray-700 px-2 py-1 rounded">
+                        {location.type === 'city' ? 'شهر' : location.type === 'district' ? 'منطقه' : 'محله'}
+                      </span>
+                    </CommandItem>
+                  ))}
+                </CommandList>
+              </Command>
+            </div>
+          )}
         </div>
         <div className="flex gap-2 col-span-1">
           <Button 
@@ -140,17 +252,17 @@ const SearchBox: React.FC = () => {
                 </svg>
               </Button>
             </DialogTrigger>
-            <DialogContent className="max-w-4xl h-[600px] bg-gray-900 border-gray-700">
-              <DialogHeader>
-                <DialogTitle className="text-white text-center">نقشه تهران - انتخاب موقعیت</DialogTitle>
-              </DialogHeader>
-              <div className="flex-1 rounded-lg overflow-hidden">
+            <DialogContent className="max-w-[95vw] w-full h-[95vh] max-h-[95vh] p-0 bg-gray-900 border-gray-700">
+              <div className="relative w-full h-full">
                 <MapComponent
-                  center={tehranCenter}
+                  center={isfahanCenter}
                   zoom={11}
                   markers={sampleMarkers}
-                  className="h-full"
+                  className="w-full h-full"
                 />
+                <div className="absolute top-4 left-1/2 transform -translate-x-1/2 bg-black/70 backdrop-blur-sm text-white px-4 py-2 rounded-lg text-sm">
+                  نقشه اصفهان - انتخاب موقعیت
+                </div>
               </div>
             </DialogContent>
           </Dialog>

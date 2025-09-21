@@ -34,10 +34,30 @@ const LoginLayout: React.FC = () => {
     >
       <div className="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
       
-      <div className="relative z-10 w-full max-w-md mx-auto">
-        <div className="bg-black/70 backdrop-blur-xl rounded-2xl shadow-2xl border border-gray-700/50 overflow-hidden">
-          <div className="p-8">
-            <div className="text-center mb-6">
+      <div className="relative z-10 w-full max-w-6xl mx-auto">
+        <div className="bg-black/70 backdrop-blur-xl rounded-2xl shadow-2xl border border-gray-700/50 overflow-hidden md:flex">
+          {/* Left Column - Image/Branding */}
+          <div className="hidden md:flex md:w-1/2 bg-gradient-to-br from-cyan-500/20 to-blue-600/20 relative">
+            <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 to-blue-600/10"></div>
+            <div className="relative z-10 flex flex-col items-center justify-center p-12 text-center">
+              <div className="mb-8">
+                <h1 className="text-6xl font-bold text-white mb-4">یکتافی</h1>
+                <p className="text-xl text-gray-200 mb-6">پلتفرم هوشمند املاک</p>
+                <div className="w-32 h-1 bg-gradient-to-r from-cyan-400 to-blue-500 mx-auto rounded-full"></div>
+              </div>
+              <div className="text-gray-300 space-y-4">
+                <p className="text-lg">🏠 هزاران ملک متنوع</p>
+                <p className="text-lg">🎯 جستجوی هوشمند</p>
+                <p className="text-lg">🤝 مشاوره تخصصی</p>
+                <p className="text-lg">🔒 امنیت کامل</p>
+              </div>
+            </div>
+          </div>
+          
+          {/* Right Column - Form */}
+          <div className="w-full md:w-1/2 p-8">
+            {/* Mobile Header */}
+            <div className="md:hidden text-center mb-6">
               <h1 
                 className="text-4xl font-bold text-gray-100 tracking-wider cursor-pointer"
                 onClick={() => navigate('/')}
@@ -71,16 +91,16 @@ const LoginLayout: React.FC = () => {
               <svg className="w-5 h-5" viewBox="0 0 48 48"><defs><path id="a" d="M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z"/></defs><clipPath id="b"><use xlinkHref="#a" overflow="visible"/></clipPath><path clipPath="url(#b)" fill="#FBBC05" d="M0 37V11l17 13z"/><path clipPath="url(#b)" fill="#EA4335" d="M0 11l17 13 7-6.1L48 14V0H0z"/><path clipPath="url(#b)" fill="#34A853" d="M0 37l30-23 7.9 1L48 0v48H0z"/><path clipPath="url(#b)" fill="#4285F4" d="M48 48L17 24l-4-3 35-10z"/></svg>
               <span>ورود با حساب گوگل</span>
             </button>
-          </div>
 
-          <div className="bg-black/20 py-4 text-center">
-            <button 
-              type="button"
-              onClick={() => navigate('/')}
-              className="text-gray-400 hover:text-cyan-500 text-sm transition"
-            >
-              &larr; بازگشت به صفحه اصلی
-            </button>
+            <div className="bg-black/20 py-4 text-center">
+              <button 
+                type="button"
+                onClick={() => navigate('/')}
+                className="text-gray-400 hover:text-cyan-500 text-sm transition"
+              >
+                &larr; بازگشت به صفحه اصلی
+              </button>
+            </div>
           </div>
         </div>
       </div>
