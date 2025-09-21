@@ -36,13 +36,13 @@ const SearchBox: React.FC = () => {
             <input
               type="text"
               placeholder="شهر، منطقه یا محله مورد نظر را وارد کنید..."
-              className="w-full bg-gray-800/50 border border-gray-600 rounded-lg py-3 px-4 pl-12 text-gray-100 placeholder-gray-400 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition-all outline-none"
+              className="w-full bg-gray-800/50 border border-gray-600 rounded-lg py-3 px-4 ps-12 text-gray-100 placeholder-gray-400 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition-all outline-none"
             />
-            <MdLocationOn size={24} className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400" />
+            <MdLocationOn size={24} className="absolute end-4 top-1/2 -translate-y-1/2 text-gray-400" />
           </div>
           <Button 
             onClick={handleSearchClick} 
-            className="w-full col-span-1 bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-3 px-6 rounded-lg shadow-lg shadow-cyan-500/30 transition-all duration-300 transform hover:scale-105 flex items-center justify-center space-x-2 space-x-reverse"
+            className="w-full col-span-1 bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-3 px-6 rounded-lg shadow-lg shadow-cyan-500/30 transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2"
           >
             <MdSearch size={24} />
             <span>جستجو</span>

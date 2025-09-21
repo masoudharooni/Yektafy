@@ -28,10 +28,10 @@ const Footer: React.FC = () => {
   return (
     <footer className="bg-gray-800 border-t border-gray-700 py-12">
       <div className="container mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center md:text-right">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center md:text-end">
           <div className="col-span-1 md:col-span-2">
             <h3 className="text-2xl font-bold text-gray-100">یکتافی</h3>
-            <p className="text-gray-400 mt-4 max-w-md mx-auto md:mx-0 leading-relaxed">
+            <p className="text-gray-400 mt-4 max-w-md mx-auto md:ms-0 leading-relaxed">
               پلتفرم هوشمند خرید، فروش و سرمایه‌گذاری ملکی. با یکتافی، خانه‌دار
               شدن رویا نیست.
             </p>
@@ -53,7 +53,7 @@ const Footer: React.FC = () => {
             <h4 className="text-lg font-semibold text-gray-100 mb-4">
               ما را دنبال کنید
             </h4>
-            <div className="flex justify-center md:justify-start space-x-4 space-x-reverse">
+            <div className="flex justify-center md:justify-start gap-4">
               <a
                 href="#"
                 onClick={handlePlaceholderClick}

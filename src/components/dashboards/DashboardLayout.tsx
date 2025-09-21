@@ -45,11 +45,11 @@ const DashboardHeader: React.FC = () => {
              <h1 className="text-3xl font-bold text-gray-100 tracking-wider cursor-pointer" onClick={() => navigate('/')}>
                 یکتافی
               </h1>
-              <div className="flex items-center space-x-4 space-x-reverse">
+              <div className="flex items-center gap-4">
                 <div className="relative" ref={dropdownRef}>
                   <button
                     onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                    className="flex items-center space-x-2 space-x-reverse text-gray-200 hover:text-cyan-400 transition-colors duration-200"
+                    className="flex items-center gap-2 text-gray-200 hover:text-cyan-400 transition-colors duration-200"
                     aria-haspopup="true"
                     aria-expanded={isDropdownOpen}
                   >
@@ -61,14 +61,14 @@ const DashboardHeader: React.FC = () => {
                   </button>
                   
                   {isDropdownOpen && (
-                    <div className="absolute left-0 mt-2 w-48 bg-gray-800 border border-gray-700 rounded-lg shadow-lg py-1 z-50">
-                      <a href="#" onClick={handleProfileClick} className="block w-full text-right px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white transition-colors duration-200">
+                    <div className="absolute start-0 mt-2 w-48 bg-gray-800 border border-gray-700 rounded-lg shadow-lg py-1 z-50">
+                      <a href="#" onClick={handleProfileClick} className="block w-full text-end px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white transition-colors duration-200">
                         پروفایل
                       </a>
                       <div className="my-1 border-t border-gray-700"></div>
                       <button
                         onClick={handleLogout}
-                        className="w-full text-right block px-4 py-2 text-sm text-red-500 hover:bg-gray-700 hover:text-red-400 transition-colors duration-200"
+                        className="w-full text-end block px-4 py-2 text-sm text-red-500 hover:bg-gray-700 hover:text-red-400 transition-colors duration-200"
                       >
                         خروج از سیستم
                       </button>

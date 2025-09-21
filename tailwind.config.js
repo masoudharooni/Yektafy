@@ -6,6 +6,17 @@ export default {
   ],
   theme: {
     extend: {
+      // Persian font configuration for RTL support - Using local IRANSansX fonts
+      fontFamily: {
+        // Main Persian font family
+        'sans': ['IRANSansX', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        // Persian font with alternative dot styles
+        'persian': ['IRANSansX', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        'persian-dot4': ['IRANSansXDot4', 'IRANSansX', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        // Specific font families for different use cases
+        'iransans': ['IRANSansX', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        'iransans-dot4': ['IRANSansXDot4', 'IRANSansX', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

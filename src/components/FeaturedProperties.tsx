@@ -29,17 +29,17 @@ const FeaturedProperties: React.FC = () => {
             }}
             className="w-full"
           >
-            <CarouselContent className="-ml-2 md:-ml-4">
+            <CarouselContent className="-ms-2 md:-ms-4">
               {FEATURED_PROPERTIES.map((property) => (
-                <CarouselItem key={property.id} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3 xl:basis-1/4">
+                <CarouselItem key={property.id} className="ps-2 md:ps-4 md:basis-1/2 lg:basis-1/3 xl:basis-1/4">
                   <div className="p-1">
                     <PropertyCard property={property} />
                   </div>
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious className="hidden md:flex -right-12" />
-            <CarouselNext className="hidden md:flex -left-12" />
+            <CarouselPrevious className="hidden md:flex -end-12" />
+            <CarouselNext className="hidden md:flex -start-12" />
           </Carousel>
         </div>
       </div>
