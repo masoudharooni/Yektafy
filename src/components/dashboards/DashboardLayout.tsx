@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import type { ReactNode } from 'react';
+import { motion } from 'framer-motion';
 import Sidebar from './Sidebar';
 import type { MenuItem } from '../../types';
 import { authService } from '../../services/auth';
@@ -90,7 +91,12 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ menuItems, children }
     const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
 
     return (
-        <div className="min-h-screen bg-[#0D1117] flex flex-row overflow-hidden">
+        <motion.div 
+            className="min-h-screen bg-[#0D1117] flex flex-row overflow-hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+        >
             <Sidebar 
               menuItems={menuItems} 
               isCollapsed={isSidebarCollapsed} 
@@ -100,12 +106,17 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ menuItems, children }
             <div className="flex-1 flex flex-col transition-all duration-300 min-w-0">
                 <DashboardHeader />
                 <main className="flex-1 overflow-y-auto overflow-x-hidden">
-                    <div className="container mx-auto px-6 py-12 max-w-full">
+                    <motion.div 
+                        className="container mx-auto px-6 py-12 max-w-full"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: 0.2 }}
+                    >
                          {children}
-                    </div>
+                    </motion.div>
                 </main>
             </div>
-        </div>
+        </motion.div>
     )
 }
 

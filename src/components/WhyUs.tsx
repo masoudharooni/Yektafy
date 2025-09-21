@@ -12,7 +12,7 @@ const ICONS: { [key: string]: React.ReactNode } = {
 const WhyUs: React.FC = () => {
   return (
     <section className="bg-gray-900 py-20">
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto">
         <div className="text-center mb-12">
           <h2 className="text-4xl font-bold text-gray-100 mb-4">چرا یکتافی؟</h2>
           <p className="text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed">

@@ -40,3 +40,5 @@ export interface WhyUsItem {
   description: string;
   icon: string;
 }
+
+export type MapPosition = [number, number];
