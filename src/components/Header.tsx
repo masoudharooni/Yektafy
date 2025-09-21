@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { NAV_LINKS } from '../constants';
 import { useAppContext } from '../contexts/AppContext';
-import { useShowToast } from '../contexts/ToastContext';
+import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 import { Button } from './ui/Button';
@@ -12,11 +12,10 @@ const Header: React.FC = () => {
   const navigate = useNavigate();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const showToast = useShowToast();
 
   const handlePlaceholderClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    showToast('این بخش هنوز توسعه داده نشده است.');
+    toast.info('این بخش هنوز در دست توسعه است.');
   };
 
   useEffect(() => {

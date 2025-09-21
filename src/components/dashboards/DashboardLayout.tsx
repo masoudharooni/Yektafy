@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 import Sidebar from './Sidebar';
 import type { MenuItem } from '../../types';
 import { useAppContext } from '../../contexts/AppContext';
-import { useShowToast } from '../../contexts/ToastContext';
+import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 
@@ -12,7 +12,6 @@ const DashboardHeader: React.FC = () => {
     const navigate = useNavigate();
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
-    const showToast = useShowToast();
   
     const handleLogout = () => {
       setIsDropdownOpen(false);
@@ -35,7 +34,7 @@ const DashboardHeader: React.FC = () => {
 
     const handleProfileClick = (e: React.MouseEvent) => {
       e.preventDefault();
-      showToast('این بخش هنوز توسعه داده نشده است.');
+      toast.info('این بخش هنوز در دست توسعه است.');
     }
   
     return (
@@ -91,16 +90,17 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ menuItems, children }
     const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
 
     return (
-        <div className="min-h-screen bg-[#0D1117] flex flex-row">
+        <div className="min-h-screen bg-[#0D1117] flex flex-row overflow-hidden">
             <Sidebar 
               menuItems={menuItems} 
               isCollapsed={isSidebarCollapsed} 
               toggleCollapse={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
             />
-            <div className={`flex-1 flex flex-col transition-all duration-300 ${isSidebarCollapsed ? 'max-w-[calc(100%-5rem)]' : 'max-w-[calc(100%-16rem)]'}`}>
+            {/* Fixed width calculation to prevent overflow */}
+            <div className={`flex-1 flex flex-col transition-all duration-300 min-w-0 ${isSidebarCollapsed ? 'ml-20' : 'ml-64'}`}>
                 <DashboardHeader />
-                <main className="flex-1 overflow-y-auto">
-                    <div className="container mx-auto px-6 py-12">
+                <main className="flex-1 overflow-y-auto overflow-x-hidden">
+                    <div className="container mx-auto px-6 py-12 max-w-full">
                          {children}
                     </div>
                 </main>

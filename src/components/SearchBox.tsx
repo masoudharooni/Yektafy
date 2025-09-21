@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
-import { useShowToast } from '../contexts/ToastContext';
+import { toast } from 'sonner';
 import { MdSearch, MdLocationOn } from 'react-icons/md';
 import { Button } from './ui/Button';
 
 const SearchBox: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'buy' | 'rent'>('buy');
-  const showToast = useShowToast();
 
   const handleSearchClick = () => {
-    showToast('این بخش هنوز توسعه داده نشده است.');
+    toast.info('این بخش هنوز در دست توسعه است.');
   };
 
   const TabButton: React.FC<{ tab: 'buy' | 'rent'; label: string }> = ({ tab, label }) => (

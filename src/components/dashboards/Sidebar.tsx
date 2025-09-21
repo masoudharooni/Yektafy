@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import type { MenuItem } from '../../types';
-import { useShowToast } from '../../contexts/ToastContext';
+import { toast } from 'sonner';
 import { 
   MdHome, 
   MdPeople, 
@@ -35,7 +35,6 @@ interface SidebarMenuItemProps {
 
 const SidebarMenuItem: React.FC<SidebarMenuItemProps> = ({ item, isCollapsed }) => {
     const [isOpen, setIsOpen] = useState(false);
-    const showToast = useShowToast();
 
     const handleClick = (e: React.MouseEvent) => {
         if(item.children) {
@@ -43,7 +42,7 @@ const SidebarMenuItem: React.FC<SidebarMenuItemProps> = ({ item, isCollapsed }) 
             setIsOpen(!isOpen);
         } else if (item.href === '#') {
             e.preventDefault();
-            showToast('این بخش هنوز توسعه داده نشده است.');
+            toast.info('این بخش هنوز در دست توسعه است.');
         }
     };
     
@@ -87,7 +86,7 @@ interface SidebarProps {
 
 const Sidebar: React.FC<SidebarProps> = ({ menuItems, isCollapsed, toggleCollapse }) => {
     return (
-        <aside className={`bg-gray-900 border-r border-gray-700 h-screen flex-shrink-0 flex flex-col transition-all duration-300 ${isCollapsed ? 'w-20' : 'w-64'}`}>
+        <aside className={`bg-gray-900 border-r border-gray-700 h-screen flex-shrink-0 flex flex-col transition-all duration-300 ${isCollapsed ? 'w-20' : 'w-64'} fixed start-0 top-0 z-40`}>
              <div className="flex items-center justify-center h-[73px] border-b border-gray-700 flex-shrink-0 px-3">
                  <button onClick={toggleCollapse} className="p-2 rounded-lg text-gray-400 hover:bg-gray-700 transition-colors duration-200">
                     <MdArrowBack 

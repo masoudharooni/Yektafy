@@ -11,8 +11,8 @@ import {
 
 const FeaturedProperties: React.FC = () => {
   return (
-    <section className="bg-gray-800 py-20">
-      <div className="container mx-auto px-6">
+    <section className="bg-gray-800 py-20 overflow-hidden">
+      <div className="container mx-auto px-6 max-w-full">
         <div className="text-center mb-12">
           <h2 className="text-4xl font-bold text-gray-100 mb-4">آگهی‌های ویژه</h2>
           <p className="text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed">
@@ -26,12 +26,14 @@ const FeaturedProperties: React.FC = () => {
             opts={{
               align: "start",
               loop: true,
+              slidesToScroll: 1,
+              containScroll: "trimSnaps",
             }}
             className="w-full"
           >
             <CarouselContent className="-ms-2 md:-ms-4">
               {FEATURED_PROPERTIES.map((property) => (
-                <CarouselItem key={property.id} className="ps-2 md:ps-4 md:basis-1/2 lg:basis-1/3 xl:basis-1/4">
+                <CarouselItem key={property.id} className="ps-2 md:ps-4 basis-full md:basis-1/2 lg:basis-1/3 xl:basis-1/4">
                   <div className="p-1">
                     <PropertyCard property={property} />
                   </div>

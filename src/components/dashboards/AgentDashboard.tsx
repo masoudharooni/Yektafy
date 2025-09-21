@@ -1,10 +1,9 @@
 import React from 'react';
-import { useShowToast } from '../../contexts/ToastContext';
+import { toast } from 'sonner';
 
 const AgentActionCard: React.FC<{ title: string; description: string; buttonText: string }> = ({ title, description, buttonText }) => {
-    const showToast = useShowToast();
     const handleClick = () => {
-        showToast('این بخش هنوز توسعه داده نشده است.');
+        toast.info('این بخش هنوز در دست توسعه است.');
     };
     return (
         <div className="bg-gray-800 border border-gray-700 p-6 rounded-xl flex flex-col justify-between">

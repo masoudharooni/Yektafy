@@ -1,14 +1,13 @@
 import React from "react";
-import { useShowToast } from "../contexts/ToastContext";
+import { toast } from 'sonner';
 import { MdFacebook } from "react-icons/md";
 import { FaInstagram, FaLinkedin } from "react-icons/fa";
 
 const Footer: React.FC = () => {
-  const showToast = useShowToast();
 
   const handlePlaceholderClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    showToast("این بخش هنوز توسعه داده نشده است.");
+    toast.info('این بخش هنوز در دست توسعه است.');
   };
 
   const FooterLink: React.FC<{ children: React.ReactNode }> = ({

@@ -3,7 +3,7 @@ import SearchBox from './SearchBox';
 
 const Hero: React.FC = () => {
   return (
-    <section className="relative h-screen w-full flex items-center justify-center">
+    <section className="relative min-h-screen w-full flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0 z-0">
         {/* Background gradient */}
         <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900"></div>
