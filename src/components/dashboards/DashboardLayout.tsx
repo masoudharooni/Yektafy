@@ -2,20 +2,20 @@ import React, { useState, useEffect, useRef } from 'react';
 import type { ReactNode } from 'react';
 import Sidebar from './Sidebar';
 import type { MenuItem } from '../../types';
-import { useAppContext } from '../../contexts/AppContext';
+import { authService } from '../../services/auth';
 import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 
 const DashboardHeader: React.FC = () => {
-    const { user, logout } = useAppContext();
+    const user = authService.getCurrentUser();
     const navigate = useNavigate();
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
   
     const handleLogout = () => {
       setIsDropdownOpen(false);
-      logout();
+      authService.logout();
       navigate('/');
     };
   
@@ -96,8 +96,8 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ menuItems, children }
               isCollapsed={isSidebarCollapsed} 
               toggleCollapse={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
             />
-            {/* Fixed width calculation to prevent overflow */}
-            <div className={`flex-1 flex flex-col transition-all duration-300 min-w-0 ${isSidebarCollapsed ? 'ml-20' : 'ml-64'}`}>
+            {/* Main content area that adapts to sidebar width */}
+            <div className="flex-1 flex flex-col transition-all duration-300 min-w-0">
                 <DashboardHeader />
                 <main className="flex-1 overflow-y-auto overflow-x-hidden">
                     <div className="container mx-auto px-6 py-12 max-w-full">

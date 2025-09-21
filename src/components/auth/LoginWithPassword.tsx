@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { useAppContext } from '../../contexts/AppContext';
+import { authService } from '../../services/auth';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 
 const LoginWithPassword: React.FC = () => {
-  const { login } = useAppContext();
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -14,7 +13,7 @@ const LoginWithPassword: React.FC = () => {
     e.preventDefault();
     setError('');
     
-    const success = login(username, password);
+    const success = authService.login(username, password);
     if (success) {
       toast.success('ورود موفقیت‌آمیز بود!');
       navigate('/dashboard');

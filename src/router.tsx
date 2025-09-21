@@ -5,12 +5,15 @@ import DashboardPage from './pages/DashboardPage';
 import LoginLayout from './components/layouts/LoginLayout';
 import LoginWithPassword from './components/auth/LoginWithPassword';
 import LoginWithSms from './components/auth/LoginWithSms';
+import NotFoundPage from './pages/NotFoundPage';
+import ErrorBoundaryPage from './pages/ErrorBoundaryPage';
 
 // Centralized routing configuration using React Router v6
 export const router = createBrowserRouter([
   {
     path: '/',
     element: <RootLayout />,
+    errorElement: <ErrorBoundaryPage />,
     children: [
       {
         index: true,
@@ -37,6 +40,10 @@ export const router = createBrowserRouter([
             element: <LoginWithSms />,
           },
         ],
+      },
+      {
+        path: '*',
+        element: <NotFoundPage />,
       },
     ],
   },

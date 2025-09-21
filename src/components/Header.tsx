@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { NAV_LINKS } from '../constants';
-import { useAppContext } from '../contexts/AppContext';
+import { authService } from '../services/auth';
 import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
 import { MdKeyboardArrowDown } from 'react-icons/md';
@@ -8,7 +8,7 @@ import { Button } from './ui/Button';
 
 const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const { user, logout } = useAppContext();
+  const user = authService.getCurrentUser();
   const navigate = useNavigate();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -40,7 +40,7 @@ const Header: React.FC = () => {
 
   const handleLogout = () => {
     setIsDropdownOpen(false);
-    logout();
+    authService.logout();
     navigate('/');
   };
 

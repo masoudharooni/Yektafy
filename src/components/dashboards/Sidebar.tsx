@@ -54,7 +54,7 @@ const SidebarMenuItem: React.FC<SidebarMenuItemProps> = ({ item, isCollapsed }) 
                 className={`flex items-center p-3 text-gray-300 rounded-lg hover:bg-gray-700 transition-colors duration-200 ${isCollapsed ? 'justify-center' : ''}`}
             >
                 {ICONS[item.icon || 'Home']}
-                <span className={`me-3 flex-1 whitespace-nowrap transition-all duration-300 ${isCollapsed ? 'opacity-0 w-0' : 'opacity-100'}`}>{item.label}</span>
+                <span className={`me-3 flex-1 whitespace-nowrap transition-all duration-300 ${isCollapsed ? 'hidden' : 'block'}`}>{item.label}</span>
                 {item.children && !isCollapsed && (
                      <MdKeyboardArrowDown 
                         size={16} 
@@ -74,6 +74,14 @@ const SidebarMenuItem: React.FC<SidebarMenuItemProps> = ({ item, isCollapsed }) 
                     </ul>
                 </div>
             )}
+            {/* Hide submenu completely when collapsed */}
+            {isCollapsed && item.children && (
+                <div className="hidden">
+                    <ul>
+                        {item.children.map(child => <SidebarMenuItem key={child.label} item={child} isCollapsed={isCollapsed} />)}
+                    </ul>
+                </div>
+            )}
         </li>
     )
 }
@@ -86,7 +94,7 @@ interface SidebarProps {
 
 const Sidebar: React.FC<SidebarProps> = ({ menuItems, isCollapsed, toggleCollapse }) => {
     return (
-        <aside className={`bg-gray-900 border-r border-gray-700 h-screen flex-shrink-0 flex flex-col transition-all duration-300 ${isCollapsed ? 'w-20' : 'w-64'} fixed start-0 top-0 z-40`}>
+        <aside className={`bg-gray-900 border-r border-gray-700 h-screen flex-shrink-0 flex flex-col transition-all duration-300 overflow-hidden ${isCollapsed ? 'w-20' : 'w-64'}`}>
              <div className="flex items-center justify-center h-[73px] border-b border-gray-700 flex-shrink-0 px-3">
                  <button onClick={toggleCollapse} className="p-2 rounded-lg text-gray-400 hover:bg-gray-700 transition-colors duration-200">
                     <MdArrowBack 

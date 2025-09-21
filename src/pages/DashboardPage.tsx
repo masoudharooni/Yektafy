@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useAppContext } from '../contexts/AppContext';
+import { authService } from '../services/auth';
 import { useNavigate } from 'react-router-dom';
 import AdminDashboard from '../components/dashboards/AdminDashboard';
 import AgentDashboard from '../components/dashboards/AgentDashboard';
@@ -9,7 +9,7 @@ import { ADMIN_MENU, AGENT_MENU, CUSTOMER_MENU } from '../constants';
 import type { MenuItem } from '../types';
 
 const DashboardPage: React.FC = () => {
-  const { user } = useAppContext();
+  const user = authService.getCurrentUser();
   const navigate = useNavigate();
 
   useEffect(() => {
