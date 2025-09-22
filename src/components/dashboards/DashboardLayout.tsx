@@ -1,42 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
-import type { ReactNode } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useNavigate, Outlet } from 'react-router-dom';
 import Sidebar from './Sidebar';
-import type { MenuItem } from '../../types';
-import { authService } from '../../services/auth';
-import { toast } from 'sonner';
-import { useNavigate } from 'react-router-dom';
-import { ArrowDown2 } from 'iconsax-react';
 
 const DashboardHeader: React.FC = () => {
-  const user = authService.getCurrentUser();
   const navigate = useNavigate();
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
-
-  const handleLogout = () => {
-    setIsDropdownOpen(false);
-    authService.logout();
-    navigate('/');
-  };
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsDropdownOpen(false);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
-
-  const handleProfileClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    toast.info('این بخش هنوز در دست توسعه است.');
-  }
 
   return (
     <header className="bg-gray-900/80 backdrop-blur-lg border-b border-gray-700 flex-shrink-0 h-[73px]">
@@ -45,48 +13,18 @@ const DashboardHeader: React.FC = () => {
           یکتافی
         </h1>
         <div className="flex items-center gap-4">
-          <div className="relative" ref={dropdownRef}>
-            <button
-              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-              className="flex items-center gap-2 text-gray-200 hover:text-cyan-400 transition-colors duration-200"
-              aria-haspopup="true"
-              aria-expanded={isDropdownOpen}
-            >
-              <span>{user?.name}</span>
-              <ArrowDown2
-                size={16}
-                color="#d1d5db"
-                className={`transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`}
-              />
-            </button>
-
-            {isDropdownOpen && (
-              <div className="absolute start-0 mt-2 w-48 bg-gray-800 border border-gray-700 rounded-lg shadow-lg py-1 z-50">
-                <a href="#" onClick={handleProfileClick} className="block w-full text-end px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white transition-colors duration-200">
-                  پروفایل
-                </a>
-                <div className="my-1 border-t border-gray-700"></div>
-                <button
-                  onClick={handleLogout}
-                  className="w-full text-end block px-4 py-2 text-sm text-red-500 hover:bg-gray-700 hover:text-red-400 transition-colors duration-200"
-                >
-                  خروج از سیستم
-                </button>
-              </div>
-            )}
-          </div>
+          <span className="text-gray-200">کاربر نمایشی</span>
         </div>
       </div>
     </header>
-    );
-  };
+  );
+};
 
 interface DashboardLayoutProps {
-  menuItems: MenuItem[];
-  children: ReactNode;
+  role: 'ADMIN' | 'AGENT' | 'CUSTOMER';
 }
 
-const DashboardLayout: React.FC<DashboardLayoutProps> = ({ menuItems, children }) => {
+const DashboardLayout: React.FC<DashboardLayoutProps> = ({ role }) => {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
 
   return (
@@ -97,7 +35,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ menuItems, children }
       transition={{ duration: 0.5 }}
     >
       <Sidebar
-        menuItems={menuItems}
+        role={role}
         isCollapsed={isSidebarCollapsed}
         toggleCollapse={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
       />
@@ -111,7 +49,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ menuItems, children }
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            {children}
+            <Outlet />
           </motion.div>
         </main>
       </div>

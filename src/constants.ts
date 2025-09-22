@@ -87,6 +87,107 @@ export const CUSTOMER_MENU: MenuItem[] = [
   }
 ];
 
+// Centralized navigation links for role-based sidebar with nested structure
+export const SIDEBAR_LINKS = {
+  ADMIN: [
+    {
+      id: 'dashboard',
+      label: 'داشبورد',
+      icon: 'Home',
+      href: '/dashboard'
+    },
+    {
+      id: 'user-management',
+      label: 'مدیریت کاربران',
+      icon: 'Users',
+      children: [
+        {
+          id: 'admins',
+          label: 'مدیران',
+          icon: 'Shield',
+          href: '/dashboard/admins'
+        },
+        {
+          id: 'agents',
+          label: 'مشاوران',
+          icon: 'Briefcase',
+          href: '/dashboard/agents'
+        },
+        {
+          id: 'customers',
+          label: 'مشتریان',
+          icon: 'Profile2User',
+          href: '/dashboard/customers'
+        }
+      ]
+    },
+    {
+      id: 'listings',
+      label: 'مدیریت آگهی‌ها',
+      icon: 'Shield',
+      href: '/dashboard/listings'
+    },
+    {
+      id: 'settings',
+      label: 'تنظیمات',
+      icon: 'Clipboard',
+      href: '/dashboard/settings'
+    }
+  ],
+  AGENT: [
+    {
+      id: 'dashboard',
+      label: 'داشبورد',
+      icon: 'Home',
+      href: '/dashboard'
+    },
+    {
+      id: 'properties',
+      label: 'آگهی‌های من',
+      icon: 'Shield',
+      href: '/dashboard/listings'
+    },
+    {
+      id: 'customers',
+      label: 'مشتریان',
+      icon: 'Users',
+      href: '/dashboard/customers'
+    },
+    {
+      id: 'messages',
+      label: 'پیام‌ها',
+      icon: 'Mail',
+      href: '/dashboard/messages'
+    }
+  ],
+  CUSTOMER: [
+    {
+      id: 'dashboard',
+      label: 'داشبورد',
+      icon: 'Home',
+      href: '/dashboard'
+    },
+    {
+      id: 'favorites',
+      label: 'علاقه‌مندی‌ها',
+      icon: 'Heart',
+      href: '/dashboard/favorites'
+    },
+    {
+      id: 'searches',
+      label: 'جستجوهای من',
+      icon: 'Search',
+      href: '/dashboard/searches'
+    },
+    {
+      id: 'profile',
+      label: 'پروفایل',
+      icon: 'User',
+      href: '/dashboard/profile'
+    }
+  ]
+};
+
 export const NAV_LINKS = [
   { name: 'خرید ملک', href: '#' },
   { name: 'فروش ملک', href: '#' },

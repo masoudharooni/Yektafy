@@ -67,17 +67,17 @@ const Footer: React.FC = () => {
             {/* Social Media Icons */}
             <div className="flex gap-3">
               <SocialIcon 
-                icon={<Instagram size={20} className="text-current" />} 
+                icon={<Instagram size={20} color="#9ca3af" />} 
                 href="#" 
                 label="اینستاگرام" 
               />
               <SocialIcon 
-                icon={<Send2 size={20} className="text-current" />} 
+                icon={<Send2 size={20} color="#9ca3af" />} 
                 href="#" 
                 label="تلگرام" 
               />
               <SocialIcon 
-                icon={<UserSquare size={20} className="text-current" />} 
+                icon={<UserSquare size={20} color="#9ca3af" />} 
                 href="#" 
                 label="لینکدین" 
               />
@@ -95,7 +95,7 @@ const Footer: React.FC = () => {
                 <Home2 size={16} />
                 صفحه اصلی
               </FooterLink>
-              <FooterLink onClick={() => toast.info('داشبورد در دست توسعه است.')}>
+              <FooterLink href="/dashboard">
                 <User size={16} />
                 داشبورد
               </FooterLink>

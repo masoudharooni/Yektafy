@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useMap } from 'react-leaflet';
+import { toast } from 'sonner';
 import { Add, Minus, Location } from 'iconsax-react';
 
 const MapControls: React.FC = () => {
@@ -16,27 +17,64 @@ const MapControls: React.FC = () => {
 
   const handleMyLocation = () => {
     if (!navigator.geolocation) {
-      alert('موقعیت جغرافیایی در این مرورگر پشتیبانی نمی‌شود');
+      toast.error('موقعیت جغرافیایی در این مرورگر پشتیبانی نمی‌شود');
       return;
     }
 
     setIsLocating(true);
+
+    // Step 1: Fast attempt with low accuracy
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const { latitude, longitude } = position.coords;
         const location: [number, number] = [latitude, longitude];
         map.flyTo(location, 15, { duration: 2 });
         setIsLocating(false);
+        toast.success('موقعیت شما با موفقیت پیدا شد');
       },
       (error) => {
-        console.error('خطا در دریافت موقعیت:', error);
-        setIsLocating(false);
-        alert('خطا در دریافت موقعیت جغرافیایی');
+        console.warn('Fast geolocation attempt failed:', error);
+        
+        // Step 2: Accurate attempt with high accuracy
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const { latitude, longitude } = position.coords;
+            const location: [number, number] = [latitude, longitude];
+            map.flyTo(location, 15, { duration: 2 });
+            setIsLocating(false);
+            toast.success('موقعیت دقیق شما پیدا شد');
+          },
+          (error) => {
+            console.error('Accurate geolocation attempt failed:', error);
+            setIsLocating(false);
+            
+            // User-friendly error messages based on error codes
+            switch (error.code) {
+              case error.PERMISSION_DENIED:
+                toast.error('دسترسی به موقعیت جغرافیایی رد شد. لطفاً در تنظیمات مرورگر اجازه دسترسی را فعال کنید');
+                break;
+              case error.POSITION_UNAVAILABLE:
+                toast.error('موقعیت جغرافیایی در دسترس نیست. لطفاً اتصال اینترنت خود را بررسی کنید');
+                break;
+              case error.TIMEOUT:
+                toast.error('دریافت موقعیت جغرافیایی زمان زیادی طول کشید. لطفاً دوباره تلاش کنید');
+                break;
+              default:
+                toast.error('خطا در دریافت موقعیت جغرافیایی. لطفاً دوباره تلاش کنید');
+                break;
+            }
+          },
+          {
+            enableHighAccuracy: true,
+            timeout: 15000,
+            maximumAge: 0,
+          }
+        );
       },
       {
-        enableHighAccuracy: true,
-        timeout: 10000,
-        maximumAge: 60000,
+        enableHighAccuracy: false,
+        timeout: 5000,
+        maximumAge: 300000,
       }
     );
   };
@@ -49,7 +87,7 @@ const MapControls: React.FC = () => {
         className="w-10 h-10 bg-white hover:bg-gray-100 border border-gray-300 rounded-lg shadow-lg flex items-center justify-center transition-colors duration-200"
         title="بزرگنمایی"
       >
-        <Add size={20} className="text-gray-700" />
+        <Add size={20} color="#374151" />
       </button>
 
       {/* Zoom Out Button */}
@@ -58,7 +96,7 @@ const MapControls: React.FC = () => {
         className="w-10 h-10 bg-white hover:bg-gray-100 border border-gray-300 rounded-lg shadow-lg flex items-center justify-center transition-colors duration-200"
         title="کوچکنمایی"
       >
-        <Minus size={20} className="text-gray-700" />
+        <Minus size={20} color="#374151" />
       </button>
 
       {/* My Location Button */}
@@ -70,6 +108,7 @@ const MapControls: React.FC = () => {
       >
         <Location 
           size={20} 
+          color="white"
           className={`text-white ${isLocating ? 'animate-spin' : ''}`} 
         />
       </button>

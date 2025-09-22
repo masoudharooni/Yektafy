@@ -9,21 +9,13 @@ import ErrorBoundaryPage from './pages/ErrorBoundaryPage';
 import LoginLayout from './components/layouts/LoginLayout';
 import LoginWithSms from './components/auth/LoginWithSms';
 
-// Admin Pages
-import AdminUsersPage from './pages/dashboard/AdminUsersPage';
-import AdminPropertiesPage from './pages/dashboard/AdminPropertiesPage';
-import AdminAgentsPage from './pages/dashboard/AdminAgentsPage';
-import AdminReportsPage from './pages/dashboard/AdminReportsPage';
-
-// Agent Pages
-import AgentPropertiesPage from './pages/dashboard/AgentPropertiesPage';
-import AgentCustomersPage from './pages/dashboard/AgentCustomersPage';
-import AgentMessagesPage from './pages/dashboard/AgentMessagesPage';
-
-// Customer Pages
-import CustomerFavoritesPage from './pages/dashboard/CustomerFavoritesPage';
-import CustomerSearchesPage from './pages/dashboard/CustomerSearchesPage';
-import CustomerProfilePage from './pages/dashboard/CustomerProfilePage';
+// Dashboard Pages
+import DashboardHome from './pages/dashboard/DashboardHome';
+import AdminsPage from './pages/dashboard/AdminsPage';
+import AgentsPage from './pages/dashboard/AgentsPage';
+import CustomersPage from './pages/dashboard/CustomersPage';
+import ListingsPage from './pages/dashboard/ListingsPage';
+import SettingsPage from './pages/dashboard/SettingsPage';
 
 // Centralized routing configuration using React Router v6
 export const router = createBrowserRouter([
@@ -36,25 +28,36 @@ export const router = createBrowserRouter([
         index: true,
         element: <LandingPage />,
       },
-            {
-              path: 'dashboard',
-              element: <DashboardPage />,
-              children: [
-                // Admin Routes
-                { path: 'admin/users', element: <AdminUsersPage /> },
-                { path: 'admin/properties', element: <AdminPropertiesPage /> },
-                { path: 'admin/agents', element: <AdminAgentsPage /> },
-                { path: 'admin/reports', element: <AdminReportsPage /> },
-                // Agent Routes
-                { path: 'agent/properties', element: <AgentPropertiesPage /> },
-                { path: 'agent/customers', element: <AgentCustomersPage /> },
-                { path: 'agent/messages', element: <AgentMessagesPage /> },
-                // Customer Routes
-                { path: 'customer/favorites', element: <CustomerFavoritesPage /> },
-                { path: 'customer/searches', element: <CustomerSearchesPage /> },
-                { path: 'customer/profile', element: <CustomerProfilePage /> },
-              ],
-            },
+      {
+        path: 'dashboard',
+        element: <DashboardPage />,
+        children: [
+          {
+            index: true,
+            element: <DashboardHome />,
+          },
+          {
+            path: 'admins',
+            element: <AdminsPage />,
+          },
+          {
+            path: 'agents',
+            element: <AgentsPage />,
+          },
+          {
+            path: 'customers',
+            element: <CustomersPage />,
+          },
+          {
+            path: 'listings',
+            element: <ListingsPage />,
+          },
+          {
+            path: 'settings',
+            element: <SettingsPage />,
+          },
+        ],
+      },
       {
         path: 'login',
         element: <LoginLayout />,

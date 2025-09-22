@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
+import { Shield, Profile2User, SearchNormal1, Building } from 'iconsax-react';
 
 const LoginLayout: React.FC = () => {
   const navigate = useNavigate();
@@ -36,20 +37,63 @@ const LoginLayout: React.FC = () => {
       
       <div className="relative z-10 w-full max-w-6xl mx-auto">
         <div className="bg-black/70 backdrop-blur-xl rounded-2xl shadow-2xl border border-gray-700/50 overflow-hidden md:flex">
-          {/* Left Column - Image/Branding */}
-          <div className="hidden md:flex md:w-1/2 bg-gradient-to-br from-cyan-500/20 to-blue-600/20 relative">
-            <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 to-blue-600/10"></div>
+          {/* Left Column - Enhanced Branding Panel */}
+          <div 
+            className="hidden md:flex md:w-1/2 relative overflow-hidden"
+            style={{ 
+              backgroundImage: "url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80')",
+              backgroundSize: 'cover',
+              backgroundPosition: 'center'
+            }}
+          >
+            {/* Dark overlay for text readability */}
+            <div className="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
+            
+            {/* Gradient overlay for better visual appeal */}
+            <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/20 to-blue-600/20"></div>
+            
             <div className="relative z-10 flex flex-col items-center justify-center p-12 text-center">
+              {/* Company Logo */}
               <div className="mb-8">
-                <h1 className="text-6xl font-bold text-white mb-4">یکتافی</h1>
-                <p className="text-xl text-gray-200 mb-6">پلتفرم هوشمند املاک</p>
-                <div className="w-32 h-1 bg-gradient-to-r from-cyan-400 to-blue-500 mx-auto rounded-full"></div>
+                <div className="w-24 h-24 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-2xl flex items-center justify-center mb-6 mx-auto shadow-2xl">
+                  <Building size={48} color="#ffffff" />
+                </div>
+                <h1 className="text-6xl font-bold text-white mb-4 tracking-wider">یکتافی</h1>
+                <p className="text-2xl text-gray-200 mb-6 font-medium">پلتفرم هوشمند املاک</p>
+                <div className="w-40 h-1 bg-gradient-to-r from-cyan-400 to-blue-500 mx-auto rounded-full shadow-lg"></div>
               </div>
-              <div className="text-gray-300 space-y-4">
-                <p className="text-lg">🏠 هزاران ملک متنوع</p>
-                <p className="text-lg">🎯 جستجوی هوشمند</p>
-                <p className="text-lg">🤝 مشاوره تخصصی</p>
-                <p className="text-lg">🔒 امنیت کامل</p>
+              
+              {/* Value Propositions */}
+              <div className="space-y-6 w-full max-w-md">
+                <div className="flex items-center gap-4 p-4 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20">
+                  <div className="w-12 h-12 bg-cyan-500/20 rounded-full flex items-center justify-center flex-shrink-0">
+                    <Shield size={24} color="#06b6d4" />
+                  </div>
+                  <div className="text-right">
+                    <h3 className="text-lg font-semibold text-white">املاک تایید شده</h3>
+                    <p className="text-sm text-gray-300">تمام املاک با کیفیت و اصالت تضمین می‌شوند</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-center gap-4 p-4 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20">
+                  <div className="w-12 h-12 bg-blue-500/20 rounded-full flex items-center justify-center flex-shrink-0">
+                    <Profile2User size={24} color="#3b82f6" />
+                  </div>
+                  <div className="text-right">
+                    <h3 className="text-lg font-semibold text-white">مشاوره تخصصی</h3>
+                    <p className="text-sm text-gray-300">تیم متخصص ما در تمام مراحل همراه شماست</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-center gap-4 p-4 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20">
+                  <div className="w-12 h-12 bg-green-500/20 rounded-full flex items-center justify-center flex-shrink-0">
+                    <SearchNormal1 size={24} color="#10b981" />
+                  </div>
+                  <div className="text-right">
+                    <h3 className="text-lg font-semibold text-white">جستجوی هوشمند</h3>
+                    <p className="text-sm text-gray-300">هزاران ملک متنوع با فیلترهای پیشرفته</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
