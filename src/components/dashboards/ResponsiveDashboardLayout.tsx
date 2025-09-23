@@ -21,6 +21,7 @@ import Sidebar from "./Sidebar";
 // Mobile-optimized header component
 const MobileHeader: React.FC<{ role: "ADMIN" | "AGENT" | "CUSTOMER" }> = () => {
     const location = useLocation();
+    const navigate = useNavigate();
 
     const getPageTitle = () => {
         const path = location.pathname;
@@ -70,6 +71,7 @@ const MobileHeader: React.FC<{ role: "ADMIN" | "AGENT" | "CUSTOMER" }> = () => {
                             variant="ghost"
                             size="sm"
                             className="h-10 w-10 p-0 text-gray-400 hover:text-gray-200 hover:bg-gray-700/50"
+                            onClick={() => navigate('/dashboard/settings')}
                         >
                             <Settings className="h-5 w-5" />
                         </Button>
@@ -85,6 +87,7 @@ const DesktopHeader: React.FC<{
     role: "ADMIN" | "AGENT" | "CUSTOMER";
 }> = () => {
     const location = useLocation();
+    const navigate = useNavigate();
 
     const getPageTitle = () => {
         const path = location.pathname;
@@ -128,6 +131,7 @@ const DesktopHeader: React.FC<{
                         variant="ghost"
                         size="sm"
                         className="h-10 w-10 p-0 text-gray-400 hover:text-gray-200 hover:bg-gray-700/50"
+                        onClick={() => navigate('/dashboard/settings')}
                     >
                         <Settings className="h-5 w-5" />
                     </Button>
