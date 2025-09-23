@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { authService } from '../../services/auth';
@@ -18,6 +18,7 @@ import { Button } from '../ui/Button';
 
 const LoginWithPassword: React.FC = () => {
   const navigate = useNavigate();
+  const usernameInputRef = useRef<HTMLInputElement>(null);
   
   const form = useForm<LoginPasswordFormData>({
     resolver: zodResolver(loginPasswordSchema),
@@ -26,6 +27,13 @@ const LoginWithPassword: React.FC = () => {
       password: '',
     },
   });
+
+  // Auto-focus the username input when component mounts
+  useEffect(() => {
+    if (usernameInputRef.current) {
+      usernameInputRef.current.focus();
+    }
+  }, []);
 
   const onSubmit = (data: LoginPasswordFormData) => {
     const success = authService.login(data.username, data.password);
@@ -54,6 +62,10 @@ const LoginWithPassword: React.FC = () => {
                     placeholder="مثال: admin"
                     className="bg-gray-800/50 border-gray-600 text-gray-100 placeholder-gray-400 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500"
                     {...field}
+                    ref={(e) => {
+                      field.ref(e);
+                      usernameInputRef.current = e;
+                    }}
                   />
                 </FormControl>
                 <FormMessage />

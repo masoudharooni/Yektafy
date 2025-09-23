@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigate } from 'react-router-dom';
@@ -19,6 +19,8 @@ import { InputOTP, InputOTPGroup, InputOTPSlot } from '../custom';
 
 const LoginWithSms: React.FC = () => {
   const navigate = useNavigate();
+  const phoneInputRef = useRef<HTMLInputElement>(null);
+  const otpInputRef = useRef<HTMLDivElement>(null);
   const [step, setStep] = useState<'phone' | 'otp'>('phone');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [countdown, setCountdown] = useState(0);
@@ -37,6 +39,19 @@ const LoginWithSms: React.FC = () => {
       otp: '',
     },
   });
+
+  // Auto-focus the first input when component mounts or step changes
+  useEffect(() => {
+    if (step === 'phone' && phoneInputRef.current) {
+      phoneInputRef.current.focus();
+    } else if (step === 'otp' && otpInputRef.current) {
+      // Focus the first OTP input
+      const firstInput = otpInputRef.current.querySelector('input') as HTMLInputElement;
+      if (firstInput) {
+        firstInput.focus();
+      }
+    }
+  }, [step]);
 
   // Countdown timer for resend button
   useEffect(() => {
@@ -90,7 +105,7 @@ const LoginWithSms: React.FC = () => {
                 <FormItem>
                   <FormLabel className="text-gray-300 text-center block">کد تایید</FormLabel>
                   <FormControl>
-                    <div dir="ltr" className="flex justify-center">
+                    <div ref={otpInputRef} dir="ltr" className="flex justify-center">
                       <InputOTP
                         maxLength={6}
                         value={field.value}
@@ -196,6 +211,10 @@ const LoginWithSms: React.FC = () => {
                     className="bg-gray-800/50 border-gray-600 text-gray-100 placeholder-gray-400 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 text-start"
                     dir="ltr"
                     {...field}
+                    ref={(e) => {
+                      field.ref(e);
+                      phoneInputRef.current = e;
+                    }}
                   />
                 </FormControl>
                 <FormMessage />

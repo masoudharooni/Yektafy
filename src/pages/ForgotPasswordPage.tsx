@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Link, useNavigate } from 'react-router-dom';
@@ -18,6 +18,7 @@ import { ArrowLeft } from 'lucide-react';
 
 const ForgotPasswordPage: React.FC = () => {
   const navigate = useNavigate();
+  const emailInputRef = useRef<HTMLInputElement>(null);
   
   const form = useForm<ForgotPasswordFormData>({
     resolver: zodResolver(forgotPasswordSchema),
@@ -26,8 +27,16 @@ const ForgotPasswordPage: React.FC = () => {
     },
   });
 
-  const onSubmit = (_data: ForgotPasswordFormData) => {
+  // Auto-focus the email input when component mounts
+  useEffect(() => {
+    if (emailInputRef.current) {
+      emailInputRef.current.focus();
+    }
+  }, []);
+
+  const onSubmit = (data: ForgotPasswordFormData) => {
     // Mock implementation - replace with actual API call
+    console.log('Password reset requested for:', data.email);
     toast.success('لینک بازیابی رمز عبور به ایمیل شما ارسال شد.');
     setTimeout(() => {
       navigate('/login');
@@ -70,6 +79,10 @@ const ForgotPasswordPage: React.FC = () => {
                           placeholder="example@email.com"
                           className="bg-gray-800/50 border-gray-600 text-gray-100 placeholder-gray-400 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500"
                           {...field}
+                          ref={(e) => {
+                            field.ref(e);
+                            emailInputRef.current = e;
+                          }}
                         />
                       </FormControl>
                       <FormMessage />
