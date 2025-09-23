@@ -47,7 +47,7 @@ const AgentsPage: React.FC = () => {
       lastLogin: '۱۴۰۳/۰۱/۱۵',
       avatar: 'عر',
       specialization: 'آپارتمان',
-      location: 'تهران',
+      location: 'اصفهان',
       commission: 12500000,
       monthlyTarget: 15000000,
       performance: 'عالی',

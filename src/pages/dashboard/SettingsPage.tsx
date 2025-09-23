@@ -222,7 +222,7 @@ const SettingsPage: React.FC = () => {
                         id="timezone"
                         className="mt-1 w-full px-3 py-2 bg-gray-800 border border-gray-600 rounded-lg text-gray-100 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500"
                       >
-                        <option value="Asia/Tehran">تهران (GMT+3:30)</option>
+                        <option value="Asia/Tehran">اصفهان (GMT+3:30)</option>
                         <option value="UTC">UTC (GMT+0)</option>
                       </select>
                     </div>

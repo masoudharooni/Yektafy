@@ -223,9 +223,9 @@ export const WHY_US_ITEMS = [
 export const FOR_SALE_PROPERTIES: Property[] = [
   {
     id: 'sale-1',
-    title: 'ویلا مدرن در شمال تهران',
+    title: 'ویلا مدرن در شمال اصفهان',
     price: '15,000,000,000',
-    location: 'شمال تهران',
+    location: 'شمال اصفهان',
     image: 'https://picsum.photos/400/300?random=1',
     bedrooms: 4,
     bathrooms: 3,
@@ -238,7 +238,7 @@ export const FOR_SALE_PROPERTIES: Property[] = [
     id: 'sale-2',
     title: 'آپارتمان لوکس در مرکز شهر',
     price: '8,500,000,000',
-    location: 'مرکز تهران',
+    location: 'مرکز اصفهان',
     image: 'https://picsum.photos/400/300?random=2',
     bedrooms: 3,
     bathrooms: 2,

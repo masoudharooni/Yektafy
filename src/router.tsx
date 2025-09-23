@@ -15,6 +15,7 @@ import AdminsPage from "./pages/dashboard/AdminsPage";
 import AgentsPage from "./pages/dashboard/AgentsPage";
 import CustomersPage from "./pages/dashboard/CustomersPage";
 import ListingsPage from "./pages/dashboard/ListingsPage";
+import AddListingPage from "./pages/dashboard/AddListingPage";
 import SettingsPage from "./pages/dashboard/SettingsPage";
 
 // Centralized routing configuration using React Router v6
@@ -51,6 +52,10 @@ export const router = createBrowserRouter([
           {
             path: "listings",
             element: <ListingsPage />,
+          },
+          {
+            path: "listings/add",
+            element: <AddListingPage />,
           },
           {
             path: "settings",

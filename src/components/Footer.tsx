@@ -153,7 +153,7 @@ const Footer: React.FC = () => {
             <ul className="space-y-3">
               <FooterLink>
                 <MapPin className="h-4 w-4" />
-                تهران، خیابان ولیعصر
+                اصفهان، خیابان ولیعصر
               </FooterLink>
               <FooterLink>
                 <Phone className="h-4 w-4" />

@@ -95,21 +95,21 @@ const StatCard: React.FC<StatCardProps> = ({ title, value, icon, change, changeT
   };
 
   return (
-    <div className="bg-gray-800 border border-gray-700 p-6 rounded-xl hover:border-cyan-500/50 transition-all duration-300 group">
+    <div className="bg-gray-800/50 border border-gray-700/50 p-4 sm:p-6 rounded-xl hover:border-cyan-500/50 transition-all duration-300 group">
       <div className="flex items-center justify-between">
-        <div className="flex-1">
-          <p className="text-gray-400 text-sm mb-1">{title}</p>
-          <p className="text-3xl font-bold text-gray-100 mb-2">{value}</p>
+        <div className="flex-1 min-w-0">
+          <p className="text-gray-400 text-xs sm:text-sm mb-1 truncate">{title}</p>
+          <p className="text-xl sm:text-3xl font-bold text-gray-100 mb-2 truncate">{value}</p>
           {change && (
             <div className="flex items-center gap-1">
               {getChangeIcon()}
-              <span className={`text-sm font-medium ${getChangeColor()}`}>
+              <span className={`text-xs sm:text-sm font-medium ${getChangeColor()}`}>
                 {change}
               </span>
             </div>
           )}
         </div>
-        <div className={`bg-gray-700 h-12 w-12 rounded-full flex items-center justify-center text-${color}-400 group-hover:scale-110 transition-transform duration-300`}>
+        <div className={`bg-gray-700/50 h-10 w-10 sm:h-12 sm:w-12 rounded-full flex items-center justify-center text-${color}-400 group-hover:scale-110 transition-transform duration-300 flex-shrink-0`}>
           {icon}
         </div>
       </div>
@@ -295,7 +295,7 @@ const ConsolidatedDashboard: React.FC<ConsolidatedDashboardProps> = ({ role }) =
       {/* Header Section */}
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-4xl font-bold text-gray-100 mb-2">داشبورد ادمین</h2>
+          <h2 className="text-2xl sm:text-4xl font-bold text-gray-100 mb-2">داشبورد ادمین</h2>
           <p className="text-gray-400">خوش آمدید! اینجا می‌توانید تمام جنبه‌های سیستم را مدیریت کنید.</p>
         </div>
         <div className="flex items-center gap-3">
@@ -311,7 +311,7 @@ const ConsolidatedDashboard: React.FC<ConsolidatedDashboardProps> = ({ role }) =
       </div>
 
       {/* Main Statistics */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
         <StatCard 
           title="کل آگهی‌ها" 
           value="۱,۲۵۰" 
@@ -347,7 +347,7 @@ const ConsolidatedDashboard: React.FC<ConsolidatedDashboardProps> = ({ role }) =
       </div>
 
       {/* Secondary Metrics */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
         <MetricCard
           title="بازدید روزانه"
           value="۳,۴۵۶"
@@ -387,7 +387,7 @@ const ConsolidatedDashboard: React.FC<ConsolidatedDashboardProps> = ({ role }) =
       </div>
 
       {/* Charts and Analytics */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
         <ChartCard
           title="توزیع آگهی‌ها"
           description="بر اساس نوع ملک"
@@ -415,7 +415,7 @@ const ConsolidatedDashboard: React.FC<ConsolidatedDashboardProps> = ({ role }) =
       {/* Quick Actions */}
       <div>
         <h3 className="text-2xl font-bold text-gray-100 mb-6">عملیات سریع</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
           <QuickAction
             title="افزودن آگهی"
             description="آگهی جدید اضافه کنید"
@@ -444,7 +444,7 @@ const ConsolidatedDashboard: React.FC<ConsolidatedDashboardProps> = ({ role }) =
       </div>
 
       {/* Recent Activities */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
         <div className="bg-gray-800 border border-gray-700 p-6 rounded-xl">
           <div className="flex items-center gap-3 mb-6">
             <div className="bg-gray-700 h-10 w-10 rounded-full flex items-center justify-center text-cyan-400">
@@ -466,7 +466,7 @@ const ConsolidatedDashboard: React.FC<ConsolidatedDashboardProps> = ({ role }) =
             <ActivityItem
               type="property"
               title="آگهی جدید اضافه شد"
-              description="آپارتمان ۳ خوابه در تهران"
+              description="آپارتمان ۳ خوابه در اصفهان"
               time="۱۲ دقیقه پیش"
               icon={<Building className="h-4 w-4" />}
             />
@@ -534,7 +534,7 @@ const ConsolidatedDashboard: React.FC<ConsolidatedDashboardProps> = ({ role }) =
             <p className="text-gray-400 text-sm">وضعیت کلی سیستم و سرویس‌ها</p>
           </div>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
           <div className="flex items-center gap-3 p-3 bg-green-500/10 border border-green-500/20 rounded-lg">
             <CheckCircle className="h-5 w-5 text-green-400" />
             <div>
@@ -571,7 +571,7 @@ const ConsolidatedDashboard: React.FC<ConsolidatedDashboardProps> = ({ role }) =
   const renderAgentDashboard = () => (
     <div>
       <h2 className="text-4xl font-bold text-gray-100 mb-8">پنل کاربری مشاور</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
         <ActionCard 
           title="آگهی‌های من"
           description="آگهی‌های فعال خود را مشاهده و ویرایش کنید."
@@ -594,7 +594,7 @@ const ConsolidatedDashboard: React.FC<ConsolidatedDashboardProps> = ({ role }) =
   const renderCustomerDashboard = () => (
     <div>
       <h2 className="text-4xl font-bold text-gray-100 mb-8">حساب کاربری من</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
         <InfoCard 
           title="ملک‌های ذخیره شده"
           description="لیست ملک‌هایی که به عنوان مورد علاقه نشان کرده‌اید."

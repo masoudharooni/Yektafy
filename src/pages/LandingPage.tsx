@@ -31,7 +31,7 @@ const LandingPage: React.FC = () => {
         >
           <PropertiesSection
             title="منتخب آگهی‌های فروشی"
-            subtitle="بهترین و باکیفیت‌ترین ملک‌های فروشی در تهران و حومه"
+            subtitle="بهترین و باکیفیت‌ترین ملک‌های فروشی در اصفهان و حومه"
             properties={FOR_SALE_PROPERTIES}
             viewMoreLink="/properties/for-sale"
           />
