@@ -3,8 +3,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
 import { SearchNormal1, Location, Map } from "iconsax-react";
 import { Button } from "./ui/Button";
-import { Dialog, DialogContent, DialogTrigger } from "./ui/dialog";
 import { Command, CommandList, CommandItem } from "./ui/command";
+import { ModalComponent } from "./custom";
 import MapComponent from "./MapComponent";
 import type { MapPosition } from "../types";
 import { useDebounce } from "../hooks/useDebounce";
@@ -21,6 +21,7 @@ const SearchBox: React.FC = () => {
   const [selectedLocation, setSelectedLocation] = useState<LocationData | null>(
     null
   );
+  const [isMapModalOpen, setIsMapModalOpen] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null);
 
   const debouncedQuery = useDebounce(searchQuery, 300);
@@ -95,8 +96,8 @@ const SearchBox: React.FC = () => {
     <button
       onClick={() => setActiveTab(tab)}
       className={`px-6 py-3 text-lg font-semibold transition-colors duration-300 rounded-t-lg ${activeTab === tab
-          ? "bg-gray-700/60 text-cyan-400"
-          : "bg-transparent text-gray-400 hover:bg-gray-700/40"
+        ? "bg-gray-700/60 text-cyan-400"
+        : "bg-transparent text-gray-400 hover:bg-gray-700/40"
         }`}
     >
       {label}
@@ -172,29 +173,13 @@ const SearchBox: React.FC = () => {
             <SearchNormal1 size={20} color="#ffffff" />
             <span>جستجو</span>
           </Button>
-          <Dialog>
-            <DialogTrigger asChild>
-              <Button
-                variant="outline"
-                className="bg-gray-700/50 border-gray-600 text-gray-300 hover:bg-gray-600 hover:text-white px-3 h-full"
-              >
-                <Location size={20} color="#d1d5db" />
-              </Button>
-            </DialogTrigger>
-            <DialogContent className="max-w-3xl w-full h-[80vh] max-h-[80vh] p-0 bg-gray-900 border-gray-700">
-              <div className="relative w-full h-full">
-                <MapComponent
-                  center={isfahanCenter}
-                  zoom={11}
-                  markers={sampleMarkers}
-                  className="w-full h-full"
-                />
-                <div className="absolute top-4 left-1/2 transform -translate-x-1/2 bg-black/70 backdrop-blur-sm text-white px-4 py-2 rounded-lg text-sm">
-                  نقشه اصفهان - انتخاب موقعیت
-                </div>
-              </div>
-            </DialogContent>
-          </Dialog>
+          <Button
+            onClick={() => setIsMapModalOpen(true)}
+            variant="outline"
+            className="bg-gray-700/50 border-gray-600 text-gray-300 hover:bg-gray-600 hover:text-white px-3 h-full"
+          >
+            <Location size={20} color="#d1d5db" />
+          </Button>
         </div>
       </motion.div>
     ),
@@ -261,67 +246,52 @@ const SearchBox: React.FC = () => {
         <div className="flex gap-2 col-span-1">
           <Button
             onClick={handleSearchClick}
-            className="flex-1 bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-3 px-6 rounded-lg shadow-lg shadow-cyan-500/30 transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2"
+            className="flex-1 bg-cyan-500 h-full hover:bg-cyan-600 text-white font-bold py-3 px-6 rounded-lg shadow-lg shadow-cyan-500/30 transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2"
           >
             <SearchNormal1 size={20} color="#ffffff" />
             <span>جستجو</span>
           </Button>
-          <Dialog>
-            <DialogTrigger asChild>
-              <Button
-                variant="outline"
-                className="bg-gray-700/50 border-gray-600 text-gray-300 hover:bg-gray-600 hover:text-white px-3"
-              >
-                <svg
-                  className="w-5 h-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                  />
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                  />
-                </svg>
-              </Button>
-            </DialogTrigger>
-            <DialogContent className="max-w-3xl w-full h-[80vh] max-h-[80vh] p-0 bg-gray-900 border-gray-700">
-              <div className="relative w-full h-full">
-                <MapComponent
-                  center={isfahanCenter}
-                  zoom={11}
-                  markers={sampleMarkers}
-                  className="w-full h-full"
-                />
-                <div className="absolute top-4 left-1/2 transform -translate-x-1/2 bg-black/70 backdrop-blur-sm text-white px-4 py-2 rounded-lg text-sm">
-                  نقشه اصفهان - انتخاب موقعیت
-                </div>
-              </div>
-            </DialogContent>
-          </Dialog>
+          <Button
+            onClick={() => setIsMapModalOpen(true)}
+            variant="outline"
+            className="bg-gray-700/50 border-gray-600 text-gray-300 hover:bg-gray-600 hover:text-white px-3 h-full"
+          >
+            <Location size={20} color="#d1d5db" />
+          </Button>
         </div>
       </motion.div>
     ),
   };
 
   return (
-    <div className="max-w-4xl mx-auto bg-gray-900/50 backdrop-blur-xl rounded-xl shadow-2xl border border-gray-700/50 overflow-hidden">
-      <div className="flex">
-        <TabButton tab="buy" label="خرید" />
-        <TabButton tab="rent" label="رهن و اجاره" />
+    <>
+      <div className="max-w-4xl mx-auto bg-gray-900/50 backdrop-blur-xl rounded-xl shadow-2xl border border-gray-700/50 overflow-hidden">
+        <div className="flex">
+          <TabButton tab="buy" label="خرید" />
+          <TabButton tab="rent" label="رهن و اجاره" />
+        </div>
+        <div className="p-6 md:p-8 bg-gray-700/60">
+          <AnimatePresence mode="wait">{tabContent[activeTab]}</AnimatePresence>
+        </div>
       </div>
-      <div className="p-6 md:p-8 bg-gray-700/60">
-        <AnimatePresence mode="wait">{tabContent[activeTab]}</AnimatePresence>
-      </div>
-    </div>
+
+      {/* Map Modal */}
+      <ModalComponent
+        open={isMapModalOpen}
+        onClose={() => setIsMapModalOpen(false)}
+        header="نقشه اصفهان - انتخاب موقعیت"
+        maxWidth="3xl"
+      >
+        <div className="relative w-full h-[70vh]">
+          <MapComponent
+            center={isfahanCenter}
+            zoom={11}
+            markers={sampleMarkers}
+            className="w-full h-full rounded-lg"
+          />
+        </div>
+      </ModalComponent>
+    </>
   );
 };
 

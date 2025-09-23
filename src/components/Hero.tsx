@@ -38,7 +38,7 @@ const Hero: React.FC = () => {
       </div>
 
       {/* Semi-transparent overlay */}
-      <div className="absolute inset-0 bg-black/50 z-10"></div>
+      <div className="absolute inset-0 bg-black/80 z-10"></div>
 
       {/* Content */}
       <div className="relative z-20 min-h-screen flex flex-col">

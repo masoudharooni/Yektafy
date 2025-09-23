@@ -29,18 +29,27 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ role }) => {
 
   return (
     <motion.div
-      className="min-h-screen bg-[#0D1117] flex flex-row overflow-hidden"
+      className="min-h-screen bg-[#0D1117] flex flex-row"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
-      <Sidebar
-        role={role}
-        isCollapsed={isSidebarCollapsed}
-        toggleCollapse={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
-      />
-      {/* Main content area that adapts to sidebar width */}
-      <div className="flex-1 flex flex-col transition-all duration-300 min-w-0">
+      {/* Fixed Sidebar */}
+      <div className="fixed top-0 right-0 h-screen z-40">
+        <Sidebar
+          role={role}
+          isCollapsed={isSidebarCollapsed}
+          toggleCollapse={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
+        />
+      </div>
+      
+      {/* Main content area with proper margin for sidebar */}
+      <div 
+        className="flex-1 flex flex-col transition-all duration-300 min-w-0"
+        style={{ 
+          marginRight: isSidebarCollapsed ? '80px' : '256px' 
+        }}
+      >
         <DashboardHeader />
         <main className="flex-1 overflow-y-auto overflow-x-hidden">
           <motion.div
