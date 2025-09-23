@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
-import { Shield, Profile2User, SearchNormal1, Building } from 'iconsax-react';
+import { Shield, Users, Search, Building } from 'lucide-react';
 
 const LoginLayout: React.FC = () => {
   const navigate = useNavigate();
@@ -56,7 +56,7 @@ const LoginLayout: React.FC = () => {
               {/* Company Logo */}
               <div className="mb-8">
                 <div className="w-24 h-24 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-2xl flex items-center justify-center mb-6 mx-auto shadow-2xl">
-                  <Building size={48} color="#ffffff" />
+                  <Building className="h-12 w-12 text-white" />
                 </div>
                 <h1 className="text-6xl font-bold text-white mb-4 tracking-wider">یکتافی</h1>
                 <p className="text-2xl text-gray-200 mb-6 font-medium">پلتفرم هوشمند املاک</p>
@@ -67,7 +67,7 @@ const LoginLayout: React.FC = () => {
               <div className="space-y-6 w-full max-w-md">
                 <div className="flex items-center gap-4 p-4 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20">
                   <div className="w-12 h-12 bg-cyan-500/20 rounded-full flex items-center justify-center flex-shrink-0">
-                    <Shield size={24} color="#06b6d4" />
+                    <Shield className="h-6 w-6 text-cyan-500" />
                   </div>
                   <div className="text-right">
                     <h3 className="text-lg font-semibold text-white">املاک تایید شده</h3>
@@ -77,7 +77,7 @@ const LoginLayout: React.FC = () => {
                 
                 <div className="flex items-center gap-4 p-4 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20">
                   <div className="w-12 h-12 bg-blue-500/20 rounded-full flex items-center justify-center flex-shrink-0">
-                    <Profile2User size={24} color="#3b82f6" />
+                    <Users className="h-6 w-6 text-blue-500" />
                   </div>
                   <div className="text-right">
                     <h3 className="text-lg font-semibold text-white">مشاوره تخصصی</h3>
@@ -87,7 +87,7 @@ const LoginLayout: React.FC = () => {
                 
                 <div className="flex items-center gap-4 p-4 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20">
                   <div className="w-12 h-12 bg-green-500/20 rounded-full flex items-center justify-center flex-shrink-0">
-                    <SearchNormal1 size={24} color="#10b981" />
+                    <Search className="h-6 w-6 text-green-500" />
                   </div>
                   <div className="text-right">
                     <h3 className="text-lg font-semibold text-white">جستجوی هوشمند</h3>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Building, People, UserAdd } from 'iconsax-react';
+import { Building, Users, UserPlus } from 'lucide-react';
 import { toast } from 'sonner';
 
 type UserRole = 'admin' | 'agent' | 'customer';
@@ -95,17 +95,17 @@ const ConsolidatedDashboard: React.FC<ConsolidatedDashboardProps> = ({ role }) =
         <StatCard 
           title="کل آگهی‌ها" 
           value="۱,۲۵۰" 
-          icon={<Building size={24} color="#9ca3af" />} 
+          icon={<Building className="h-6 w-6 text-gray-400" />} 
         />
         <StatCard 
           title="مشاوران فعال" 
           value="۷۸" 
-          icon={<People size={24} color="#9ca3af" />}
+          icon={<Users className="h-6 w-6 text-gray-400" />}
         />
         <StatCard 
           title="کاربران جدید (این ماه)" 
           value="۲۴۰" 
-          icon={<UserAdd size={24} color="#9ca3af" />}
+          icon={<UserPlus className="h-6 w-6 text-gray-400" />}
         />
       </div>
     </div>

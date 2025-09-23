@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useMap } from 'react-leaflet';
 import { toast } from 'sonner';
-import { Add, Minus, Location } from 'iconsax-react';
+import { Plus, Minus, MapPin } from 'lucide-react';
 
 const MapControls: React.FC = () => {
   const map = useMap();
@@ -87,7 +87,7 @@ const MapControls: React.FC = () => {
         className="w-10 h-10 bg-white hover:bg-gray-100 border border-gray-300 rounded-lg shadow-lg flex items-center justify-center transition-colors duration-200"
         title="بزرگنمایی"
       >
-        <Add size={20} color="#374151" />
+        <Plus className="h-5 w-5 text-gray-700" />
       </button>
 
       {/* Zoom Out Button */}
@@ -96,7 +96,7 @@ const MapControls: React.FC = () => {
         className="w-10 h-10 bg-white hover:bg-gray-100 border border-gray-300 rounded-lg shadow-lg flex items-center justify-center transition-colors duration-200"
         title="کوچکنمایی"
       >
-        <Minus size={20} color="#374151" />
+        <Minus className="h-5 w-5 text-gray-700" />
       </button>
 
       {/* My Location Button */}
@@ -106,10 +106,8 @@ const MapControls: React.FC = () => {
         className="w-10 h-10 bg-blue-500 hover:bg-blue-600 disabled:bg-blue-300 border border-blue-600 rounded-lg shadow-lg flex items-center justify-center transition-colors duration-200"
         title="موقعیت من"
       >
-        <Location 
-          size={20} 
-          color="white"
-          className={`text-white ${isLocating ? 'animate-spin' : ''}`} 
+        <MapPin 
+          className={`h-5 w-5 text-white ${isLocating ? 'animate-spin' : ''}`} 
         />
       </button>
     </div>

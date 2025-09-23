@@ -1,27 +1,27 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { User, ShieldTick, Headphone, Speedometer } from 'iconsax-react';
+import { User, Shield, Headphones, Gauge } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from './ui/card';
 
 const WhyChooseUs: React.FC = () => {
   const benefits = [
     {
-      icon: <User size={48} color="#06b6d4" />,
+      icon: <User className="h-12 w-12 text-cyan-500" />,
       title: 'مشاوران متخصص',
       description: 'تیم ما از بهترین متخصصان املاک تشکیل شده که سال‌ها تجربه دارند'
     },
     {
-      icon: <ShieldTick size={48} color="#06b6d4" />,
+      icon: <Shield className="h-12 w-12 text-cyan-500" />,
       title: 'امنیت کامل',
       description: 'تمام معاملات با بالاترین استانداردهای امنیتی و قانونی انجام می‌شود'
     },
     {
-      icon: <Headphone size={48} color="#06b6d4" />,
+      icon: <Headphones className="h-12 w-12 text-cyan-500" />,
       title: 'پشتیبانی ۲۴/۷',
       description: 'در هر ساعت از شبانه‌روز، تیم پشتیبانی ما آماده کمک به شماست'
     },
     {
-      icon: <Speedometer size={48} color="#06b6d4" />,
+      icon: <Gauge className="h-12 w-12 text-cyan-500" />,
       title: 'سرعت بالا',
       description: 'با تکنولوژی پیشرفته، سریع‌ترین راه برای پیدا کردن ملک مناسب'
     }

@@ -14,7 +14,7 @@ import {
 } from '../components/ui/form';
 import { Input } from '../components/ui/input';
 import { Button } from '../components/ui/Button';
-import { ArrowLeft2 } from 'iconsax-react';
+import { ArrowLeft } from 'lucide-react';
 
 const ForgotPasswordPage: React.FC = () => {
   const navigate = useNavigate();
@@ -93,7 +93,7 @@ const ForgotPasswordPage: React.FC = () => {
                 to="/login" 
                 className="inline-flex items-center gap-2 text-cyan-400 hover:text-cyan-300 text-sm transition-colors duration-200"
               >
-                <ArrowLeft2 size={16} />
+                <ArrowLeft className="h-4 w-4" />
                 بازگشت به صفحه ورود
               </Link>
             </div>

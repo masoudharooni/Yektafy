@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
-import { ArrowRight2, Clock } from 'iconsax-react';
+import { ArrowRight, Clock } from 'lucide-react';
 import { loginSmsSchema, verifyOtpSchema, type LoginSmsFormData, type VerifyOtpFormData } from '../../schemas/auth';
 import {
   Form,
@@ -138,13 +138,13 @@ const LoginWithSms: React.FC = () => {
                 disabled={otpForm.formState.isSubmitting}
               >
                 {otpForm.formState.isSubmitting ? 'در حال تایید...' : 'تایید و ورود'}
-                <ArrowRight2 size={20} color="#ffffff" />
+                <ArrowRight className="h-5 w-5 text-white" />
               </Button>
 
               <div className="text-center">
                 {countdown > 0 ? (
                   <div className="flex items-center justify-center gap-2 text-gray-400">
-                    <Clock size={16} color="#9ca3af" />
+                    <Clock className="h-4 w-4 text-gray-400" />
                     <span>ارسال مجدد کد در {countdown} ثانیه</span>
                   </div>
                 ) : (
@@ -209,7 +209,7 @@ const LoginWithSms: React.FC = () => {
             disabled={phoneForm.formState.isSubmitting}
           >
             {phoneForm.formState.isSubmitting ? 'در حال ارسال...' : 'ارسال کد تایید'}
-            <ArrowRight2 size={20} color="#ffffff" />
+            <ArrowRight className="h-5 w-5 text-white" />
           </Button>
         </form>
       </Form>

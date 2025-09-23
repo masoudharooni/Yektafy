@@ -1,22 +1,22 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { SearchNormal1, MessageText1, Home2 } from 'iconsax-react';
+import { Search, MessageSquare, Home } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from './ui/card';
 
 const HowItWorks: React.FC = () => {
   const steps = [
     {
-      icon: <SearchNormal1 size={56} color="#06b6d4" />,
+      icon: <Search className="h-14 w-14 text-cyan-500" />,
       title: 'جستجو کنید',
       description: 'با استفاده از نقشه هوشمند و فیلترهای پیشرفته، ملک مورد نظر خود را پیدا کنید'
     },
     {
-      icon: <MessageText1 size={56} color="#06b6d4" />,
+      icon: <MessageSquare className="h-14 w-14 text-cyan-500" />,
       title: 'مشاوره بگیرید',
       description: 'با متخصصان ما تماس بگیرید و راهنمایی کاملی برای خرید یا اجاره دریافت کنید'
     },
     {
-      icon: <Home2 size={56} color="#06b6d4" />,
+      icon: <Home className="h-14 w-14 text-cyan-500" />,
       title: 'ملک خود را بخرید',
       description: 'با اطمینان کامل و پشتیبانی تیم ما، ملک رویایی خود را خریداری کنید'
     }

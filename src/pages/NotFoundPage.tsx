@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '../components/ui/Button';
-import { DocumentText1 } from 'iconsax-react';
+import { FileText } from 'lucide-react';
 
 const NotFoundPage: React.FC = () => {
   return (
@@ -14,10 +14,8 @@ const NotFoundPage: React.FC = () => {
 
         {/* Icon */}
         <div className="mb-6">
-          <DocumentText1
-            size={80}
-            className="mx-auto text-gray-400"
-            variant="Outline"
+          <FileText
+            className="h-20 w-20 mx-auto text-gray-400"
           />
         </div>
 

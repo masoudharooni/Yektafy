@@ -1,7 +1,7 @@
 import React from 'react';
 import { useRouteError, Link } from 'react-router-dom';
 import { Button } from '../components/ui/Button';
-import { Warning2 } from 'iconsax-react';
+import { AlertTriangle } from 'lucide-react';
 
 interface RouteError {
   status?: number;
@@ -19,10 +19,8 @@ const ErrorBoundaryPage: React.FC = () => {
       <div className="text-center max-w-2xl mx-auto">
         {/* Error Icon */}
         <div className="mb-6">
-          <Warning2 
-            size={80} 
-            className="mx-auto text-red-400"
-            variant="Bold"
+          <AlertTriangle 
+            className="h-20 w-20 mx-auto text-red-400"
           />
         </div>
         

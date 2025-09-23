@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from '../../components/ui/Button';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../../components/ui/table';
-import { Add, RowHorizontal, Edit, Trash, Eye, MessageText1 } from 'iconsax-react';
+import { Plus, MoreHorizontal, Edit, Trash, Eye, MessageSquare } from 'lucide-react';
 
 const CustomersPage: React.FC = () => {
   // Mock data for customers
@@ -71,7 +71,7 @@ const CustomersPage: React.FC = () => {
           <div className="flex items-center justify-between">
             <CardTitle className="text-2xl font-bold text-gray-100">مدیریت مشتریان</CardTitle>
             <Button className="bg-cyan-500 hover:bg-cyan-600 text-white">
-              <Add size={20} color="#ffffff" className="ml-2" />
+              <Plus className="h-5 w-5 text-white ml-2" />
               افزودن مشتری جدید
             </Button>
           </div>
@@ -120,19 +120,19 @@ const CustomersPage: React.FC = () => {
                     <TableCell>
                       <div className="flex items-center gap-2">
                         <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
-                          <Eye size={16} color="#9ca3af" />
+                          <Eye className="h-4 w-4 text-gray-400" />
                         </Button>
                         <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
-                          <MessageText1 size={16} color="#9ca3af" />
+                          <MessageSquare className="h-4 w-4 text-gray-400" />
                         </Button>
                         <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
-                          <Edit size={16} color="#9ca3af" />
+                          <Edit className="h-4 w-4 text-gray-400" />
                         </Button>
                         <Button variant="ghost" size="sm" className="h-8 w-8 p-0 text-red-400 hover:text-red-300">
-                          <Trash size={16} color="#f87171" />
+                          <Trash className="h-4 w-4 text-red-400" />
                         </Button>
                         <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
-                          <RowHorizontal size={16} color="#9ca3af" />
+                          <MoreHorizontal className="h-4 w-4 text-gray-400" />
                         </Button>
                       </div>
                     </TableCell>

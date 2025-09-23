@@ -1,12 +1,12 @@
 import React from 'react';
 import { WHY_US_ITEMS } from '../constants';
-import { SearchNormal1, Card, People, TrendUp } from 'iconsax-react';
+import { Search, CreditCard, Users, TrendingUp } from 'lucide-react';
 
 const ICONS: { [key: string]: React.ReactNode } = {
-  Search: <SearchNormal1 size={40} color="#06b6d4" />,
-  CreditCard: <Card size={40} color="#06b6d4" />,
-  Users: <People size={40} color="#06b6d4" />,
-  TrendingUp: <TrendUp size={40} color="#06b6d4" />
+  Search: <Search className="h-10 w-10 text-cyan-500" />,
+  CreditCard: <CreditCard className="h-10 w-10 text-cyan-500" />,
+  Users: <Users className="h-10 w-10 text-cyan-500" />,
+  TrendingUp: <TrendingUp className="h-10 w-10 text-cyan-500" />
 };
 
 const WhyUs: React.FC = () => {

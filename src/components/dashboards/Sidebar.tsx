@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import type { MenuItem } from '../../types';
 import { toast } from 'sonner';
-import { Menu } from 'iconsax-react';
 import { Button } from '../ui/Button';
 import { 
-  Home2, 
-  People, 
-  Security, 
+  Menu,
+  Home, 
+  Users, 
+  Shield, 
   Briefcase, 
-  Profile2User, 
-  ClipboardText, 
-  MessageText1, 
+  User, 
+  Clipboard, 
+  MessageSquare, 
   Heart, 
-  SearchNormal1,
-  ArrowDown2
-} from 'iconsax-react';
+  Search,
+  ChevronDown
+} from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { SIDEBAR_LINKS } from '../../constants';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '../ui/collapsible';
@@ -23,15 +23,15 @@ type UserRole = 'ADMIN' | 'AGENT' | 'CUSTOMER';
 
 // Icon Map
 const ICONS: { [key: string]: React.ReactNode } = {
-  Home: <Home2 size={24} color="#9ca3af" />,
-  Users: <People size={24} color="#9ca3af" />,
-  Shield: <Security size={24} color="#9ca3af" />,
-  Briefcase: <Briefcase size={24} color="#9ca3af" />,
-  User: <Profile2User size={24} color="#9ca3af" />,
-  Clipboard: <ClipboardText size={24} color="#9ca3af" />,
-  Mail: <MessageText1 size={24} color="#9ca3af" />,
-  Heart: <Heart size={24} color="#9ca3af" />,
-  Search: <SearchNormal1 size={24} color="#9ca3af" />,
+  Home: <Home className="h-6 w-6 text-gray-400" />,
+  Users: <Users className="h-6 w-6 text-gray-400" />,
+  Shield: <Shield className="h-6 w-6 text-gray-400" />,
+  Briefcase: <Briefcase className="h-6 w-6 text-gray-400" />,
+  User: <User className="h-6 w-6 text-gray-400" />,
+  Clipboard: <Clipboard className="h-6 w-6 text-gray-400" />,
+  Mail: <MessageSquare className="h-6 w-6 text-gray-400" />,
+  Heart: <Heart className="h-6 w-6 text-gray-400" />,
+  Search: <Search className="h-6 w-6 text-gray-400" />,
 };
 
 interface SidebarMenuItemProps {
@@ -67,10 +67,8 @@ const SidebarMenuItem: React.FC<SidebarMenuItemProps> = ({
                             {ICONS[item.icon || 'Home']}
                             <span className={`me-3 flex-1 whitespace-nowrap transition-all duration-300 ${isCollapsed ? 'hidden' : 'block'}`}>{item.label}</span>
                             {!isCollapsed && (
-                                <ArrowDown2 
-                                    size={16} 
-                                    color="#9ca3af"
-                                    className="transition-transform duration-200 group-data-[state=open]:rotate-180"
+                                <ChevronDown 
+                                    className="h-4 w-4 text-gray-400 transition-transform duration-200 group-data-[state=open]:rotate-180"
                                 />
                             )}
                         </button>
@@ -151,9 +149,7 @@ const Sidebar: React.FC<SidebarProps> = ({ role, isCollapsed, toggleCollapse }) 
                    className="p-2 text-gray-400 hover:text-gray-200 hover:bg-gray-700 transition-all duration-200"
                  >
                    <Menu 
-                     size={20} 
-                     color="#9ca3af"
-                     className={`transition-transform duration-300 ${isCollapsed ? 'rotate-90' : ''}`}
+                     className={`h-5 w-5 text-gray-400 transition-transform duration-300 ${isCollapsed ? 'rotate-90' : ''}`}
                    />
                  </Button>
              </div>

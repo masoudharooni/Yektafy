@@ -3,7 +3,7 @@ import { NAV_LINKS } from '../constants';
 import { authService } from '../services/auth';
 import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
-import { ArrowDown2 } from 'iconsax-react';
+import { ChevronDown } from 'lucide-react';
 import { Button } from './ui/Button';
 
 const Header: React.FC = () => {
@@ -81,10 +81,8 @@ const Header: React.FC = () => {
                   aria-expanded={isDropdownOpen}
                 >
                   <span>{user.name}</span>
-                  <ArrowDown2 
-                    size={16} 
-                    color="#d1d5db"
-                    className={`transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`}
+                  <ChevronDown 
+                    className={`h-4 w-4 text-gray-300 transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`}
                   />
                 </button>
                 

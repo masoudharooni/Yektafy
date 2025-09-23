@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button } from '../../components/ui/Button';
 import { Card, CardContent } from '../../components/ui/card';
 import { Input } from '../../components/ui/input';
-import { Add, SearchNormal, MoreCircle, Edit, Trash, Eye, Crown, Shield, User, Calendar, Clock } from 'iconsax-react';
+import { Plus, Search, MoreHorizontal, Edit, Trash, Eye, Crown, Shield, User, Calendar, Clock } from 'lucide-react';
 
 const AdminsPage: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -86,11 +86,11 @@ const AdminsPage: React.FC = () => {
   const getRoleIcon = (role: string) => {
     switch (role) {
       case 'مدیر کل':
-        return <Crown size={20} color="#fbbf24" />;
+        return <Crown className="h-5 w-5 text-yellow-400" />;
       case 'مدیر فنی':
-        return <Shield size={20} color="#3b82f6" />;
+        return <Shield className="h-5 w-5 text-blue-500" />;
       default:
-        return <User size={20} color="#10b981" />;
+        return <User className="h-5 w-5 text-green-500" />;
     }
   };
 
@@ -109,7 +109,7 @@ const AdminsPage: React.FC = () => {
           <p className="text-gray-400 mt-1">مدیریت و کنترل دسترسی مدیران سیستم</p>
         </div>
         <Button className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white shadow-lg hover:shadow-cyan-500/25 transition-all duration-300">
-          <Add size={20} color="#ffffff" className="ml-2" />
+          <Plus className="h-5 w-5 text-white ml-2" />
           افزودن مدیر جدید
         </Button>
       </div>
@@ -120,10 +120,8 @@ const AdminsPage: React.FC = () => {
           <div className="flex flex-col lg:flex-row gap-4">
             {/* Search */}
             <div className="flex-1 relative">
-              <SearchNormal 
-                size={20} 
-                color="#9ca3af" 
-                className="absolute right-3 top-1/2 transform -translate-y-1/2"
+              <Search 
+                className="h-5 w-5 text-gray-400 absolute right-3 top-1/2 transform -translate-y-1/2"
               />
               <Input
                 type="text"
@@ -178,7 +176,7 @@ const AdminsPage: React.FC = () => {
                 </p>
               </div>
               <div className="w-12 h-12 bg-emerald-500/20 rounded-full flex items-center justify-center">
-                <User size={24} color="#10b981" />
+                <User className="h-6 w-6 text-green-500" />
               </div>
             </div>
           </CardContent>
@@ -192,7 +190,7 @@ const AdminsPage: React.FC = () => {
                 <p className="text-2xl font-bold text-gray-100 mt-1">{admins.length}</p>
               </div>
               <div className="w-12 h-12 bg-blue-500/20 rounded-full flex items-center justify-center">
-                <Crown size={24} color="#3b82f6" />
+                <Crown className="h-6 w-6 text-blue-500" />
               </div>
             </div>
           </CardContent>
@@ -208,7 +206,7 @@ const AdminsPage: React.FC = () => {
                 </p>
               </div>
               <div className="w-12 h-12 bg-purple-500/20 rounded-full flex items-center justify-center">
-                <Shield size={24} color="#8b5cf6" />
+                <Shield className="h-6 w-6 text-purple-500" />
               </div>
             </div>
           </CardContent>
@@ -234,7 +232,7 @@ const AdminsPage: React.FC = () => {
                 <div className="flex items-center gap-2">
                   {getRoleIcon(admin.role)}
                   <Button variant="ghost" size="sm" className="h-8 w-8 p-0 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <MoreCircle size={16} color="#9ca3af" />
+                    <MoreHorizontal className="h-4 w-4 text-gray-400" />
                   </Button>
                 </div>
               </div>
@@ -254,11 +252,11 @@ const AdminsPage: React.FC = () => {
                   <span>{admin.phone}</span>
                 </div>
                 <div className="flex items-center gap-2 text-sm text-gray-400">
-                  <Clock size={14} color="#9ca3af" />
+                  <Clock className="h-3.5 w-3.5 text-gray-400" />
                   <span>آخرین ورود: {admin.lastLogin}</span>
                 </div>
                 <div className="flex items-center gap-2 text-sm text-gray-400">
-                  <Calendar size={14} color="#9ca3af" />
+                  <Calendar className="h-3.5 w-3.5 text-gray-400" />
                   <span>عضو از: {admin.createdAt}</span>
                 </div>
               </div>
@@ -278,15 +276,15 @@ const AdminsPage: React.FC = () => {
               {/* Actions */}
               <div className="flex items-center gap-2 pt-4 border-t border-gray-700/50">
                 <Button variant="ghost" size="sm" className="flex-1 text-gray-400 hover:text-gray-200 hover:bg-gray-700/50">
-                  <Eye size={16} color="currentColor" className="ml-1" />
+                  <Eye className="h-4 w-4 ml-1" />
                   مشاهده
                 </Button>
                 <Button variant="ghost" size="sm" className="flex-1 text-cyan-400 hover:text-cyan-300 hover:bg-cyan-500/10">
-                  <Edit size={16} color="currentColor" className="ml-1" />
+                  <Edit className="h-4 w-4 ml-1" />
                   ویرایش
                 </Button>
                 <Button variant="ghost" size="sm" className="text-red-400 hover:text-red-300 hover:bg-red-500/10">
-                  <Trash size={16} color="currentColor" />
+                  <Trash className="h-4 w-4" />
                 </Button>
               </div>
             </CardContent>
@@ -299,7 +297,7 @@ const AdminsPage: React.FC = () => {
         <Card className="bg-gray-800/50 border-gray-700/50">
           <CardContent className="p-12 text-center">
             <div className="w-16 h-16 bg-gray-700/50 rounded-full flex items-center justify-center mx-auto mb-4">
-              <User size={32} color="#6b7280" />
+              <User className="h-8 w-8 text-gray-500" />
             </div>
             <h3 className="text-lg font-semibold text-gray-300 mb-2">هیچ مدیری یافت نشد</h3>
             <p className="text-gray-400">با فیلترهای فعلی هیچ مدیری پیدا نشد. لطفاً فیلترها را تغییر دهید.</p>

@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from '../../components/ui/Button';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../../components/ui/table';
-import { Add, RowHorizontal, Edit, Trash, Eye, Buildings2, Map } from 'iconsax-react';
+import { Plus, MoreHorizontal, Edit, Trash, Eye, Building, MapPin } from 'lucide-react';
 
 const ListingsPage: React.FC = () => {
   // Mock data for listings
@@ -86,7 +86,7 @@ const ListingsPage: React.FC = () => {
           <div className="flex items-center justify-between">
             <CardTitle className="text-2xl font-bold text-gray-100">مدیریت آگهی‌ها</CardTitle>
             <Button className="bg-cyan-500 hover:bg-cyan-600 text-white">
-              <Add size={20} color="#ffffff" className="ml-2" />
+              <Plus className="h-5 w-5 text-white ml-2" />
               افزودن آگهی جدید
             </Button>
           </div>
@@ -112,7 +112,7 @@ const ListingsPage: React.FC = () => {
                   <TableRow key={listing.id} className="border-gray-700 hover:bg-gray-800/50">
                     <TableCell className="text-gray-100 font-medium max-w-xs">
                       <div className="flex items-center gap-2">
-                        <Buildings2 size={16} color="#9ca3af" />
+                        <Building className="h-4 w-4 text-gray-400" />
                         <span className="truncate">{listing.title}</span>
                       </div>
                     </TableCell>
@@ -129,7 +129,7 @@ const ListingsPage: React.FC = () => {
                     <TableCell className="text-gray-300">{listing.area} متر</TableCell>
                     <TableCell className="text-gray-300">
                       <div className="flex items-center gap-1">
-                        <Map size={14} color="#9ca3af" />
+                        <MapPin className="h-3.5 w-3.5 text-gray-400" />
                         {listing.location}
                       </div>
                     </TableCell>
@@ -147,16 +147,16 @@ const ListingsPage: React.FC = () => {
                     <TableCell>
                       <div className="flex items-center gap-2">
                         <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
-                          <Eye size={16} color="#9ca3af" />
+                          <Eye className="h-4 w-4 text-gray-400" />
                         </Button>
                         <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
-                          <Edit size={16} color="#9ca3af" />
+                          <Edit className="h-4 w-4 text-gray-400" />
                         </Button>
                         <Button variant="ghost" size="sm" className="h-8 w-8 p-0 text-red-400 hover:text-red-300">
-                          <Trash size={16} color="#f87171" />
+                          <Trash className="h-4 w-4 text-red-400" />
                         </Button>
                         <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
-                          <RowHorizontal size={16} color="#9ca3af" />
+                          <MoreHorizontal className="h-4 w-4 text-gray-400" />
                         </Button>
                       </div>
                     </TableCell>

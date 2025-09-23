@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Star1, QuoteUp } from 'iconsax-react';
+import { Star, Quote } from 'lucide-react';
 import { Card, CardContent } from './ui/card';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from './ui/carousel';
 import Autoplay from 'embla-carousel-autoplay';
@@ -68,11 +68,11 @@ const Testimonials: React.FC = () => {
                   <div className="p-1">
                     <Card className="bg-gray-800 border-gray-700 hover:border-cyan-500/50 transition-all duration-300 h-full">
                       <CardContent className="p-6">
-                        <QuoteUp size={24} color="#06b6d4" className="mb-4" />
+                        <Quote className="h-6 w-6 text-cyan-500 mb-4" />
                         
                         <div className="flex mb-4">
                           {[...Array(testimonial.rating)].map((_, i) => (
-                            <Star1 key={i} size={16} color="#fbbf24" className="fill-current" />
+                            <Star key={i} className="h-4 w-4 text-yellow-400 fill-current" />
                           ))}
                         </div>
 

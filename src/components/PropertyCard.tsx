@@ -1,5 +1,5 @@
 import React from "react";
-import { Location, Home, TickCircle, Eye, Ruler } from "iconsax-react";
+import { MapPin, Home, CheckCircle, Eye, Ruler } from "lucide-react";
 import type { Property } from "../types";
 import { Button } from "./ui/Button";
 import {
@@ -69,7 +69,7 @@ const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
             <Tooltip>
               <TooltipTrigger asChild>
                 <div className="absolute top-3 end-3 w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center shadow-lg hover:bg-blue-600 transition-colors duration-200">
-                  <TickCircle size={16} color="#ffffff" variant="Bold" />
+                  <CheckCircle className="h-4 w-4 text-white" />
                 </div>
               </TooltipTrigger>
               <TooltipContent className="z-50">
@@ -89,7 +89,7 @@ const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
 
         {/* Location */}
         <div className="flex items-center gap-2 mb-4 text-gray-400">
-          <Location size={16} color="#9ca3af" />
+          <MapPin className="h-4 w-4 text-gray-400" />
           <span className="text-sm truncate">{location}</span>
         </div>
 
@@ -100,7 +100,7 @@ const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
 
           {/* Line 2: Specs (Bedrooms + Property Type) */}
           <div className="flex items-center gap-2 text-sm text-gray-300">
-            <Home size={16} color="#9ca3af" />
+            <Home className="h-4 w-4 text-gray-400" />
             <span>{bedrooms} خوابه</span>
             <span className="text-gray-500">•</span>
             <span>{getPropertyCategory(bedrooms)}</span>
@@ -108,7 +108,7 @@ const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
 
           {/* Line 3: Area */}
           <div className="flex items-center gap-2 text-sm text-gray-400">
-            <Ruler size={16} color="#9ca3af" />
+            <Ruler className="h-4 w-4 text-gray-400" />
             <span>{area} متر مربع</span>
           </div>
         </div>
@@ -120,7 +120,7 @@ const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
             size="sm"
             className="w-full bg-gray-800/50 hover:bg-gray-700 text-gray-200 hover:text-white border border-gray-600 hover:border-gray-500 flex items-center justify-center gap-2 transition-all duration-200 group/btn"
           >
-            <Eye size={16} color="#9ca3af" />
+            <Eye className="h-4 w-4 text-gray-400" />
             <span>مشاهده جزئیات</span>
           </Button>
         </div>

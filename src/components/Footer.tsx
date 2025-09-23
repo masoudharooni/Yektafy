@@ -2,16 +2,16 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { toast } from 'sonner';
 import { 
-  Home2, 
+  Home, 
   User, 
-  InfoCircle, 
-  Call, 
-  Message, 
-  Location,
-  Instagram,
-  Send2,
-  UserSquare
-} from 'iconsax-react';
+  Info, 
+  Phone, 
+  Mail, 
+  MapPin,
+  Camera,
+  Send,
+  Briefcase
+} from 'lucide-react';
 
 const Footer: React.FC = () => {
   const handlePlaceholderClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -67,17 +67,17 @@ const Footer: React.FC = () => {
             {/* Social Media Icons */}
             <div className="flex gap-3">
               <SocialIcon 
-                icon={<Instagram size={20} color="#9ca3af" />} 
+                icon={<Camera className="h-5 w-5 text-gray-400" />} 
                 href="#" 
                 label="اینستاگرام" 
               />
               <SocialIcon 
-                icon={<Send2 size={20} color="#9ca3af" />} 
+                icon={<Send className="h-5 w-5 text-gray-400" />} 
                 href="#" 
                 label="تلگرام" 
               />
               <SocialIcon 
-                icon={<UserSquare size={20} color="#9ca3af" />} 
+                icon={<Briefcase className="h-5 w-5 text-gray-400" />} 
                 href="#" 
                 label="لینکدین" 
               />
@@ -87,28 +87,28 @@ const Footer: React.FC = () => {
           {/* Column 2: Quick Links */}
           <div>
             <h4 className="text-xl font-semibold text-white mb-6 flex items-center gap-2">
-              <Home2 size={20} className="text-cyan-400" />
+              <Home className="h-5 w-5 text-cyan-400" />
               لینک‌های سریع
             </h4>
             <ul className="space-y-3">
               <FooterLink href="/">
-                <Home2 size={16} />
+                <Home className="h-4 w-4" />
                 صفحه اصلی
               </FooterLink>
               <FooterLink href="/dashboard">
-                <User size={16} />
+                <User className="h-4 w-4" />
                 داشبورد
               </FooterLink>
               <FooterLink>
-                <InfoCircle size={16} />
+                <Info className="h-4 w-4" />
                 درباره ما
               </FooterLink>
               <FooterLink>
-                <Home2 size={16} />
+                <Home className="h-4 w-4" />
                 خرید ملک
               </FooterLink>
               <FooterLink>
-                <Home2 size={16} />
+                <Home className="h-4 w-4" />
                 فروش ملک
               </FooterLink>
             </ul>
@@ -117,28 +117,28 @@ const Footer: React.FC = () => {
           {/* Column 3: Services */}
           <div>
             <h4 className="text-xl font-semibold text-white mb-6 flex items-center gap-2">
-              <User size={20} className="text-cyan-400" />
+              <User className="h-5 w-5 text-cyan-400" />
               خدمات
             </h4>
             <ul className="space-y-3">
               <FooterLink>
-                <Home2 size={16} />
+                <Home className="h-4 w-4" />
                 مشاوره رایگان
               </FooterLink>
               <FooterLink>
-                <Home2 size={16} />
+                <Home className="h-4 w-4" />
                 ارزیابی ملک
               </FooterLink>
               <FooterLink>
-                <Home2 size={16} />
+                <Home className="h-4 w-4" />
                 پروژه‌های سرمایه‌گذاری
               </FooterLink>
               <FooterLink>
-                <Home2 size={16} />
+                <Home className="h-4 w-4" />
                 اجاره کوتاه مدت
               </FooterLink>
               <FooterLink>
-                <Home2 size={16} />
+                <Home className="h-4 w-4" />
                 مدیریت ملک
               </FooterLink>
             </ul>
@@ -147,24 +147,24 @@ const Footer: React.FC = () => {
           {/* Column 4: Contact */}
           <div>
             <h4 className="text-xl font-semibold text-white mb-6 flex items-center gap-2">
-              <Call size={20} className="text-cyan-400" />
+              <Phone className="h-5 w-5 text-cyan-400" />
               تماس با ما
             </h4>
             <ul className="space-y-3">
               <FooterLink>
-                <Location size={16} />
+                <MapPin className="h-4 w-4" />
                 تهران، خیابان ولیعصر
               </FooterLink>
               <FooterLink>
-                <Call size={16} />
+                <Phone className="h-4 w-4" />
                 ۰۲۱-۱۲۳۴۵۶۷۸
               </FooterLink>
               <FooterLink>
-                <Message size={16} />
+                <Mail className="h-4 w-4" />
                 info@yektafy.com
               </FooterLink>
               <FooterLink>
-                <Send2 size={16} />
+                <Send className="h-4 w-4" />
                 @yektafy_support
               </FooterLink>
             </ul>

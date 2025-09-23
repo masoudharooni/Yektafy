@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
-import { SearchNormal1, Location, Map } from "iconsax-react";
+import { Search, MapPin, Map } from "lucide-react";
 import { Button } from "./ui/Button";
 import { Command, CommandList, CommandItem } from "./ui/command";
 import { ModalComponent } from "./custom";
@@ -123,10 +123,8 @@ const SearchBox: React.FC = () => {
             onFocus={() => searchQuery.length > 1 && setShowResults(true)}
             className="w-full bg-gray-800/50 border border-gray-600 rounded-lg py-3 px-4 ps-12 text-gray-100 placeholder-gray-400 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition-all outline-none"
           />
-          <Location
-            size={24}
-            color="#9ca3af"
-            className="absolute end-4 top-1/2 -translate-y-1/2"
+          <MapPin
+            className="h-6 w-6 text-gray-400 absolute end-4 top-1/2 -translate-y-1/2"
           />
 
           {/* Live Search Results - Floating */}
@@ -170,7 +168,7 @@ const SearchBox: React.FC = () => {
             onClick={handleSearchClick}
             className="flex-1 bg-cyan-500 h-full hover:bg-cyan-600 text-white font-bold py-3 px-6 rounded-lg shadow-lg shadow-cyan-500/30 transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2"
           >
-            <SearchNormal1 size={20} color="#ffffff" />
+            <Search className="h-5 w-5 text-white" />
             <span>جستجو</span>
           </Button>
           <Button
@@ -178,7 +176,7 @@ const SearchBox: React.FC = () => {
             variant="outline"
             className="bg-gray-700/50 border-gray-600 text-gray-300 hover:bg-gray-600 hover:text-white px-3 h-full"
           >
-            <Location size={20} color="#d1d5db" />
+            <MapPin className="h-5 w-5 text-gray-300" />
           </Button>
         </div>
       </motion.div>
@@ -201,10 +199,8 @@ const SearchBox: React.FC = () => {
             onFocus={() => searchQuery.length > 1 && setShowResults(true)}
             className="w-full bg-gray-800/50 border border-gray-600 rounded-lg py-3 px-4 ps-12 text-gray-100 placeholder-gray-400 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition-all outline-none"
           />
-          <Location
-            size={24}
-            color="#9ca3af"
-            className="absolute end-4 top-1/2 -translate-y-1/2"
+          <MapPin
+            className="h-6 w-6 text-gray-400 absolute end-4 top-1/2 -translate-y-1/2"
           />
 
           {/* Live Search Results - Floating */}
@@ -248,7 +244,7 @@ const SearchBox: React.FC = () => {
             onClick={handleSearchClick}
             className="flex-1 bg-cyan-500 h-full hover:bg-cyan-600 text-white font-bold py-3 px-6 rounded-lg shadow-lg shadow-cyan-500/30 transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2"
           >
-            <SearchNormal1 size={20} color="#ffffff" />
+            <Search className="h-5 w-5 text-white" />
             <span>جستجو</span>
           </Button>
           <Button
@@ -256,7 +252,7 @@ const SearchBox: React.FC = () => {
             variant="outline"
             className="bg-gray-700/50 border-gray-600 text-gray-300 hover:bg-gray-600 hover:text-white px-3 h-full"
           >
-            <Location size={20} color="#d1d5db" />
+            <MapPin className="h-5 w-5 text-gray-300" />
           </Button>
         </div>
       </motion.div>

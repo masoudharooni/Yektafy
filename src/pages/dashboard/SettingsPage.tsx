@@ -6,12 +6,12 @@ import { Label } from '../../components/ui/label';
 import { 
   User, 
   Shield, 
-  Global, 
+  Globe, 
   Key, 
-  Save2,
-  Notification,
+  Save,
+  Bell,
   Lock
-} from 'iconsax-react';
+} from 'lucide-react';
 
 const SettingsPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState('profile');
@@ -19,8 +19,8 @@ const SettingsPage: React.FC = () => {
   const tabs = [
     { id: 'profile', label: 'پروفایل', icon: User },
     { id: 'security', label: 'امنیت', icon: Shield },
-    { id: 'notifications', label: 'اعلان‌ها', icon: Notification },
-    { id: 'general', label: 'عمومی', icon: Global },
+    { id: 'notifications', label: 'اعلان‌ها', icon: Bell },
+    { id: 'general', label: 'عمومی', icon: Globe },
   ];
 
   return (
@@ -46,7 +46,7 @@ const SettingsPage: React.FC = () => {
                           : 'text-gray-400 hover:text-gray-200 hover:bg-gray-800/50'
                       }`}
                     >
-                      <Icon size={20} color="currentColor" />
+                      <Icon className="h-5 w-5" />
                       {tab.label}
                     </button>
                   );
@@ -97,7 +97,7 @@ const SettingsPage: React.FC = () => {
                   </div>
                   
                   <Button className="bg-cyan-500 hover:bg-cyan-600 text-white">
-                    <Save2 size={20} color="#ffffff" className="ml-2" />
+                    <Save className="h-5 w-5 text-white ml-2" />
                     ذخیره تغییرات
                   </Button>
                 </div>
@@ -136,20 +136,20 @@ const SettingsPage: React.FC = () => {
                   
                   <div className="bg-yellow-500/10 border border-yellow-500/20 rounded-lg p-4">
                     <div className="flex items-center gap-2 mb-2">
-                      <Shield size={20} color="#f59e0b" />
+                      <Shield className="h-5 w-5 text-yellow-500" />
                       <h4 className="text-yellow-400 font-medium">احراز هویت دو مرحله‌ای</h4>
                     </div>
                     <p className="text-gray-300 text-sm mb-3">
                       برای امنیت بیشتر، احراز هویت دو مرحله‌ای را فعال کنید.
                     </p>
                     <Button variant="outline" className="border-yellow-500 text-yellow-400 hover:bg-yellow-500/10">
-                      <Key size={16} color="#f59e0b" className="ml-2" />
+                      <Key className="h-4 w-4 text-yellow-500 ml-2" />
                       فعال‌سازی
                     </Button>
                   </div>
                   
                   <Button className="bg-cyan-500 hover:bg-cyan-600 text-white">
-                    <Lock size={20} color="#ffffff" className="ml-2" />
+                    <Lock className="h-5 w-5 text-white ml-2" />
                     تغییر رمز عبور
                   </Button>
                 </div>
@@ -194,7 +194,7 @@ const SettingsPage: React.FC = () => {
                   </div>
                   
                   <Button className="bg-cyan-500 hover:bg-cyan-600 text-white">
-                    <Notification size={20} color="#ffffff" className="ml-2" />
+                    <Bell className="h-5 w-5 text-white ml-2" />
                     ذخیره تنظیمات
                   </Button>
                 </div>
@@ -237,7 +237,7 @@ const SettingsPage: React.FC = () => {
                   </div>
                   
                   <Button className="bg-cyan-500 hover:bg-cyan-600 text-white">
-                    <Save2 size={20} color="#ffffff" className="ml-2" />
+                    <Save className="h-5 w-5 text-white ml-2" />
                     ذخیره تنظیمات
                   </Button>
                 </div>
