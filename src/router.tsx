@@ -1,26 +1,26 @@
-import { createBrowserRouter } from 'react-router-dom';
-import RootLayout from './components/layouts/RootLayout';
-import LandingPage from './pages/LandingPage';
-import DashboardPage from './pages/DashboardPage';
-import LoginWithPassword from './components/auth/LoginWithPassword';
-import ForgotPasswordPage from './pages/ForgotPasswordPage';
-import NotFoundPage from './pages/NotFoundPage';
-import ErrorBoundaryPage from './pages/ErrorBoundaryPage';
-import LoginLayout from './components/layouts/LoginLayout';
-import LoginWithSms from './components/auth/LoginWithSms';
+import { createBrowserRouter } from "react-router-dom";
+import RootLayout from "./components/layouts/RootLayout";
+import LandingPage from "./pages/LandingPage";
+import DashboardPage from "./pages/DashboardPage";
+import LoginWithPassword from "./components/auth/LoginWithPassword";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage";
+import NotFoundPage from "./pages/NotFoundPage";
+import ErrorBoundaryPage from "./pages/ErrorBoundaryPage";
+import LoginLayout from "./components/layouts/LoginLayout";
+import LoginWithSms from "./components/auth/LoginWithSms";
 
 // Dashboard Pages
-import DashboardHome from './pages/dashboard/DashboardHome';
-import AdminsPage from './pages/dashboard/AdminsPage';
-import AgentsPage from './pages/dashboard/AgentsPage';
-import CustomersPage from './pages/dashboard/CustomersPage';
-import ListingsPage from './pages/dashboard/ListingsPage';
-import SettingsPage from './pages/dashboard/SettingsPage';
+import DashboardHome from "./pages/dashboard/DashboardHome";
+import AdminsPage from "./pages/dashboard/AdminsPage";
+import AgentsPage from "./pages/dashboard/AgentsPage";
+import CustomersPage from "./pages/dashboard/CustomersPage";
+import ListingsPage from "./pages/dashboard/ListingsPage";
+import SettingsPage from "./pages/dashboard/SettingsPage";
 
 // Centralized routing configuration using React Router v6
 export const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <RootLayout />,
     errorElement: <ErrorBoundaryPage />,
     children: [
@@ -29,7 +29,7 @@ export const router = createBrowserRouter([
         element: <LandingPage />,
       },
       {
-        path: 'dashboard',
+        path: "dashboard",
         element: <DashboardPage />,
         children: [
           {
@@ -37,51 +37,51 @@ export const router = createBrowserRouter([
             element: <DashboardHome />,
           },
           {
-            path: 'admins',
+            path: "admins",
             element: <AdminsPage />,
           },
           {
-            path: 'agents',
+            path: "agents",
             element: <AgentsPage />,
           },
           {
-            path: 'customers',
+            path: "customers",
             element: <CustomersPage />,
           },
           {
-            path: 'listings',
+            path: "listings",
             element: <ListingsPage />,
           },
           {
-            path: 'settings',
+            path: "settings",
             element: <SettingsPage />,
           },
         ],
       },
       {
-        path: 'login',
+        path: "login",
         element: <LoginLayout />,
         children: [
           {
             index: true,
+            element: <LoginWithSms />,
+          },
+          {
+            path: "password",
             element: <LoginWithPassword />,
           },
           {
-            path: 'password',
-            element: <LoginWithPassword />,
+            path: "sms",
+            element: <LoginWithSms />,
           },
-             {
-               path: 'sms',
-               element: <LoginWithSms />,
-             },
-           ],
-         },
-         {
-           path: 'forgot-password',
-           element: <ForgotPasswordPage />,
-         },
+        ],
+      },
       {
-        path: '*',
+        path: "forgot-password",
+        element: <ForgotPasswordPage />,
+      },
+      {
+        path: "*",
         element: <NotFoundPage />,
       },
     ],

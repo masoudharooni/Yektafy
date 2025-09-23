@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
-import { loginSmsSchema, type LoginSmsFormData } from '../../schemas/auth';
+import { ArrowRight2, Clock } from 'iconsax-react';
+import { loginSmsSchema, verifyOtpSchema, type LoginSmsFormData, type VerifyOtpFormData } from '../../schemas/auth';
 import {
   Form,
   FormControl,
@@ -13,27 +15,176 @@ import {
 } from '../ui/form';
 import { Input } from '../ui/input';
 import { Button } from '../ui/Button';
+import { InputOTP, InputOTPGroup, InputOTPSlot } from '../custom';
 
 const LoginWithSms: React.FC = () => {
-  const form = useForm<LoginSmsFormData>({
+  const navigate = useNavigate();
+  const [step, setStep] = useState<'phone' | 'otp'>('phone');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [countdown, setCountdown] = useState(0);
+  const [isResending, setIsResending] = useState(false);
+
+  const phoneForm = useForm<LoginSmsFormData>({
     resolver: zodResolver(loginSmsSchema),
     defaultValues: {
       phone: '',
     },
   });
 
-  const onSubmit = (_data: LoginSmsFormData) => {
-    toast.info('ورود با پیامک در حال حاضر فعال نیست.');
+  const otpForm = useForm<VerifyOtpFormData>({
+    resolver: zodResolver(verifyOtpSchema),
+    defaultValues: {
+      otp: '',
+    },
+  });
+
+  // Countdown timer for resend button
+  useEffect(() => {
+    if (countdown > 0) {
+      const timer = setTimeout(() => setCountdown(countdown - 1), 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [countdown]);
+
+  const onPhoneSubmit = (data: LoginSmsFormData) => {
+    // Simulate sending OTP
+    setPhoneNumber(data.phone);
+    setStep('otp');
+    setCountdown(60);
+    toast.success(`کد تایید به شماره ${data.phone} ارسال شد`);
   };
+
+  const onOtpSubmit = (data: VerifyOtpFormData) => {
+    // Simulate OTP verification
+    if (data.otp === '123456') {
+      toast.success('ورود با موفقیت انجام شد');
+      navigate('/dashboard');
+    } else {
+      toast.error('کد تایید اشتباه است');
+    }
+  };
+
+  const handleResendOtp = async () => {
+    setIsResending(true);
+    // Simulate resending OTP
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    setCountdown(60);
+    setIsResending(false);
+    toast.success('کد تایید مجدداً ارسال شد');
+  };
+
+  if (step === 'otp') {
+    return (
+      <div className="p-8">
+        <h2 className="text-2xl font-bold text-gray-100 mb-2 text-center">تایید شماره موبایل</h2>
+        <p className="text-gray-400 text-center mb-8">
+          کد تایید ۶ رقمی ارسال شده به {phoneNumber} را وارد کنید
+        </p>
+        
+        <Form {...otpForm}>
+          <form onSubmit={otpForm.handleSubmit(onOtpSubmit)} className="space-y-8">
+            <FormField
+              control={otpForm.control}
+              name="otp"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-gray-300 text-center block">کد تایید</FormLabel>
+                  <FormControl>
+                    <div dir="ltr" className="flex justify-center">
+                      <InputOTP
+                        maxLength={6}
+                        value={field.value}
+                        onChange={field.onChange}
+                        className="gap-2"
+                      >
+                        <InputOTPGroup className="gap-2">
+                          <InputOTPSlot 
+                            index={0} 
+                            className="bg-gray-800/50 border-gray-600 text-gray-100 w-12 h-12 text-lg font-semibold rounded-lg"
+                          />
+                          <InputOTPSlot 
+                            index={1} 
+                            className="bg-gray-800/50 border-gray-600 text-gray-100 w-12 h-12 text-lg font-semibold rounded-lg"
+                          />
+                          <InputOTPSlot 
+                            index={2} 
+                            className="bg-gray-800/50 border-gray-600 text-gray-100 w-12 h-12 text-lg font-semibold rounded-lg"
+                          />
+                          <InputOTPSlot 
+                            index={3} 
+                            className="bg-gray-800/50 border-gray-600 text-gray-100 w-12 h-12 text-lg font-semibold rounded-lg"
+                          />
+                          <InputOTPSlot 
+                            index={4} 
+                            className="bg-gray-800/50 border-gray-600 text-gray-100 w-12 h-12 text-lg font-semibold rounded-lg"
+                          />
+                          <InputOTPSlot 
+                            index={5} 
+                            className="bg-gray-800/50 border-gray-600 text-gray-100 w-12 h-12 text-lg font-semibold rounded-lg"
+                          />
+                        </InputOTPGroup>
+                      </InputOTP>
+                    </div>
+                  </FormControl>
+                  <FormMessage className="text-center" />
+                </FormItem>
+              )}
+            />
+            
+            <div className="space-y-4">
+              <Button
+                type="submit"
+                className="w-full bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 flex items-center justify-center gap-2"
+                disabled={otpForm.formState.isSubmitting}
+              >
+                {otpForm.formState.isSubmitting ? 'در حال تایید...' : 'تایید و ورود'}
+                <ArrowRight2 size={20} color="#ffffff" />
+              </Button>
+
+              <div className="text-center">
+                {countdown > 0 ? (
+                  <div className="flex items-center justify-center gap-2 text-gray-400">
+                    <Clock size={16} color="#9ca3af" />
+                    <span>ارسال مجدد کد در {countdown} ثانیه</span>
+                  </div>
+                ) : (
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    onClick={handleResendOtp}
+                    disabled={isResending}
+                    className="text-cyan-400 hover:text-cyan-300 hover:bg-cyan-500/10"
+                  >
+                    {isResending ? 'در حال ارسال...' : 'ارسال مجدد کد'}
+                  </Button>
+                )}
+              </div>
+
+              <div className="text-center">
+                <Button
+                  type="button"
+                  variant="ghost"
+                  onClick={() => setStep('phone')}
+                  className="text-gray-400 hover:text-gray-300"
+                >
+                  تغییر شماره موبایل
+                </Button>
+              </div>
+            </div>
+          </form>
+        </Form>
+      </div>
+    );
+  }
 
   return (
     <div className="p-8">
-      <h2 className="text-2xl font-bold text-gray-100 mb-6 text-center">ورود با پیامک</h2>
+      <h2 className="text-2xl font-bold text-gray-100 mb-6 text-center">ورود با شماره موبایل</h2>
       
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+      <Form {...phoneForm}>
+        <form onSubmit={phoneForm.handleSubmit(onPhoneSubmit)} className="space-y-6">
           <FormField
-            control={form.control}
+            control={phoneForm.control}
             name="phone"
             render={({ field }) => (
               <FormItem>
@@ -54,10 +205,11 @@ const LoginWithSms: React.FC = () => {
           
           <Button
             type="submit"
-            className="w-full bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300"
-            disabled={form.formState.isSubmitting}
+            className="w-full bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 flex items-center justify-center gap-2"
+            disabled={phoneForm.formState.isSubmitting}
           >
-            {form.formState.isSubmitting ? 'در حال ارسال...' : 'ارسال کد تایید'}
+            {phoneForm.formState.isSubmitting ? 'در حال ارسال...' : 'ارسال کد تایید'}
+            <ArrowRight2 size={20} color="#ffffff" />
           </Button>
         </form>
       </Form>

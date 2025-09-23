@@ -6,7 +6,7 @@ const LoginLayout: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [activeTab, setActiveTab] = useState<'password' | 'sms'>(
-    location.pathname.includes('sms') ? 'sms' : 'password'
+    location.pathname.includes('password') ? 'password' : 'sms'
   );
 
   const handleTabChange = (tab: 'password' | 'sms') => {
