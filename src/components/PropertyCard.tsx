@@ -1,5 +1,5 @@
 import React from "react";
-import { Location, Home, Wifi, Ruler, TickCircle, Eye } from "iconsax-react";
+import { Location, Home, TickCircle, Eye, Ruler } from "iconsax-react";
 import type { Property } from "../types";
 import { Button } from "./ui/Button";
 import {
@@ -21,79 +21,108 @@ const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
     price,
     location,
     bedrooms,
-    bathrooms,
     area,
     type,
     isVerified,
   } = property;
   const imageSrc = imageUrl || image;
 
-  const InfoChip: React.FC<{
-    icon: React.ReactNode;
-    text: string | number;
-  }> = ({ icon, text }) => (
-    <div className="flex items-center gap-2 bg-gray-700 rounded-full px-3 py-1 text-sm text-gray-300">
-      {icon}
-      <span>{text}</span>
-    </div>
-  );
+  // Helper function to get property type in Persian
+  const getPropertyType = (type: string) => {
+    switch (type) {
+      case "sale":
+        return "فروش";
+      case "rent":
+        return "اجاره";
+      default:
+        return type;
+    }
+  };
+
+  // Helper function to get property category based on bedrooms
+  const getPropertyCategory = (bedrooms: number) => {
+    if (bedrooms === 1) return "استودیو";
+    if (bedrooms === 2) return "آپارتمان";
+    if (bedrooms === 3) return "آپارتمان";
+    if (bedrooms >= 4) return "ویلا";
+    return "آپارتمان";
+  };
 
   return (
-    <div className="bg-gray-900 border border-gray-700 rounded-xl overflow-hidden shadow-lg hover:shadow-cyan-500/20 hover:border-cyan-500/50 transition-all duration-300 transform hover:-translate-y-1 h-full flex flex-col">
-      <div className="relative">
-        <img src={imageSrc} alt={title} className="w-full h-48 object-cover" />
-        <div className="absolute top-2 start-2 bg-black/60 text-white text-xs font-bold px-3 py-1 rounded-full">
-          {type === "sale" ? "فروش" : "اجاره"}
+    <div className="bg-gray-900 border border-gray-700 rounded-xl overflow-visible shadow-lg hover:shadow-cyan-500/20 hover:border-cyan-500/50 transition-all duration-300 transform hover:-translate-y-1 h-full flex flex-col group">
+      {/* Image Section */}
+      <div className="relative overflow-hidden rounded-t-xl">
+        <img
+          src={imageSrc}
+          alt={title}
+          className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+        />
+
+        {/* Property Type Badge */}
+        <div className="absolute top-3 start-3 bg-black/70 backdrop-blur-sm text-white text-xs font-semibold px-3 py-1.5 rounded-full border border-white/20">
+          {getPropertyType(type)}
         </div>
+
+        {/* Verified Badge */}
         {isVerified && (
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
-                <div className="absolute top-2 end-2 p-2 bg-blue-600 rounded-full">
-                  <TickCircle size={16} color="#ffffff" />
+                <div className="absolute top-3 end-3 w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center shadow-lg hover:bg-blue-600 transition-colors duration-200">
+                  <TickCircle size={16} color="#ffffff" variant="Bold" />
                 </div>
               </TooltipTrigger>
-              <TooltipContent>
-                <p>این آگهی احراز هویت شده و توسط تیم یکتافی تایید می‌شود.</p>
+              <TooltipContent className="z-50">
+                <p>این آگهی توسط تیم یکتافی احراز هویت شده است.</p>
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
         )}
       </div>
-      <div className="p-4 flex flex-col flex-grow">
-        <h3 className="text-lg font-semibold text-gray-100 mb-2 truncate">
+
+      {/* Content Section */}
+      <div className="p-5 flex flex-col flex-grow">
+        {/* Property Title */}
+        <h3 className="text-lg font-semibold text-gray-100 mb-3 line-clamp-2 leading-relaxed">
           {title}
         </h3>
-        <p className="text-gray-400 text-sm mb-4 flex items-center">
-          <Location size={16} color="#9ca3af" className="ms-1" />
-          {location}
-        </p>
-        <div className="flex flex-wrap gap-2 mb-4">
-          <InfoChip
-            icon={<Home size={16} color="#d1d5db" />}
-            text={`${bedrooms} خواب`}
-          />
-          <InfoChip
-            icon={<Wifi size={16} color="#d1d5db" />}
-            text={`${bathrooms} حمام`}
-          />
-          <InfoChip
-            icon={<Ruler size={16} color="#d1d5db" />}
-            text={`${area} متر`}
-          />
+
+        {/* Location */}
+        <div className="flex items-center gap-2 mb-4 text-gray-400">
+          <Location size={16} color="#9ca3af" />
+          <span className="text-sm truncate">{location}</span>
         </div>
-        <div className="mt-auto pt-4 border-t border-gray-700">
-          <div className="flex justify-between items-center">
-            <p className="text-xl font-bold text-cyan-400">{price} تومان</p>
-            <Button
-              variant="secondary"
-              size="sm"
-              className="bg-gray-700 hover:bg-gray-600 text-gray-200 hover:text-white border-gray-600 hover:border-gray-500 flex items-center gap-2 transition-all duration-200"
-            >
-              <Eye size={16} color="#d1d5db" />
-              مشاهده جزئیات
-            </Button>
+
+        {/* Property Information - New Structure */}
+        <div className="space-y-3 mb-6 flex-grow">
+          {/* Line 1: Price */}
+          <div className="text-xl font-bold text-cyan-400">{price} تومانء</div>
+
+          {/* Line 2: Specs (Bedrooms + Property Type) */}
+          <div className="flex items-center gap-2 text-sm text-gray-300">
+            <Home size={16} color="#9ca3af" />
+            <span>{bedrooms} خوابه</span>
+            <span className="text-gray-500">•</span>
+            <span>{getPropertyCategory(bedrooms)}</span>
           </div>
+
+          {/* Line 3: Area */}
+          <div className="flex items-center gap-2 text-sm text-gray-400">
+            <Ruler size={16} color="#9ca3af" />
+            <span>{area} متر مربع</span>
+          </div>
+        </div>
+
+        {/* Action Button */}
+        <div className="pt-4 border-t border-gray-700/50">
+          <Button
+            variant="secondary"
+            size="sm"
+            className="w-full bg-gray-800/50 hover:bg-gray-700 text-gray-200 hover:text-white border border-gray-600 hover:border-gray-500 flex items-center justify-center gap-2 transition-all duration-200 group/btn"
+          >
+            <Eye size={16} color="#9ca3af" />
+            <span>مشاهده جزئیات</span>
+          </Button>
         </div>
       </div>
     </div>
