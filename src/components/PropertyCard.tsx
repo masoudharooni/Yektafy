@@ -104,7 +104,7 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <div className="absolute top-2 right-2 z-10">
+                    <div className="absolute top-2 left-2 z-10">
                       <div className="relative group">
                         <div className="w-7 h-7 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center shadow-lg shadow-blue-500/30 border-2 border-white/20 backdrop-blur-sm">
                           <BadgeCheck className="w-4 h-4 text-white" />

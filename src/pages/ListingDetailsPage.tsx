@@ -186,8 +186,8 @@ const ListingDetailsPage: React.FC = () => {
                 onClick={() => setShowContactInfo(true)}
                 className="flex-1 bg-red-600 hover:bg-red-700 text-white font-medium py-3"
               >
-                <Phone className="w-5 h-5 mr-2" />
                 اطلاعات تماس
+                <Phone className="w-4 h-4 mr-2" />
               </Button>
 
               <Button
@@ -347,8 +347,8 @@ const ListingDetailsPage: React.FC = () => {
 
             {/* Report Ad Button */}
             <Button className="w-full bg-red-500/10 hover:bg-red-500/20 border border-red-500/30 text-red-400 hover:text-red-300 transition-all duration-200">
-              <Flag className="w-4 h-4 mr-2" />
               گزارش آگهی
+              <Flag className="w-4 h-4 mr-2" />
             </Button>
           </div>
         </div>
