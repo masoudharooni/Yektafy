@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from './ui/collapsible';
 import { Button } from './ui/Button';
-import { ChevronDown, ChevronUp, MapPin } from 'lucide-react';
-import MapSearchModal from './MapSearchModal';
+import { ChevronDown, ChevronUp, MapPin, Search } from 'lucide-react';
+import ModalComponent from './custom/ModalComponent';
+import MapComponent from './MapComponent';
+import type { MapPosition } from '../types';
 
 interface FilterSidebarProps {
   onCategoryChange: (category: string) => void;
@@ -24,7 +26,7 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({
   onNeighborhoodChange,
   onMinPriceChange,
   onMaxPriceChange,
-  onStatusChange,
+  onStatusChange, 
   onVerifiedChange,
   selectedCategory,
   selectedNeighborhoods,
@@ -38,6 +40,20 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({
   const [statusOpen, setStatusOpen] = useState(false);
   const [verifiedOpen, setVerifiedOpen] = useState(false);
   const [mapModalOpen, setMapModalOpen] = useState(false);
+  const [selectedLocation, setSelectedLocation] = useState<string>("");
+
+  // Default center for Isfahan
+  const isfahanCenter: MapPosition = [32.6546, 51.668];
+
+  const handleLocationSelect = () => {
+    if (selectedLocation.trim()) {
+      if (!selectedNeighborhoods.includes(selectedLocation)) {
+        onNeighborhoodChange([...selectedNeighborhoods, selectedLocation]);
+      }
+      setMapModalOpen(false);
+      setSelectedLocation("");
+    }
+  };
 
   const categories = [
     'آپارتمان',
@@ -282,16 +298,87 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({
           </Collapsible>
 
       {/* Map Search Modal */}
-      <MapSearchModal
+      <ModalComponent
         open={mapModalOpen}
-        onClose={() => setMapModalOpen(false)}
-        onLocationSelect={(location) => {
-          if (!selectedNeighborhoods.includes(location)) {
-            onNeighborhoodChange([...selectedNeighborhoods, location]);
-          }
+        onClose={() => {
           setMapModalOpen(false);
+          setSelectedLocation("");
         }}
-      />
+        header="جستجو بر اساس نقشه"
+        maxWidth="lg"
+      >
+        <div className="space-y-6">
+          {/* Instructions */}
+          <div className="bg-gray-800 rounded-lg p-4 border border-gray-700">
+            <h3 className="text-white font-medium mb-2">راهنمای انتخاب محله</h3>
+            <p className="text-gray-300 text-sm">
+              روی نقشه کلیک کنید یا نام محله مورد نظر را در کادر زیر وارد کنید تا آن را به فیلترهای جستجو اضافه کنید.
+            </p>
+          </div>
+
+          {/* Map Container */}
+          <div className="relative w-full h-[50vh] rounded-lg overflow-hidden border border-gray-700">
+            <MapComponent
+              center={isfahanCenter}
+              zoom={12}
+              className="w-full h-full"
+              showControls={true}
+            />
+          </div>
+
+          {/* Location Input */}
+          <div className="space-y-4">
+            <div className="relative">
+              <input
+                type="text"
+                placeholder="نام محله یا منطقه را وارد کنید..."
+                value={selectedLocation}
+                onChange={(e) => setSelectedLocation(e.target.value)}
+                className="w-full px-4 py-3 pr-12 border border-gray-600 rounded-lg bg-gray-700 text-white placeholder-gray-400 focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500"
+              />
+              <Search className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+            </div>
+
+            {/* Selected Neighborhoods */}
+            {selectedNeighborhoods.length > 0 && (
+              <div className="bg-gray-800 rounded-lg p-4 border border-gray-700">
+                <h4 className="text-white font-medium mb-2">محله‌های انتخاب شده:</h4>
+                <div className="flex flex-wrap gap-2">
+                  {selectedNeighborhoods.map((neighborhood, index) => (
+                    <span
+                      key={index}
+                      className="bg-cyan-500/20 text-cyan-300 px-3 py-1 rounded-full text-sm border border-cyan-500/30"
+                    >
+                      {neighborhood}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Action Buttons */}
+            <div className="flex gap-3 justify-end">
+              <Button
+                onClick={() => {
+                  setMapModalOpen(false);
+                  setSelectedLocation("");
+                }}
+                variant="outline"
+                className="border-gray-600 text-gray-300 hover:bg-gray-700"
+              >
+                لغو
+              </Button>
+              <Button
+                onClick={handleLocationSelect}
+                disabled={!selectedLocation.trim()}
+                className="bg-cyan-500 hover:bg-cyan-600 text-white disabled:bg-gray-600 disabled:text-gray-400"
+              >
+                اضافه کردن به فیلتر
+              </Button>
+            </div>
+          </div>
+        </div>
+      </ModalComponent>
     </div>
   );
 };

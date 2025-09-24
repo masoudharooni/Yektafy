@@ -358,61 +358,102 @@ const ListingDetailsPage: React.FC = () => {
       <ModalComponent
         open={showContactInfo}
         onClose={() => setShowContactInfo(false)}
-        header="اطلاعات تماس"
-        maxWidth="md"
+        header="اطلاعات تماس مالک"
+        maxWidth="lg"
       >
         <div className="space-y-6">
+          {/* Property Info */}
+          <div className="bg-gray-800 rounded-lg p-4 border border-gray-700">
+            <h3 className="text-white font-bold text-lg mb-2">اطلاعات ملک</h3>
+            <div className="grid grid-cols-2 gap-4 text-sm">
+              <div>
+                <span className="text-gray-400">عنوان:</span>
+                <p className="text-white font-medium">{property.title}</p>
+              </div>
+              <div>
+                <span className="text-gray-400">محله:</span>
+                <p className="text-white font-medium">{property.neighborhood}</p>
+              </div>
+              <div>
+                <span className="text-gray-400">دسته‌بندی:</span>
+                <p className="text-white font-medium">{property.category}</p>
+              </div>
+              <div>
+                <span className="text-gray-400">قیمت:</span>
+                <p className="text-white font-medium">{formatPrice(property.price)} تومان</p>
+              </div>
+            </div>
+          </div>
+
           {/* Owner Info */}
-          <div className="flex items-center gap-4 p-4 bg-gray-800 rounded-lg border border-gray-700">
-            <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center shadow-lg">
-              <span className="text-white font-bold text-xl">م</span>
+          <div className="flex items-center gap-4 p-4 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 rounded-lg border border-blue-500/20">
+            <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center shadow-lg shadow-blue-500/30">
+              <span className="text-white font-bold text-2xl">م</span>
             </div>
             <div className="flex-1">
-              <h4 className="text-white font-bold text-lg">مالک ملک</h4>
-              <p className="text-gray-400 text-sm mt-1">مستقیم از مالک</p>
-              <div className="flex items-center gap-2 mt-2">
-                <span className="text-white font-mono text-lg">
-                  ۰۹۱۲۳۴۵۶۷۸۹
-                </span>
+              <h4 className="text-white font-bold text-xl">مالک ملک</h4>
+              <p className="text-gray-300 text-sm mt-1">مستقیم از مالک - بدون واسطه</p>
+              <div className="flex items-center gap-3 mt-3">
+                <span className="text-white font-mono text-xl bg-gray-800 px-3 py-2 rounded-lg">۰۹۱۲۳۴۵۶۷۸۹</span>
                 <Button
                   variant="ghost"
                   size="sm"
                   onClick={handleCopyPhone}
-                  className="text-gray-400 hover:text-white hover:bg-gray-700"
+                  className="text-gray-400 hover:text-white hover:bg-gray-700 px-3 py-2"
                 >
-                  <Copy className="w-4 h-4" />
+                  <Copy className="w-5 h-5" />
                 </Button>
               </div>
             </div>
           </div>
 
           {/* Action Buttons */}
-          <div className="grid grid-cols-2 gap-3">
-            <Button className="bg-green-600 hover:bg-green-700 text-white py-3">
-              <Phone className="w-5 h-5 mr-2" />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <Button className="bg-green-600 hover:bg-green-700 text-white py-4 text-lg">
+              <Phone className="w-6 h-6 mr-3" />
               تماس تلفنی
             </Button>
-            <Button
-              variant="outline"
-              className="border-gray-600 text-gray-300 hover:bg-gray-700 py-3"
-            >
-              <MessageCircle className="w-5 h-5 mr-2" />
+            <Button variant="outline" className="border-gray-600 text-gray-300 hover:bg-gray-700 py-4 text-lg">
+              <MessageCircle className="w-6 h-6 mr-3" />
               ارسال پیام
             </Button>
           </div>
 
-          {/* Additional Info */}
+          {/* Safety Tips */}
           <div className="bg-yellow-500/10 border border-yellow-500/20 rounded-lg p-4">
             <div className="flex items-start gap-3">
-              <AlertTriangle className="w-5 h-5 text-yellow-500 mt-0.5 flex-shrink-0" />
+              <AlertTriangle className="w-6 h-6 text-yellow-500 mt-0.5 flex-shrink-0" />
               <div>
-                <h5 className="text-yellow-500 font-medium mb-1">نکات مهم</h5>
-                <ul className="text-gray-300 text-sm space-y-1">
-                  <li>• قبل از تماس، حتماً ملک را از نزدیک مشاهده کنید</li>
-                  <li>• مدارک مالکیت را بررسی نمایید</li>
-                  <li>• از پرداخت پیش‌پرداخت خودداری کنید</li>
+                <h5 className="text-yellow-500 font-bold mb-2 text-lg">نکات امنیتی مهم</h5>
+                <ul className="text-gray-300 text-sm space-y-2">
+                  <li className="flex items-start gap-2">
+                    <span className="text-yellow-500 mt-1">•</span>
+                    <span>قبل از تماس، حتماً ملک را از نزدیک مشاهده کنید</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-yellow-500 mt-1">•</span>
+                    <span>مدارک مالکیت و هویت مالک را بررسی نمایید</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-yellow-500 mt-1">•</span>
+                    <span>از پرداخت پیش‌پرداخت قبل از معامله خودداری کنید</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-yellow-500 mt-1">•</span>
+                    <span>در صورت مشکوک بودن، با پشتیبانی یکتافی تماس بگیرید</span>
+                  </li>
                 </ul>
               </div>
+            </div>
+          </div>
+
+          {/* Contact Hours */}
+          <div className="bg-gray-800 rounded-lg p-4 border border-gray-700">
+            <h5 className="text-white font-medium mb-2">ساعات تماس</h5>
+            <div className="text-gray-300 text-sm space-y-1">
+              <p>شنبه تا پنج‌شنبه: ۹ صبح تا ۶ عصر</p>
+              <p>جمعه: ۱۰ صبح تا ۲ عصر</p>
+              <p className="text-gray-400 text-xs mt-2">در ساعات غیر اداری پیام بگذارید</p>
             </div>
           </div>
         </div>

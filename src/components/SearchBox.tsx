@@ -276,15 +276,49 @@ const SearchBox: React.FC = () => {
         open={isMapModalOpen}
         onClose={() => setIsMapModalOpen(false)}
         header="نقشه اصفهان - انتخاب موقعیت"
-        maxWidth="3xl"
+        maxWidth="4xl"
       >
-        <div className="relative w-full h-[70vh]">
-          <MapComponent
-            center={isfahanCenter}
-            zoom={11}
-            markers={sampleMarkers}
-            className="w-full h-full rounded-lg"
-          />
+        <div className="space-y-6">
+          {/* Map Container */}
+          <div className="relative w-full h-[60vh] rounded-lg overflow-hidden border border-gray-700">
+            <MapComponent
+              center={isfahanCenter}
+              zoom={11}
+              markers={sampleMarkers}
+              className="w-full h-full"
+            />
+          </div>
+          
+          {/* Instructions */}
+          <div className="bg-gray-800 rounded-lg p-4 border border-gray-700">
+            <h3 className="text-white font-medium mb-2">راهنمای استفاده از نقشه</h3>
+            <ul className="text-gray-300 text-sm space-y-1">
+              <li>• روی نقشه کلیک کنید تا موقعیت مورد نظر را انتخاب کنید</li>
+              <li>• از دکمه‌های + و - برای بزرگ‌نمایی و کوچک‌نمایی استفاده کنید</li>
+              <li>• نقاط آبی نشان‌دهنده مناطق محبوب هستند</li>
+              <li>• پس از انتخاب موقعیت، روی دکمه "تأیید" کلیک کنید</li>
+            </ul>
+          </div>
+          
+          {/* Action Buttons */}
+          <div className="flex gap-3 justify-end">
+            <Button
+              onClick={() => setIsMapModalOpen(false)}
+              variant="outline"
+              className="border-gray-600 text-gray-300 hover:bg-gray-700"
+            >
+              لغو
+            </Button>
+            <Button
+              onClick={() => {
+                setIsMapModalOpen(false);
+                toast.success("موقعیت از نقشه انتخاب شد");
+              }}
+              className="bg-cyan-500 hover:bg-cyan-600 text-white"
+            >
+              تأیید موقعیت
+            </Button>
+          </div>
         </div>
       </ModalComponent>
     </>
