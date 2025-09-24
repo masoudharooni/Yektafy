@@ -50,7 +50,7 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className={`fixed top-0 start-0 end-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-gray-900/80 backdrop-blur-lg border-b border-gray-700' : 'bg-transparent'}`}>
+    <header className={`fixed top-0 start-0 end-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-gray-900/95 backdrop-blur-lg border-b border-gray-700' : 'bg-gray-900/20 backdrop-blur-sm'}`}>
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-8">

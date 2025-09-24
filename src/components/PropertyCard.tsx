@@ -1,5 +1,6 @@
 import { BadgeCheck } from "lucide-react";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip";
 
 interface PropertyCardProps {
@@ -21,6 +22,7 @@ interface PropertyCardProps {
 }
 
 const PropertyCard: React.FC<PropertyCardProps> = ({
+  id,
   title,
   rooms,
   maxOccupancy,
@@ -32,6 +34,7 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
   bathrooms,
   isVerified = false,
 }) => {
+  const navigate = useNavigate();
   const formatPrice = (price: number | string): string => {
     if (typeof price === "string") {
       return price;
@@ -56,8 +59,15 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
     ];
   };
 
+  const handleCardClick = () => {
+    navigate(`/listings/details/${id}`);
+  };
+
   return (
-    <div className="bg-gray-800 border relative border-gray-700 hover:bg-gray-750 hover:shadow-lg transition-all duration-200 cursor-pointer overflow-hidden group rounded-lg">
+    <div 
+      className="bg-gray-800 border relative border-gray-700 hover:bg-gray-750 hover:shadow-lg transition-all duration-200 cursor-pointer overflow-hidden group rounded-lg"
+      onClick={handleCardClick}
+    >
       <div className="w-full h-32 overflow-hidden">
         <img
           src={image || getDefaultImage()}

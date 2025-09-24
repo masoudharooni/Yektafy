@@ -58,12 +58,19 @@
   }
   
 body {
-  @apply bg-background text-foreground;
+  @apply bg-gray-900 text-white;
 }
 
 /* Apply dark theme globally */
 html {
   @apply dark;
+  background-color: #111827; /* gray-900 */
+}
+
+/* Ensure all pages have dark background */
+#root {
+  background-color: #111827; /* gray-900 */
+  min-height: 100vh;
 }
   
 /* Ensure containers don't exceed viewport width */
