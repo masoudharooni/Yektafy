@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { toast } from 'sonner';
 import { ArrowRight, Clock } from 'lucide-react';
 import { loginSmsSchema, verifyOtpSchema, type LoginSmsFormData, type VerifyOtpFormData } from '../../schemas/auth';
@@ -19,12 +19,16 @@ import { InputOTP, InputOTPGroup, InputOTPSlot } from '../custom';
 
 const LoginWithSms: React.FC = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const phoneInputRef = useRef<HTMLInputElement>(null);
   const otpInputRef = useRef<HTMLDivElement>(null);
   const [step, setStep] = useState<'phone' | 'otp'>('phone');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [countdown, setCountdown] = useState(0);
   const [isResending, setIsResending] = useState(false);
+  
+  // Get the redirect URL from query params
+  const redirectTo = searchParams.get('to') || '/dashboard';
 
   const phoneForm = useForm<LoginSmsFormData>({
     resolver: zodResolver(loginSmsSchema),
@@ -73,7 +77,7 @@ const LoginWithSms: React.FC = () => {
     // Simulate OTP verification
     if (data.otp === '123456') {
       toast.success('ورود با موفقیت انجام شد');
-      navigate('/dashboard');
+      navigate(redirectTo);
     } else {
       toast.error('کد تایید اشتباه است');
     }

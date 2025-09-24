@@ -14,9 +14,10 @@ import DashboardHome from "./pages/dashboard/DashboardHome";
 import AdminsPage from "./pages/dashboard/AdminsPage";
 import AgentsPage from "./pages/dashboard/AgentsPage";
 import CustomersPage from "./pages/dashboard/CustomersPage";
-import ListingsPage from "./pages/dashboard/ListingsPage";
+import DashboardListingsPage from "./pages/dashboard/ListingsPage";
 import AddListingPage from "./pages/dashboard/AddListingPage";
 import SettingsPage from "./pages/dashboard/SettingsPage";
+import ListingsPage from "./pages/ListingsPage"; 
 
 // Centralized routing configuration using React Router v6
 export const router = createBrowserRouter([
@@ -51,7 +52,7 @@ export const router = createBrowserRouter([
           },
           {
             path: "listings",
-            element: <ListingsPage />,
+            element: <DashboardListingsPage />,
           },
           {
             path: "listings/add",
@@ -84,6 +85,10 @@ export const router = createBrowserRouter([
       {
         path: "forgot-password",
         element: <ForgotPasswordPage />,
+      },
+      {
+        path: "listings",
+        element: <ListingsPage />,
       },
       {
         path: "*",

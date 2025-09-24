@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { authService } from '../../services/auth';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useSearchParams } from 'react-router-dom';
 import { toast } from 'sonner';
 import { loginPasswordSchema, type LoginPasswordFormData } from '../../schemas/auth';
 import {
@@ -18,7 +18,11 @@ import { Button } from '../ui/Button';
 
 const LoginWithPassword: React.FC = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const usernameInputRef = useRef<HTMLInputElement>(null);
+  
+  // Get the redirect URL from query params
+  const redirectTo = searchParams.get('to') || '/dashboard';
   
   const form = useForm<LoginPasswordFormData>({
     resolver: zodResolver(loginPasswordSchema),
@@ -39,7 +43,7 @@ const LoginWithPassword: React.FC = () => {
     const success = authService.login(data.username, data.password);
     if (success) {
       toast.success('ورود موفقیت‌آمیز بود!');
-      navigate('/dashboard');
+      navigate(redirectTo);
     } else {
       toast.error('نام کاربری یا رمز عبور اشتباه است.');
     }
