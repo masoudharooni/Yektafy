@@ -3,12 +3,11 @@ import { Link } from 'react-router-dom';
 import { Button } from './ui/Button';
 import { ArrowLeft } from 'lucide-react';
 import PropertyCard from './PropertyCard';
-import type { Property } from '../types';
 
 interface PropertiesSectionProps {
   title: string;
   subtitle?: string;
-  properties: Property[];
+  properties: any[];
   viewMoreLink: string;
   maxItems?: number;
 }
@@ -43,8 +42,17 @@ const PropertiesSection: React.FC<PropertiesSectionProps> = ({
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
           {displayedProperties.map((property) => (
             <PropertyCard 
-              key={property.id} 
-              property={property} 
+              key={property.id}
+              id={property.id}
+              title={property.title}
+              rooms={property.rooms}
+              maxOccupancy={property.maxOccupancy}
+              price={property.price}
+              location={property.location}
+              image={property.image}
+              isPromoted={property.isPromoted}
+              category={property.category}
+              isVerified={property.isVerified}
             />
           ))}
         </div>
