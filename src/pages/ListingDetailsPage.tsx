@@ -1,24 +1,38 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowRight, Share2, Bookmark, MapPin, Clock, Users, AlertTriangle, Phone, Flag, Copy, MessageCircle } from 'lucide-react';
-import { Button } from '../components/ui/Button';
-import ImageGallery from '../components/custom/ImageGallery';
-import MapComponent from '../components/MapComponent';
-import ModalComponent from '../components/custom/ModalComponent';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import { sampleProperties } from '../data/properties';
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import {
+  ArrowRight,
+  Share2,
+  Bookmark,
+  MapPin,
+  Clock,
+  Users,
+  AlertTriangle,
+  Phone,
+  Flag,
+  Copy,
+  MessageCircle,
+} from "lucide-react";
+import { Button } from "../components/ui/Button";
+import ImageGallery from "../components/custom/ImageGallery";
+import MapComponent from "../components/MapComponent";
+import ModalComponent from "../components/custom/ModalComponent";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import { sampleProperties } from "../data/properties";
 
 const ListingDetailsPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const [property, setProperty] = useState<typeof sampleProperties[0] | null>(null);
+  const [property, setProperty] = useState<(typeof sampleProperties)[0] | null>(
+    null
+  );
   const [isSaved, setIsSaved] = useState(false);
   const [showContactInfo, setShowContactInfo] = useState(false);
 
   useEffect(() => {
     if (id) {
-      const foundProperty = sampleProperties.find(p => p.id === id);
+      const foundProperty = sampleProperties.find((p) => p.id === id);
       if (foundProperty) {
         setProperty(foundProperty);
       }
@@ -36,28 +50,36 @@ const ListingDetailsPage: React.FC = () => {
   // Generate multiple images for the property
   const generatePropertyImages = () => {
     const baseImages = [
-      'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=800&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=800&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=800&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=800&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800&h=600&fit=crop',
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800&h=600&fit=crop",
     ];
     return baseImages;
   };
 
   const propertyImages = generatePropertyImages();
   const randomHours = Math.floor(Math.random() * 24) + 1;
-  const randomCity = ['اصفهان', 'تهران', 'شیراز', 'مشهد', 'تبریز'][Math.floor(Math.random() * 5)];
-  const randomNeighborhood = ['نصرآباد', 'ملاصدرا', 'چهارباغ', 'خواجو', 'فردوسی'][Math.floor(Math.random() * 5)];
+  const randomCity = ["اصفهان", "تهران", "شیراز", "مشهد", "تبریز"][
+    Math.floor(Math.random() * 5)
+  ];
+  const randomNeighborhood = [
+    "نصرآباد",
+    "ملاصدرا",
+    "چهارباغ",
+    "خواجو",
+    "فردوسی",
+  ][Math.floor(Math.random() * 5)];
 
   const formatPrice = (price: number): string => {
-    return price.toLocaleString('fa-IR');
+    return price.toLocaleString("fa-IR");
   };
 
   const handleShare = async () => {
@@ -69,7 +91,7 @@ const ListingDetailsPage: React.FC = () => {
           url: window.location.href,
         });
       } catch (err) {
-        console.log('Error sharing:', err);
+        console.log("Error sharing:", err);
       }
     } else {
       // Fallback: copy to clipboard
@@ -84,33 +106,33 @@ const ListingDetailsPage: React.FC = () => {
   };
 
   const handleCopyPhone = async () => {
-    const phoneNumber = '09123456789';
+    const phoneNumber = "09123456789";
     try {
       await navigator.clipboard.writeText(phoneNumber);
       // You could show a toast notification here
-      console.log('Phone number copied to clipboard');
+      console.log("Phone number copied to clipboard");
     } catch (err) {
-      console.error('Failed to copy phone number:', err);
+      console.error("Failed to copy phone number:", err);
     }
   };
 
   return (
     <div className="min-h-screen bg-gray-900">
       <Header />
-      
+
       {/* Breadcrumb */}
       <div className="bg-gray-800 border-b border-gray-700 mt-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <nav className="flex items-center space-x-2 text-sm text-gray-300">
-            <button 
-              onClick={() => navigate('/')}
+            <button
+              onClick={() => navigate("/")}
               className="hover:text-white transition-colors duration-200"
             >
               املاک
             </button>
             <ArrowRight className="w-4 h-4 text-gray-500" />
-            <button 
-              onClick={() => navigate('/listings')}
+            <button
+              onClick={() => navigate("/listings")}
               className="hover:text-white transition-colors duration-200"
             >
               اجاره کوتاه مدت
@@ -118,47 +140,15 @@ const ListingDetailsPage: React.FC = () => {
             <ArrowRight className="w-4 h-4 text-gray-500" />
             <span className="text-white">اجاره کوتاه مدت ویلا و باغ</span>
             <ArrowRight className="w-4 h-4 text-gray-500" />
-            <span className="text-white truncate max-w-xs">{property.title}</span>
+            <span className="text-white truncate max-w-xs">
+              {property.title}
+            </span>
           </nav>
         </div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Left Side - Images and Map */}
-          <div className="space-y-6">
-            {/* Image Gallery */}
-            <ImageGallery images={propertyImages} title={property.title} />
-
-            {/* Map Section */}
-            <div className="bg-gray-800 rounded-lg p-4">
-              <h3 className="text-white font-medium mb-3 flex items-center gap-2">
-                <MapPin className="w-5 h-5 text-blue-500" />
-                موقعیت مکانی
-              </h3>
-              <div className="w-full h-64 rounded-lg overflow-hidden">
-                <MapComponent
-                  center={[32.6546, 51.6680]} // Isfahan coordinates
-                  zoom={13}
-                  markers={[{
-                    position: [32.6546, 51.6680],
-                    title: property.title,
-                    description: `${randomCity}، ${randomNeighborhood}`
-                  }]}
-                  className="rounded-lg"
-                />
-              </div>
-            </div>
-
-            {/* Report Ad Button */}
-            <Button
-              className="w-full bg-red-500/10 hover:bg-red-500/20 border border-red-500/30 text-red-400 hover:text-red-300 transition-all duration-200"
-            >
-              <Flag className="w-4 h-4 mr-2" />
-              گزارش آگهی
-            </Button>
-          </div>
-
           {/* Right Side - Property Details */}
           <div className="space-y-6">
             {/* Title and Time */}
@@ -168,7 +158,9 @@ const ListingDetailsPage: React.FC = () => {
               </h1>
               <div className="flex items-center gap-2 text-gray-400 text-sm">
                 <Clock className="w-4 h-4" />
-                <span>{randomHours} ساعت پیش در {randomCity}، {randomNeighborhood}</span>
+                <span>
+                  {randomHours} ساعت پیش در {randomCity}، {randomNeighborhood}
+                </span>
               </div>
             </div>
 
@@ -177,9 +169,12 @@ const ListingDetailsPage: React.FC = () => {
               <div className="flex items-start gap-3">
                 <AlertTriangle className="w-5 h-5 text-yellow-500 mt-0.5 flex-shrink-0" />
                 <div>
-                  <h3 className="text-yellow-500 font-medium mb-1">زنگ خطرهای قبل از معامله</h3>
+                  <h3 className="text-yellow-500 font-medium mb-1">
+                    زنگ خطرهای قبل از معامله
+                  </h3>
                   <p className="text-gray-300 text-sm">
-                    قبل از هرگونه پرداخت، حتماً ملک را از نزدیک مشاهده کنید و مدارک مالکیت را بررسی نمایید.
+                    قبل از هرگونه پرداخت، حتماً ملک را از نزدیک مشاهده کنید و
+                    مدارک مالکیت را بررسی نمایید.
                   </p>
                 </div>
               </div>
@@ -194,18 +189,19 @@ const ListingDetailsPage: React.FC = () => {
                 <Phone className="w-5 h-5 mr-2" />
                 اطلاعات تماس
               </Button>
-              
+
               <Button
                 onClick={handleSave}
-                className={`px-4 py-3 transition-all duration-200 ${
-                  isSaved 
-                    ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30' 
-                    : 'bg-gray-700 hover:bg-gray-600 text-gray-300'
-                }`}
+                className={`px-4 py-3 transition-all duration-200 ${isSaved
+                    ? "bg-blue-600 text-white shadow-lg shadow-blue-600/30"
+                    : "bg-gray-700 hover:bg-gray-600 text-gray-300"
+                  }`}
               >
-                <Bookmark className={`w-5 h-5 ${isSaved ? 'fill-current' : ''}`} />
+                <Bookmark
+                  className={`w-5 h-5 ${isSaved ? "fill-current" : ""}`}
+                />
               </Button>
-              
+
               <Button
                 onClick={handleShare}
                 className="px-4 py-3 bg-gray-700 hover:bg-gray-600 text-gray-300 transition-all duration-200"
@@ -222,14 +218,18 @@ const ListingDetailsPage: React.FC = () => {
               </div>
               <div className="bg-gray-800 rounded-lg p-4">
                 <div className="text-gray-400 text-sm mb-1">اتاق</div>
-                <div className="text-white font-bold text-lg">{property.rooms}</div>
+                <div className="text-white font-bold text-lg">
+                  {property.rooms}
+                </div>
               </div>
             </div>
 
             {/* Image Verification */}
             <div className="bg-gray-800 rounded-lg p-4">
               <div className="flex items-center justify-between">
-                <span className="text-gray-300">تصویرها برای همین ملک است؟</span>
+                <span className="text-gray-300">
+                  تصویرها برای همین ملک است؟
+                </span>
                 <span className="text-green-500 font-medium">بله</span>
               </div>
             </div>
@@ -241,7 +241,8 @@ const ListingDetailsPage: React.FC = () => {
                 <span className="text-white font-medium">ظرفیت</span>
               </div>
               <div className="text-gray-300">
-                تا {property.maxOccupancy} نفر ({property.maxOccupancy - 1} + ۱ نفر اضافه)
+                تا {property.maxOccupancy} نفر ({property.maxOccupancy - 1} + ۱
+                نفر اضافه)
               </div>
             </div>
 
@@ -251,23 +252,33 @@ const ListingDetailsPage: React.FC = () => {
               <div className="space-y-3">
                 <div className="flex justify-between items-center">
                   <span className="text-gray-300">روزهای عادی</span>
-                  <span className="text-white font-bold">{formatPrice(property.price)} تومان / شب</span>
+                  <span className="text-white font-bold">
+                    {formatPrice(property.price)} تومان / شب
+                  </span>
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-gray-300">آخر هفته</span>
-                  <span className="text-white font-bold">{formatPrice(property.price * 1.5)} تومان / شب</span>
+                  <span className="text-white font-bold">
+                    {formatPrice(property.price * 1.5)} تومان / شب
+                  </span>
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-gray-300">تعطیلات و مناسبت ها</span>
-                  <span className="text-white font-bold">{formatPrice(property.price * 2)} تومان / شب</span>
+                  <span className="text-white font-bold">
+                    {formatPrice(property.price * 2)} تومان / شب
+                  </span>
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-gray-300">هزینه هر نفر اضافه</span>
-                  <span className="text-white font-bold">{formatPrice(property.price * 0.2)} تومان / شب</span>
+                  <span className="text-white font-bold">
+                    {formatPrice(property.price * 0.2)} تومان / شب
+                  </span>
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-gray-300">بررسی و کارشناسی</span>
-                  <span className="text-white font-bold">{formatPrice(property.price * 0.1)} تومان / شب</span>
+                  <span className="text-white font-bold">
+                    {formatPrice(property.price * 0.1)} تومان / شب
+                  </span>
                 </div>
               </div>
             </div>
@@ -277,11 +288,18 @@ const ListingDetailsPage: React.FC = () => {
               <h3 className="text-white font-bold text-lg mb-4">توضیحات</h3>
               <div className="text-gray-300 space-y-3 text-sm leading-relaxed">
                 <p>فاصله تا سی و سه پل ۲۰ دقیقه</p>
-                <p>حداکثر تعداد پذیرش {property.maxOccupancy} نفر - بیشتر از {property.maxOccupancy} نفر نداریم تماس نگیرید</p>
+                <p>
+                  حداکثر تعداد پذیرش {property.maxOccupancy} نفر - بیشتر از{" "}
+                  {property.maxOccupancy} نفر نداریم تماس نگیرید
+                </p>
                 <p>ویلا لاکچری با وسایل کاملاً نو مخصوص افراد سخت‌پسند</p>
                 <p>مستقیم از مالک می‌گیرید</p>
                 <p>تحویل ۱۴ تخلیه ۱۲ ظهر</p>
-                <p>باغ هزار متری ساختمان ۴۰۰ متر استخر آبگرم سرپوشیده مجهز به تسویه فیلتراسیون قوی و کلر زن اتوماتیک استخر واقعاً بی‌نظیره از تمیزی تعویض آب هفتگی</p>
+                <p>
+                  باغ هزار متری ساختمان ۴۰۰ متر استخر آبگرم سرپوشیده مجهز به
+                  تسویه فیلتراسیون قوی و کلر زن اتوماتیک استخر واقعاً بی‌نظیره
+                  از تمیزی تعویض آب هفتگی
+                </p>
                 <p>واقع در {randomNeighborhood}</p>
                 <p>همه چی تموم از هر لحاظ</p>
                 <p>بر خیابان اصلی امنیت فوق‌العاده</p>
@@ -298,6 +316,40 @@ const ListingDetailsPage: React.FC = () => {
                 اجاره کوتاه مدت ویلا و باغ در {randomNeighborhood}
               </button>
             </div>
+          </div>
+
+          {/* Left Side - Images and Map */}
+          <div className="space-y-6">
+            {/* Image Gallery */}
+            <ImageGallery images={propertyImages} title={property.title} />
+
+            {/* Map Section */}
+            <div className="bg-gray-800 rounded-lg p-4">
+              <h3 className="text-white font-medium mb-3 flex items-center gap-2">
+                <MapPin className="w-5 h-5 text-blue-500" />
+                موقعیت مکانی
+              </h3>
+              <div className="w-full h-64 rounded-lg overflow-hidden">
+                <MapComponent
+                  center={[32.6546, 51.668]} // Isfahan coordinates
+                  zoom={13}
+                  markers={[
+                    {
+                      position: [32.6546, 51.668],
+                      title: property.title,
+                      description: `${randomCity}، ${randomNeighborhood}`,
+                    },
+                  ]}
+                  className="rounded-lg"
+                />
+              </div>
+            </div>
+
+            {/* Report Ad Button */}
+            <Button className="w-full bg-red-500/10 hover:bg-red-500/20 border border-red-500/30 text-red-400 hover:text-red-300 transition-all duration-200">
+              <Flag className="w-4 h-4 mr-2" />
+              گزارش آگهی
+            </Button>
           </div>
         </div>
       </div>
@@ -319,7 +371,9 @@ const ListingDetailsPage: React.FC = () => {
               <h4 className="text-white font-bold text-lg">مالک ملک</h4>
               <p className="text-gray-400 text-sm mt-1">مستقیم از مالک</p>
               <div className="flex items-center gap-2 mt-2">
-                <span className="text-white font-mono text-lg">۰۹۱۲۳۴۵۶۷۸۹</span>
+                <span className="text-white font-mono text-lg">
+                  ۰۹۱۲۳۴۵۶۷۸۹
+                </span>
                 <Button
                   variant="ghost"
                   size="sm"
@@ -338,7 +392,10 @@ const ListingDetailsPage: React.FC = () => {
               <Phone className="w-5 h-5 mr-2" />
               تماس تلفنی
             </Button>
-            <Button variant="outline" className="border-gray-600 text-gray-300 hover:bg-gray-700 py-3">
+            <Button
+              variant="outline"
+              className="border-gray-600 text-gray-300 hover:bg-gray-700 py-3"
+            >
               <MessageCircle className="w-5 h-5 mr-2" />
               ارسال پیام
             </Button>
@@ -360,7 +417,7 @@ const ListingDetailsPage: React.FC = () => {
           </div>
         </div>
       </ModalComponent>
-      
+
       <Footer />
     </div>
   );
