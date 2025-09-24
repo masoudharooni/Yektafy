@@ -18,7 +18,7 @@ const PropertiesSection: React.FC<PropertiesSectionProps> = ({
   subtitle,
   properties,
   viewMoreLink,
-  maxItems = 6
+  maxItems = 15
 }) => {
   // Display only the first maxItems properties
   const displayedProperties = properties.slice(0, maxItems);

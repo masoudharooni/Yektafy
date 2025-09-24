@@ -10,11 +10,13 @@ interface FilterSidebarProps {
   onMinPriceChange: (minPrice: number | null) => void;
   onMaxPriceChange: (maxPrice: number | null) => void;
   onStatusChange: (hasImage: boolean | null) => void;
+  onVerifiedChange: (isVerified: boolean | null) => void;
   selectedCategory: string;
   selectedNeighborhoods: string[];
   selectedMinPrice: number | null;
   selectedMaxPrice: number | null;
   selectedStatus: boolean | null;
+  selectedVerified: boolean | null;
 }
 
 const FilterSidebar: React.FC<FilterSidebarProps> = ({
@@ -23,15 +25,18 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({
   onMinPriceChange,
   onMaxPriceChange,
   onStatusChange,
+  onVerifiedChange,
   selectedCategory,
   selectedNeighborhoods,
   selectedMinPrice,
   selectedMaxPrice,
   selectedStatus,
+  selectedVerified,
 }) => {
   const [neighborhoodOpen, setNeighborhoodOpen] = useState(false);
   const [priceOpen, setPriceOpen] = useState(false);
   const [statusOpen, setStatusOpen] = useState(false);
+  const [verifiedOpen, setVerifiedOpen] = useState(false);
   const [mapModalOpen, setMapModalOpen] = useState(false);
 
   const categories = [
@@ -119,28 +124,37 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({
         <CollapsibleContent className="space-y-1">
           <div className="max-h-48 overflow-y-auto space-y-1">
             {neighborhoods.map((neighborhood) => (
-              <label key={neighborhood} className="flex items-center gap-2 cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={selectedNeighborhoods.includes(neighborhood)}
-                  onChange={(e) => {
-                    if (e.target.checked) {
-                      onNeighborhoodChange([...selectedNeighborhoods, neighborhood]);
-                    } else {
-                      onNeighborhoodChange(selectedNeighborhoods.filter(n => n !== neighborhood));
-                    }
-                  }}
-                  className="w-4 h-4 text-cyan-500 bg-gray-700 border-gray-600 rounded focus:ring-cyan-500 focus:ring-2"
-                />
-                <span className="text-gray-300 text-sm">{neighborhood}</span>
-              </label>
+              <button
+                key={neighborhood}
+                onClick={() => {
+                  if (selectedNeighborhoods.includes(neighborhood)) {
+                    onNeighborhoodChange(selectedNeighborhoods.filter(n => n !== neighborhood));
+                  } else {
+                    onNeighborhoodChange([...selectedNeighborhoods, neighborhood]);
+                  }
+                }}
+                className={`w-full text-right py-2 px-3 rounded-md text-sm transition-all duration-200 flex items-center justify-between ${
+                  selectedNeighborhoods.includes(neighborhood)
+                    ? 'bg-cyan-500 text-white shadow-md shadow-cyan-500/20'
+                    : 'text-gray-300 hover:bg-gray-700 hover:text-white'
+                }`}
+              >
+                <span>{neighborhood}</span>
+                {selectedNeighborhoods.includes(neighborhood) && (
+                  <div className="w-4 h-4 bg-white rounded-full flex items-center justify-center">
+                    <svg className="w-2.5 h-2.5 text-cyan-500" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                )}
+              </button>
             ))}
           </div>
           {selectedNeighborhoods.length > 0 && (
             <div className="mt-2 pt-2 border-t border-gray-600">
               <button
                 onClick={() => onNeighborhoodChange([])}
-                className="text-xs text-cyan-400 hover:text-cyan-300"
+                className="text-xs text-cyan-400 hover:text-cyan-300 transition-colors"
               >
                 پاک کردن همه ({selectedNeighborhoods.length})
               </button>
@@ -187,45 +201,85 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({
         </CollapsibleContent>
       </Collapsible>
 
-      {/* Status Filter */}
-      <Collapsible open={statusOpen} onOpenChange={setStatusOpen}>
-        <CollapsibleTrigger className="flex items-center justify-between w-full text-white text-sm font-medium mb-2">
-          وضعیت آگهی
-          {statusOpen ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
-        </CollapsibleTrigger>
-        <CollapsibleContent className="space-y-1">
-          <button
-            onClick={() => onStatusChange(null)}
-            className={`w-full text-right py-2 px-3 rounded-md text-sm transition-colors ${
-              selectedStatus === null
-                ? 'bg-cyan-500 text-white'
-                : 'text-gray-300 hover:bg-gray-700 hover:text-white'
-            }`}
-          >
-            همه
-          </button>
-          <button
-            onClick={() => onStatusChange(true)}
-            className={`w-full text-right py-2 px-3 rounded-md text-sm transition-colors ${
-              selectedStatus === true
-                ? 'bg-cyan-500 text-white'
-                : 'text-gray-300 hover:bg-gray-700 hover:text-white'
-            }`}
-          >
-            عکسدار
-          </button>
-          <button
-            onClick={() => onStatusChange(false)}
-            className={`w-full text-right py-2 px-3 rounded-md text-sm transition-colors ${
-              selectedStatus === false
-                ? 'bg-cyan-500 text-white'
-                : 'text-gray-300 hover:bg-gray-700 hover:text-white'
-            }`}
-          >
-            بی‌عکس
-          </button>
-        </CollapsibleContent>
-      </Collapsible>
+          {/* Status Filter */}
+          <Collapsible open={statusOpen} onOpenChange={setStatusOpen} className="mb-4">
+            <CollapsibleTrigger className="flex items-center justify-between w-full text-white text-sm font-medium mb-2">
+              وضعیت آگهی
+              {statusOpen ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+            </CollapsibleTrigger>
+            <CollapsibleContent className="space-y-1">
+              <button
+                onClick={() => onStatusChange(null)}
+                className={`w-full text-right py-2 px-3 rounded-md text-sm transition-colors ${
+                  selectedStatus === null
+                    ? 'bg-cyan-500 text-white'
+                    : 'text-gray-300 hover:bg-gray-700 hover:text-white'
+                }`}
+              >
+                همه
+              </button>
+              <button
+                onClick={() => onStatusChange(true)}
+                className={`w-full text-right py-2 px-3 rounded-md text-sm transition-colors ${
+                  selectedStatus === true
+                    ? 'bg-cyan-500 text-white'
+                    : 'text-gray-300 hover:bg-gray-700 hover:text-white'
+                }`}
+              >
+                عکسدار
+              </button>
+              <button
+                onClick={() => onStatusChange(false)}
+                className={`w-full text-right py-2 px-3 rounded-md text-sm transition-colors ${
+                  selectedStatus === false
+                    ? 'bg-cyan-500 text-white'
+                    : 'text-gray-300 hover:bg-gray-700 hover:text-white'
+                }`}
+              >
+                بی‌عکس
+              </button>
+            </CollapsibleContent>
+          </Collapsible>
+
+          {/* Verified Filter */}
+          <Collapsible open={verifiedOpen} onOpenChange={setVerifiedOpen}>
+            <CollapsibleTrigger className="flex items-center justify-between w-full text-white text-sm font-medium mb-2">
+              تایید شده
+              {verifiedOpen ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+            </CollapsibleTrigger>
+            <CollapsibleContent className="space-y-1">
+              <button
+                onClick={() => onVerifiedChange(null)}
+                className={`w-full text-right py-2 px-3 rounded-md text-sm transition-colors ${
+                  selectedVerified === null
+                    ? 'bg-cyan-500 text-white'
+                    : 'text-gray-300 hover:bg-gray-700 hover:text-white'
+                }`}
+              >
+                همه
+              </button>
+              <button
+                onClick={() => onVerifiedChange(true)}
+                className={`w-full text-right py-2 px-3 rounded-md text-sm transition-colors ${
+                  selectedVerified === true
+                    ? 'bg-cyan-500 text-white'
+                    : 'text-gray-300 hover:bg-gray-700 hover:text-white'
+                }`}
+              >
+                تایید شده
+              </button>
+              <button
+                onClick={() => onVerifiedChange(false)}
+                className={`w-full text-right py-2 px-3 rounded-md text-sm transition-colors ${
+                  selectedVerified === false
+                    ? 'bg-cyan-500 text-white'
+                    : 'text-gray-300 hover:bg-gray-700 hover:text-white'
+                }`}
+              >
+                تایید نشده
+              </button>
+            </CollapsibleContent>
+          </Collapsible>
 
       {/* Map Search Modal */}
       <MapSearchModal

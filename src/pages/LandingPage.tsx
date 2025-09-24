@@ -33,7 +33,7 @@ const LandingPage: React.FC = () => {
             title="منتخب آگهی‌های فروشی"
             subtitle="بهترین و باکیفیت‌ترین ملک‌های فروشی در اصفهان و حومه"
             properties={FOR_SALE_PROPERTIES}
-            viewMoreLink="/properties/for-sale"
+            viewMoreLink="/listings"
           />
         </motion.div>
 
@@ -60,7 +60,7 @@ const LandingPage: React.FC = () => {
             title="منتخب آگهی‌های اجاره‌ای"
             subtitle="متنوع‌ترین و مناسب‌ترین آپارتمان‌ها و خانه‌های اجاره‌ای"
             properties={FOR_RENT_PROPERTIES}
-            viewMoreLink="/properties/for-rent"
+            viewMoreLink="/listings"
           />
         </motion.div>
       </main>
