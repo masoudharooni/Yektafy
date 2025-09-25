@@ -86,7 +86,7 @@ const ModalComponent: React.FC<ModalComponentProps> = ({
         <Dialog open={open} onOpenChange={(isOpen) => !isOpen && onClose()}>
             <DialogContent
                 className={cn(
-                    "p-0 gap-0 flex flex-col h-full sm:h-fit sm:max-h-[90vh] bg-gray-900 border-gray-700",
+                    "p-0 gap-0 flex flex-col h-full sm:h-fit sm:max-h-[90vh] bg-gray-900 border-gray-700 z-[60]",
                     // اگر autoFullScreen فعال باشد، در موبایل تمام صفحه می‌شود
                     // autoFullScreen && "h-full sm:h-fit",
                     getMaxWidthClass()

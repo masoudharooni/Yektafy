@@ -51,11 +51,11 @@ const MapComponent: React.FC<MapComponentProps> = ({
   const [userLocation] = useState<[number, number] | null>(null);
 
   return (
-    <div className={`w-full h-full ${className}`}>
+    <div className={`w-full h-full ${className}`} style={{ zIndex: 1 }}>
       <MapContainer
         center={center}
         zoom={zoom}
-        style={{ height: '100%', width: '100%' }}
+        style={{ height: '100%', width: '100%', zIndex: 1 }}
         className="rounded-lg"
       >
         <TileLayer
