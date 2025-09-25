@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
-import { Search, MapPin, Map } from "lucide-react";
+import { Search, MapPin, Map, X } from "lucide-react";
 import { Button } from "./ui/Button";
 import { Command, CommandList, CommandItem } from "./ui/command";
 import { ModalComponent } from "./custom";
@@ -13,7 +13,11 @@ import {
   type Location as LocationData,
 } from "../data/locations";
 
-const SearchBox: React.FC = () => {
+interface SearchBoxProps {
+  onClose?: () => void;
+}
+
+const SearchBox: React.FC<SearchBoxProps> = ({ onClose }) => {
   const [activeTab, setActiveTab] = useState<"buy" | "rent">("buy");
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState<LocationData[]>([]);
@@ -34,16 +38,19 @@ const SearchBox: React.FC = () => {
       position: [32.6539, 51.666] as MapPosition,
       title: "اصفهان - مرکز شهر",
       description: "آپارتمان‌های لوکس در مرکز اصفهان",
+      type: "sale" as const,
     },
     {
       position: [32.6639, 51.676] as MapPosition,
       title: "شیخ‌بهایی",
       description: "ویلاها و آپارتمان‌های مدرن",
+      type: "rent" as const,
     },
     {
       position: [32.6439, 51.656] as MapPosition,
       title: "چهارباغ",
       description: "آپارتمان‌های مناسب قیمت",
+      type: "sale" as const,
     },
   ];
 
@@ -93,15 +100,17 @@ const SearchBox: React.FC = () => {
     tab,
     label,
   }) => (
-    <button
+    <Button
+      variant="ghost"
       onClick={() => setActiveTab(tab)}
-      className={`px-6 py-3 text-lg font-semibold transition-colors duration-300 rounded-t-lg ${activeTab === tab
-        ? "bg-gray-700/60 text-cyan-400"
-        : "bg-transparent text-gray-400 hover:bg-gray-700/40"
-        }`}
+      className={`px-6 py-3 text-lg font-semibold transition-colors duration-300 rounded-t-lg ${
+        activeTab === tab
+          ? "bg-gray-700/60 text-cyan-400"
+          : "bg-transparent text-gray-400 hover:bg-gray-700/40"
+      }`}
     >
       {label}
-    </button>
+    </Button>
   );
 
   const tabContent = {
@@ -123,9 +132,7 @@ const SearchBox: React.FC = () => {
             onFocus={() => searchQuery.length > 1 && setShowResults(true)}
             className="w-full bg-gray-800/50 border border-gray-600 rounded-lg py-3 px-4 ps-12 text-gray-100 placeholder-gray-400 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition-all outline-none"
           />
-          <MapPin
-            className="h-6 w-6 text-gray-400 absolute end-4 top-1/2 -translate-y-1/2"
-          />
+          <MapPin className="h-6 w-6 text-gray-400 absolute end-4 top-1/2 -translate-y-1/2" />
 
           {/* Live Search Results - Floating */}
           {showResults && searchResults.length > 0 && (
@@ -153,8 +160,8 @@ const SearchBox: React.FC = () => {
                         {location.type === "city"
                           ? "شهر"
                           : location.type === "district"
-                            ? "منطقه"
-                            : "محله"}
+                          ? "منطقه"
+                          : "محله"}
                       </span>
                     </CommandItem>
                   ))}
@@ -199,9 +206,7 @@ const SearchBox: React.FC = () => {
             onFocus={() => searchQuery.length > 1 && setShowResults(true)}
             className="w-full bg-gray-800/50 border border-gray-600 rounded-lg py-3 px-4 ps-12 text-gray-100 placeholder-gray-400 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition-all outline-none"
           />
-          <MapPin
-            className="h-6 w-6 text-gray-400 absolute end-4 top-1/2 -translate-y-1/2"
-          />
+          <MapPin className="h-6 w-6 text-gray-400 absolute end-4 top-1/2 -translate-y-1/2" />
 
           {/* Live Search Results - Floating */}
           {showResults && searchResults.length > 0 && (
@@ -229,8 +234,8 @@ const SearchBox: React.FC = () => {
                         {location.type === "city"
                           ? "شهر"
                           : location.type === "district"
-                            ? "منطقه"
-                            : "محله"}
+                          ? "منطقه"
+                          : "محله"}
                       </span>
                     </CommandItem>
                   ))}
@@ -261,7 +266,20 @@ const SearchBox: React.FC = () => {
 
   return (
     <>
-      <div className="max-w-4xl mx-auto bg-gray-900/50 backdrop-blur-xl rounded-xl shadow-2xl border border-gray-700/50 overflow-hidden">
+      <div className="max-w-4xl mx-auto bg-gray-900/50 backdrop-blur-xl rounded-xl shadow-2xl border border-gray-700/50 overflow-hidden relative">
+        {/* Close button */}
+        {onClose && (
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={onClose}
+            className="absolute top-0 end-3 z-50 bg-gray-800/90 hover:bg-gray-700/90 text-white rounded-full shadow-lg border border-gray-600 transition-all duration-200 hover:scale-110"
+            aria-label="بستن جستجو"
+          >
+            <X size={14} className="h-4 w-4" />
+          </Button>
+        )}
+        
         <div className="flex">
           <TabButton tab="buy" label="خرید" />
           <TabButton tab="rent" label="رهن و اجاره" />
@@ -288,18 +306,22 @@ const SearchBox: React.FC = () => {
               className="w-full h-full"
             />
           </div>
-          
+
           {/* Instructions */}
           <div className="bg-gray-800 rounded-lg p-4 border border-gray-700">
-            <h3 className="text-white font-medium mb-2">راهنمای استفاده از نقشه</h3>
+            <h3 className="text-white font-medium mb-2">
+              راهنمای استفاده از نقشه
+            </h3>
             <ul className="text-gray-300 text-sm space-y-1">
               <li>• روی نقشه کلیک کنید تا موقعیت مورد نظر را انتخاب کنید</li>
-              <li>• از دکمه‌های + و - برای بزرگ‌نمایی و کوچک‌نمایی استفاده کنید</li>
+              <li>
+                • از دکمه‌های + و - برای بزرگ‌نمایی و کوچک‌نمایی استفاده کنید
+              </li>
               <li>• نقاط آبی نشان‌دهنده مناطق محبوب هستند</li>
               <li>• پس از انتخاب موقعیت، روی دکمه "تأیید" کلیک کنید</li>
             </ul>
           </div>
-          
+
           {/* Action Buttons */}
           <div className="flex gap-3 justify-end">
             <Button

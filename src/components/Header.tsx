@@ -5,6 +5,7 @@ import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
 import { ChevronDown } from 'lucide-react';
 import { Button } from './ui/Button';
+import { useMapContext } from '../contexts/MapContext';
 
 const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -12,6 +13,7 @@ const Header: React.FC = () => {
   const navigate = useNavigate();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const { isMapMode } = useMapContext();
 
   const handlePlaceholderClick = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -50,7 +52,13 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className={`fixed top-0 start-0 end-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-gray-900/95 backdrop-blur-lg border-b border-gray-700' : 'bg-gray-900/20 backdrop-blur-sm'}`}>
+    <header className={`fixed top-0 start-0 end-0 z-50 transition-all duration-300 ${
+      isMapMode 
+        ? 'bg-gray-900/95 backdrop-blur-lg border-b border-gray-700' 
+        : isScrolled 
+          ? 'bg-gray-900/95 backdrop-blur-lg border-b border-gray-700' 
+          : 'bg-gray-900/20 backdrop-blur-sm'
+    }`}>
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-8">

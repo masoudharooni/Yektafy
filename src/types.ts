@@ -43,3 +43,10 @@ export interface WhyUsItem {
 }
 
 export type MapPosition = [number, number];
+
+export interface MapMarker {
+  position: MapPosition;
+  title: string;
+  description?: string;
+  type: 'sale' | 'rent';
+}

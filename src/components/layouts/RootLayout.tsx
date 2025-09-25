@@ -1,9 +1,10 @@
 import { Outlet } from 'react-router-dom';
 import { Toaster } from 'sonner';
+import { MapProvider } from '../../contexts/MapContext';
 
 const RootLayout: React.FC = () => {
   return (
-    <>
+    <MapProvider>
       <Outlet />
       {/* Global toast notifications */}
       <Toaster 
@@ -18,7 +19,7 @@ const RootLayout: React.FC = () => {
           },
         }}
       />
-    </>
+    </MapProvider>
   );
 };
 
